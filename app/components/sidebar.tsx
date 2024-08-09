@@ -5,14 +5,13 @@ import styles from "./home.module.scss";
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
 import GithubIcon from "../icons/github.svg";
+import RobotIcon from "../icons/robot.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
-import CloseIcon from "../icons/close.svg";
 import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
 import DragIcon from "../icons/drag.svg";
 import DiscoveryIcon from "../icons/discovery.svg";
-
 import Locale from "../locales";
 
 import { useAppConfig, useChatStore } from "../store";
@@ -25,6 +24,7 @@ import {
   Path,
   PLUGINS,
   REPO_URL,
+  GROVE_WEB_URL,
 } from "../constant";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -223,8 +223,10 @@ export function SideBar(props: { className?: string }) {
       {...props}
     >
       <SideBarHeader
-        title="Grove Chat"
-        subTitle="Promptbooks for Github repositories"
+        title={config.customTitle || "Grove"}
+        subTitle={
+          config.customSubtitle || "promptbooks for github repositories"
+        }
         logo={<ChatGptIcon />}
       >
         <div className={styles["sidebar-header-bar"]}>
@@ -293,14 +295,22 @@ export function SideBar(props: { className?: string }) {
                 }}
               />
             </div>
+
             <div className={styles["sidebar-action"]}>
               <Link to={Path.Settings}>
                 <IconButton icon={<SettingsIcon />} shadow />
               </Link>
             </div>
+
             <div className={styles["sidebar-action"]}>
               <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
                 <IconButton icon={<GithubIcon />} shadow />
+              </a>
+            </div>
+
+            <div className={styles["sidebar-action"]}>
+              <a href={GROVE_WEB_URL} target="_blank" rel="noopener noreferrer">
+                <IconButton icon={<RobotIcon />} shadow />
               </a>
             </div>
           </>

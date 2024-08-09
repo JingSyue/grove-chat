@@ -59,6 +59,12 @@ const cn = {
         light: "亮色模式",
         dark: "深色模式",
       },
+      ThemeColor: {
+        yellow: "黄色",
+        green: "绿色",
+        purple: "紫色",
+        brown: "褐色",
+      },
       Prompt: "快捷指令",
       Masks: "所有面具",
       Clear: "清除聊天",
@@ -175,6 +181,18 @@ const cn = {
     },
     SendKey: "发送键",
     Theme: "主题",
+    // add custom title
+    CustomTitle: {
+      Title: "自定义标题",
+      SubTitle: "设置侧边栏的自定义标题",
+    },
+    CustomSubtitle: {
+      Title: "自定义副标题",
+      SubTitle: "设置侧边栏的自定义副标题",
+    },
+    //add Theme color
+    ThemeColor: "主题色",
+
     TightBorder: "无边框模式",
     SendPreviewBubble: {
       Title: "预览气泡",

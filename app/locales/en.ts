@@ -177,6 +177,19 @@ const en: LocaleType = {
     },
     SendKey: "Send Key",
     Theme: "Theme",
+
+    // add custom title
+    CustomTitle: {
+      Title: "Custom Title",
+      SubTitle: "Set a custom title for the sidebar",
+    },
+    CustomSubtitle: {
+      Title: "Custom Subtitle",
+      SubTitle: "Set a custom subtitle for the sidebar",
+    },
+
+    // add custom theme color
+    ThemeColor: "Theme Color",
     TightBorder: "Tight Border",
     SendPreviewBubble: {
       Title: "Send Preview Bubble",

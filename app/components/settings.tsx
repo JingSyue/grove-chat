@@ -571,6 +571,11 @@ export function Settings() {
   const config = useAppConfig();
   const updateConfig = config.update;
 
+  const [customTitle, setCustomTitle] = useState("Grove Chat");
+  const [customSubtitle, setCustomSubtitle] = useState(
+    config.customSubtitle || "Promptbooks for Github repositories",
+  );
+
   const updateStore = useUpdateStore();
   const [checkingUpdate, setCheckingUpdate] = useState(false);
   const currentVersion = updateStore.formatVersion(updateStore.version);
@@ -1170,6 +1175,40 @@ export function Settings() {
             </Popover>
           </ListItem>
 
+          <List>
+            <ListItem
+              title={Locale.Settings.CustomTitle.Title}
+              subTitle={Locale.Settings.CustomTitle.SubTitle}
+            >
+              <input
+                type="text"
+                value={customTitle}
+                onChange={(e) => {
+                  setCustomTitle(e.target.value);
+                  updateConfig(
+                    (config) => (config.customTitle = e.target.value),
+                  );
+                }}
+              />
+            </ListItem>
+
+            <ListItem
+              title={Locale.Settings.CustomSubtitle.Title}
+              subTitle={Locale.Settings.CustomSubtitle.SubTitle}
+            >
+              <input
+                type="text"
+                value={customSubtitle}
+                onChange={(e) => {
+                  setCustomSubtitle(e.target.value);
+                  updateConfig(
+                    (config) => (config.customSubtitle = e.target.value),
+                  );
+                }}
+              />
+            </ListItem>
+          </List>
+
           <ListItem
             title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
             subTitle={
@@ -1468,7 +1507,6 @@ export function Settings() {
         {shouldShowPromptModal && (
           <UserPromptModal onClose={() => setShowPromptModal(false)} />
         )}
-
         <DangerItems />
       </div>
     </ErrorBoundary>
