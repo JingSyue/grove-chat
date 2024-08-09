@@ -45,7 +45,7 @@
   background-color: var(--second);
   display: flex;
   flex-direction: column;
-  box-shadow: inset -2px 0px 2px 0px rgb(0, 0, 0, 0.05);
+  box-shadow: inset -2px 0px 2px 0px rgba(0, 0, 0, 0.05);
   position: relative;
   transition: width ease 0.05s;
 
@@ -146,13 +146,13 @@
 }
 
 .sidebar-title {
-  font-size: 20px;
+  font-size: 40px;
   font-weight: bold;
   animation: slide-in ease 0.3s;
 }
 
 .sidebar-sub-title {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 400;
   animation: slide-in ease 0.3s;
 }
@@ -245,7 +245,7 @@
     flex-direction: column;
 
     .sidebar-bar-button {
-      &:not(:last-child) {
+      &:not(:last-child) { 
         margin-right: 0;
         margin-bottom: 10px;
       }
