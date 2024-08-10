@@ -40,6 +40,7 @@ import {
   useUpdateStore,
   useAccessStore,
   useAppConfig,
+  ThemeColor,
 } from "../store";
 
 import Locale, {
@@ -1262,6 +1263,24 @@ export function Settings() {
               }}
             >
               {Object.values(Theme).map((v) => (
+                <option value={v} key={v}>
+                  {v}
+                </option>
+              ))}
+            </Select>
+          </ListItem>
+
+          <ListItem title={Locale.Settings.ThemeColor}>
+            <Select
+              value={config.themeColor}
+              onChange={(e) => {
+                updateConfig(
+                  (config) =>
+                    (config.themeColor = e.target.value as any as ThemeColor),
+                );
+              }}
+            >
+              {Object.values(ThemeColor).map((v) => (
                 <option value={v} key={v}>
                   {v}
                 </option>

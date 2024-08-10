@@ -59,6 +59,7 @@ const cn = {
         light: "亮色模式",
         dark: "深色模式",
       },
+      // add action of theme colors
       ThemeColor: {
         yellow: "黄色",
         green: "绿色",

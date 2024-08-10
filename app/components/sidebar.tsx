@@ -215,6 +215,9 @@ export function SideBar(props: { className?: string }) {
   const navigate = useNavigate();
   const config = useAppConfig();
   const chatStore = useChatStore();
+  useEffect(() => {
+    document.body.style.setProperty("--theme-color", config.themeColor);
+  }, [config.themeColor]);
 
   return (
     <SideBarContainer

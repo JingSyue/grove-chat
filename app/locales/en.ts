@@ -61,6 +61,12 @@ const en: LocaleType = {
         light: "Light Theme",
         dark: "Dark Theme",
       },
+      ThemeColor: {
+        yellow: "yellow",
+        green: "yellow",
+        purple: "purple",
+        brown: "brown",
+      },
       Prompt: "Prompts",
       Masks: "Masks",
       Clear: "Clear Context",

@@ -60,6 +60,7 @@ const tw = {
         light: "亮色模式",
         dark: "深色模式",
       },
+
       Prompt: "快捷指令",
       Masks: "所有角色範本",
       Clear: "清除聊天",
@@ -172,6 +173,15 @@ const tw = {
     },
     SendKey: "傳送鍵",
     Theme: "主題",
+    // add custom title
+    CustomTitle: {
+      Title: "自定義標題",
+      SubTitle: "設置側邊欄的自定義標題",
+    },
+    CustomSubtitle: {
+      Title: "自定義副標題",
+      SubTitle: "設置側邊欄的自定義副標題",
+    },
     TightBorder: "緊湊邊框",
     SendPreviewBubble: {
       Title: "預覽氣泡",

@@ -29,8 +29,8 @@ export enum Theme {
 export enum ThemeColor {
   Yellow = "yellow",
   Purple = "purple",
-  Brown = "Brown",
-  Green = "Green",
+  Brown = "brown",
+  Green = "green",
 }
 
 const config = getClientConfig();
@@ -43,6 +43,8 @@ export const DEFAULT_CONFIG = {
   avatar: "1f603",
   fontSize: 14,
   theme: Theme.Auto as Theme,
+  themeColor: ThemeColor.Yellow,
+
   tightBorder: !!config?.isApp,
   sendPreviewBubble: true,
   enableAutoGenerateTitle: true,
