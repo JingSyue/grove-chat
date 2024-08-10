@@ -1270,24 +1270,6 @@ export function Settings() {
             </Select>
           </ListItem>
 
-          <ListItem title={Locale.Settings.ThemeColor}>
-            <Select
-              value={config.themeColor}
-              onChange={(e) => {
-                updateConfig(
-                  (config) =>
-                    (config.themeColor = e.target.value as any as ThemeColor),
-                );
-              }}
-            >
-              {Object.values(ThemeColor).map((v) => (
-                <option value={v} key={v}>
-                  {v}
-                </option>
-              ))}
-            </Select>
-          </ListItem>
-
           <ListItem title={Locale.Settings.Lang.Name}>
             <Select
               value={getLang()}
