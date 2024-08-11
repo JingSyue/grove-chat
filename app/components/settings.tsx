@@ -40,7 +40,6 @@ import {
   useUpdateStore,
   useAccessStore,
   useAppConfig,
-  ThemeColor,
 } from "../store";
 
 import Locale, {
@@ -68,6 +67,8 @@ import {
   SlotID,
   UPDATE_URL,
   Stability,
+  CUSTOMTITLE,
+  CUSTOMSUBTITLE,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -571,11 +572,8 @@ export function Settings() {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const config = useAppConfig();
   const updateConfig = config.update;
-
-  const [customTitle, setCustomTitle] = useState("Grove Chat");
-  const [customSubtitle, setCustomSubtitle] = useState(
-    config.customSubtitle || "Promptbooks for Github repositories",
-  );
+  const [customTitle, setCustomTitle] = useState(config.customTitle);
+  const [customSubtitle, setCustomSubtitle] = useState(config.customSubtitle);
 
   const updateStore = useUpdateStore();
   const [checkingUpdate, setCheckingUpdate] = useState(false);

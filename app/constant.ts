@@ -28,6 +28,9 @@ export const MOONSHOT_BASE_URL = "https://api.moonshot.cn";
 export const CACHE_URL_PREFIX = "/api/cache";
 export const UPLOAD_URL = `${CACHE_URL_PREFIX}/upload`;
 
+export const CUSTOMTITLE: string = "Grove"; //set your default custom title
+export const CUSTOMSUBTITLE: string = "Promptbooks for GitHub repository"; // set your default custom subtitle
+
 export enum Path {
   Home = "/",
   Chat = "/chat",

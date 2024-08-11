@@ -25,6 +25,8 @@ import {
   PLUGINS,
   REPO_URL,
   GROVE_WEB_URL,
+  CUSTOMTITLE,
+  CUSTOMSUBTITLE,
 } from "../constant";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -226,10 +228,8 @@ export function SideBar(props: { className?: string }) {
       {...props}
     >
       <SideBarHeader
-        title={config.customTitle || "Grove"}
-        subTitle={
-          config.customSubtitle || "promptbooks for github repositories"
-        }
+        title={config.customTitle || CUSTOMTITLE}
+        subTitle={config.customSubtitle || CUSTOMSUBTITLE}
         logo={<ChatGptIcon />}
       >
         <div className={styles["sidebar-header-bar"]}>

@@ -6,6 +6,8 @@ import {
   DEFAULT_SIDEBAR_WIDTH,
   StoreKey,
   ServiceProvider,
+  CUSTOMTITLE,
+  CUSTOMSUBTITLE,
 } from "../constant";
 import { createPersistStore } from "../utils/store";
 
@@ -37,8 +39,8 @@ const config = getClientConfig();
 
 export const DEFAULT_CONFIG = {
   lastUpdate: Date.now(), // timestamp, to merge state
-  customTitle: "Grove", //add custom title
-  customSubtitle: "promptbooks for github repositories", //add custom subtitle
+  customTitle: CUSTOMTITLE, //add custom title
+  customSubtitle: CUSTOMSUBTITLE, //add custom subtitle
   submitKey: SubmitKey.Enter,
   avatar: "1f603",
   fontSize: 14,
