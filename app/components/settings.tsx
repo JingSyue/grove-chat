@@ -67,8 +67,6 @@ import {
   SlotID,
   UPDATE_URL,
   Stability,
-  CUSTOMTITLE,
-  CUSTOMSUBTITLE,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
