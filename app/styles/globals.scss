@@ -4,13 +4,6 @@
 @import "./themes.scss";
 
 
-.light {
-  @include light; 
-}
-
-.dark {
-  @include dark; 
-}
 
 .yellow-light {
   @include light("yellow");

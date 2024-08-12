@@ -52,7 +52,7 @@ export const DEFAULT_CONFIG = {
   submitKey: SubmitKey.Enter,
   avatar: "1f603",
   fontSize: 14,
-  theme: Theme.Light as Theme,
+  theme: Theme.Dark as Theme,
   themeColor: ThemeColor.Green,
   background: Background.dot,
 

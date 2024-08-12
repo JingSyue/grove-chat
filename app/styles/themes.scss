@@ -39,7 +39,7 @@
   }
 
   --border-in-light: 1px solid rgba(var(--primary), 0.3);
-  --theme-color: var(--gray);
+  --theme-color: var(--grey); // grey
 
   div:not(.no-dark) > svg {
     filter: invert(0.5);
