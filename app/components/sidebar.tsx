@@ -211,9 +211,18 @@ export function SideBarTail(props: {
   );
 }
 
+function useThemeColor() {
+  const config = useAppConfig();
+  useEffect(() => {
+    // Constructs a class name based on the current theme color and mode
+    const className = `${config.themeColor}-${config.theme}`;
+    document.body.className = className;
+  }, [config.theme, config.themeColor]); // Depend on theme and themeColor from the config
+}
+
 export function SideBar(props: { className?: string }) {
   useHotKey();
-
+  useThemeColor();
   const { onDragStart, shouldNarrow } = useDragSideBar();
   const [showPluginSelector, setShowPluginSelector] = useState(false);
   const navigate = useNavigate();
