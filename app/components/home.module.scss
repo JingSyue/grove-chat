@@ -198,10 +198,10 @@
 
 .chat-item-delete {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2px;
+  right: 4px;
   transition: all ease 0.3s;
-  opacity: 0;
+  opacity: 0.5; // make the delet button always visible
   cursor: pointer;
 }
 
