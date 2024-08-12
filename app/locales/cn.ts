@@ -66,6 +66,16 @@ const cn = {
         purple: "紫色",
         brown: "褐色",
       },
+
+      // background images
+      Background: {
+        dot: "点状",
+        stripe: "线条",
+        mountain: "山峰",
+        pinwheel: "風車",
+        rain: "雨滴",
+      },
+
       Prompt: "快捷指令",
       Masks: "所有面具",
       Clear: "清除聊天",
@@ -182,7 +192,6 @@ const cn = {
     },
     SendKey: "发送键",
     Theme: "主题",
-    // add custom title
     CustomTitle: {
       Title: "自定义标题",
       SubTitle: "设置侧边栏的自定义标题",
@@ -191,9 +200,12 @@ const cn = {
       Title: "自定义副标题",
       SubTitle: "设置侧边栏的自定义副标题",
     },
-    //add Theme color
     ThemeColor: "主题色",
-
+    //add background
+    Background: {
+      Title: "背景",
+      SubTitle: "更改背景",
+    },
     TightBorder: "无边框模式",
     SendPreviewBubble: {
       Title: "预览气泡",

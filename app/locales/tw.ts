@@ -66,6 +66,13 @@ const tw = {
         purple: "紫色",
         brown: "褐色",
       },
+      Background: {
+        dot: "圓點",
+        stripe: "線條",
+        mountain: "山脈",
+        pinwheel: "風車",
+        rain: "雨滴",
+      },
       Prompt: "快捷指令",
       Masks: "所有角色範本",
       Clear: "清除聊天",
@@ -188,6 +195,10 @@ const tw = {
     CustomSubtitle: {
       Title: "自定義副標題",
       SubTitle: "設置側邊欄的自定義副標題",
+    },
+    Background: {
+      Title: "背景",
+      SubTitle: "更改背景",
     },
     TightBorder: "緊湊邊框",
     SendPreviewBubble: {

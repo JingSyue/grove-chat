@@ -9,7 +9,6 @@ import GithubIcon from "../icons/github.svg";
 import RobotIcon from "../icons/robot.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
-import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
 import DragIcon from "../icons/drag.svg";
 import DiscoveryIcon from "../icons/discovery.svg";
@@ -33,7 +32,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { isIOS, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
-import { showConfirm, Selector } from "./ui-lib";
+import { Selector } from "./ui-lib";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -215,9 +214,9 @@ function useThemeColor() {
   const config = useAppConfig();
   useEffect(() => {
     // Constructs a class name based on the current theme color and mode
-    const className = `${config.themeColor}-${config.theme}`;
+    const className = `${config.themeColor}-${config.theme} background-${config.background}`;
     document.body.className = className;
-  }, [config.theme, config.themeColor]); // Depend on theme and themeColor from the config
+  }, [config.theme, config.themeColor, config.background]); // Depend on theme and themeColor from the config
 }
 
 export function SideBar(props: { className?: string }) {
@@ -228,11 +227,6 @@ export function SideBar(props: { className?: string }) {
   const navigate = useNavigate();
   const config = useAppConfig();
   const chatStore = useChatStore();
-
-  // hook to change the class name by the theme mode and theme color
-  useEffect(() => {
-    document.body.className = `${config.themeColor}-${config.theme}`;
-  }, [config.theme, config.themeColor]);
 
   return (
     <SideBarContainer

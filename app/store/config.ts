@@ -36,6 +36,13 @@ export enum ThemeColor {
   Green = "green",
 }
 
+export enum Background {
+  dot = "dot",
+  stripe = "stripe",
+  mountain = "mountain",
+  pinwheel = "pinwheel",
+  rain = "rain",
+}
 const config = getClientConfig();
 
 export const DEFAULT_CONFIG = {
@@ -47,6 +54,7 @@ export const DEFAULT_CONFIG = {
   fontSize: 14,
   theme: Theme.Light as Theme,
   themeColor: ThemeColor.Green,
+  background: Background.dot,
 
   tightBorder: !!config?.isApp,
   sendPreviewBubble: true,

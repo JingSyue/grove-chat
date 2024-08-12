@@ -67,6 +67,13 @@ const en: LocaleType = {
         purple: "Purple",
         brown: "Brown",
       },
+      Background: {
+        dot: "Dot",
+        stripe: "Stripe",
+        mountain: "Mountain",
+        pinwheel: "Pinwheel",
+        rain: "Rain",
+      },
       Prompt: "Prompts",
       Masks: "Masks",
       Clear: "Clear Context",
@@ -196,6 +203,12 @@ const en: LocaleType = {
 
     // add custom theme color
     ThemeColor: "Theme Color",
+
+    // add background
+    Background: {
+      Title: "Backgorund",
+      SubTitle: "Change Background",
+    },
     TightBorder: "Tight Border",
     SendPreviewBubble: {
       Title: "Send Preview Bubble",
