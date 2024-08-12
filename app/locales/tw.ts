@@ -60,7 +60,12 @@ const tw = {
         light: "亮色模式",
         dark: "深色模式",
       },
-
+      ThemeColor: {
+        yellow: "黄色",
+        green: "綠色",
+        purple: "紫色",
+        brown: "褐色",
+      },
       Prompt: "快捷指令",
       Masks: "所有角色範本",
       Clear: "清除聊天",
@@ -173,6 +178,8 @@ const tw = {
     },
     SendKey: "傳送鍵",
     Theme: "主題",
+    // add custom theme color
+    ThemeColor: "主題色",
     // add custom title
     CustomTitle: {
       Title: "自定義標題",

@@ -1,3 +1,4 @@
+// config
 import { LLMModel } from "../client/api";
 import { getClientConfig } from "../config/client";
 import {
@@ -44,8 +45,8 @@ export const DEFAULT_CONFIG = {
   submitKey: SubmitKey.Enter,
   avatar: "1f603",
   fontSize: 14,
-  theme: Theme.Auto as Theme,
-  themeColor: ThemeColor.Yellow,
+  theme: Theme.Light as Theme,
+  themeColor: ThemeColor.Green,
 
   tightBorder: !!config?.isApp,
   sendPreviewBubble: true,

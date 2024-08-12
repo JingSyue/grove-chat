@@ -1,3 +1,4 @@
+// settings.tsx
 import { useState, useEffect, useMemo } from "react";
 
 import styles from "./settings.module.scss";
@@ -40,6 +41,7 @@ import {
   useUpdateStore,
   useAccessStore,
   useAppConfig,
+  ThemeColor,
 } from "../store";
 
 import Locale, {
@@ -565,6 +567,19 @@ function SyncItems() {
   );
 }
 
+function useThemeColor() {
+  const config = useAppConfig();
+  useEffect(() => {
+    // Constructs a class name based on the current theme color and mode
+    const className = `${config.themeColor}-${config.theme}`;
+    document.body.className = className;
+    return () => {
+      // Clean up by removing the class when the component unmounts or settings change
+      document.body.classList.remove(className);
+    };
+  }, [config.theme, config.themeColor]); // Depend on theme and themeColor from the config
+}
+
 export function Settings() {
   const navigate = useNavigate();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -572,13 +587,13 @@ export function Settings() {
   const updateConfig = config.update;
   const [customTitle, setCustomTitle] = useState(config.customTitle);
   const [customSubtitle, setCustomSubtitle] = useState(config.customSubtitle);
-
   const updateStore = useUpdateStore();
   const [checkingUpdate, setCheckingUpdate] = useState(false);
   const currentVersion = updateStore.formatVersion(updateStore.version);
   const remoteId = updateStore.formatVersion(updateStore.remoteVersion);
   const hasNewVersion = currentVersion !== remoteId;
   const updateUrl = getClientConfig()?.isApp ? RELEASE_URL : UPDATE_URL;
+  useThemeColor();
 
   function checkUpdate(force = false) {
     setCheckingUpdate(true);
@@ -1260,7 +1275,25 @@ export function Settings() {
             >
               {Object.values(Theme).map((v) => (
                 <option value={v} key={v}>
-                  {v}
+                  {Locale.Chat.InputActions.Theme[v] || v}
+                </option>
+              ))}
+            </Select>
+          </ListItem>
+
+          <ListItem title={Locale.Settings.ThemeColor}>
+            <Select
+              value={config.themeColor}
+              onChange={(e) => {
+                updateConfig(
+                  (config) =>
+                    (config.themeColor = e.target.value as any as ThemeColor),
+                );
+              }}
+            >
+              {Object.values(ThemeColor).map((v) => (
+                <option value={v} key={v}>
+                  {Locale.Chat.InputActions.ThemeColor[v] || v}
                 </option>
               ))}
             </Select>

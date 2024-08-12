@@ -1,4 +1,52 @@
 // themes.scss
+@mixin light($theme: "purple") {
+  --theme: light;
+  /* Base colors */
+  --white: white;
+  --black: rgb(48, 48, 48);
+  --gray: rgb(250, 250, 250);
+
+  /* Include the desired color theme */
+  @if $theme == "yellow" {
+    @include yellow-light-theme;
+  } @else if $theme == "brown" {
+    @include brown-light-theme;
+  } @else if $theme == "purple" {
+    @include purple-light-theme;
+  } @else if $theme == "green" {
+    @include green-light-theme;
+  }
+  --border-in-light: 1px solid rgba(var(--primary), 0.3);
+  --theme-color: var(--gray);
+}
+
+@mixin dark($theme: "purple") {
+  --theme: dark;
+  /* Base colors - these remain constant */
+  --white: rgb(30, 30, 30);
+  --black: rgb(187, 187, 187);
+  --gray: rgb(21, 21, 21);
+
+  /* Theme-specific colors */
+  @if $theme == "yellow" {
+    @include yellow-dark-theme;
+  } @else if $theme == "brown" {
+    @include brown-dark-theme;
+  } @else if $theme == "purple" {
+    @include purple-dark-theme;
+  } @else if $theme == "green" {
+    @include green-dark-theme;
+  }
+
+  --border-in-light: 1px solid rgba(var(--primary), 0.3);
+  --theme-color: var(--gray);
+
+  div:not(.no-dark) > svg {
+    filter: invert(0.5);
+  }
+}
+
+
 // Color theme mixins
 @mixin yellow-light-theme {
   --primary: rgb(255, 193, 7); /* Main theme color - a vibrant yellow */
@@ -37,38 +85,37 @@
 }
 
 @mixin yellow-dark-theme {
-    --primary: rgb(255, 193, 7);  /* Kept bright for contrast */
-    --second: rgb(41, 41, 0);     /* Dark yellow */
-    --hover-color: #3d3a00;       /* Slightly lighter than --second */
-    --bar-color: rgba(255, 193, 7, 0.2);
-    --shadow: 50px 50px 100px 10px rgba(255, 193, 7, 0.1);
-    --card-shadow: 0px 2px 4px 0px rgba(255, 193, 7, 0.15);
-  }
-  
-  @mixin brown-dark-theme {
-    --primary: rgb(121, 85, 72);  /* Kept as is for recognition */
-    --second: rgb(43, 30, 25);    /* Dark brown */
-    --hover-color: #51392f;       /* Slightly lighter than --second */
-    --bar-color: rgba(121, 85, 72, 0.2);
-    --shadow: 50px 50px 100px 10px rgba(121, 85, 72, 0.1);
-    --card-shadow: 0px 2px 4px 0px rgba(121, 85, 72, 0.15);
-  }
-  
-  @mixin purple-dark-theme {
-    --primary: rgb(147, 112, 219); /* Kept as is */
-    --second: rgb(74, 56, 110);    /* Dark purple */
-    --hover-color: #3a2b57;        /* Slightly lighter than --second */
-    --bar-color: rgba(147, 112, 219, 0.2);
-    --shadow: 50px 50px 100px 10px rgba(103, 58, 183, 0.1);
-    --card-shadow: 0px 2px 4px 0px rgba(103, 58, 183, 0.15);
-  }
-  
-  @mixin green-dark-theme {
-    --primary: rgb(76, 175, 80);  /* Kept as is for recognition */
-    --second: rgb(0, 43, 2);      /* Dark green */
-    --hover-color: #004d1a;       /* Slightly lighter than --second */
-    --bar-color: rgba(76, 175, 80, 0.2);
-    --shadow: 50px 50px 100px 10px rgba(76, 175, 80, 0.1);
-    --card-shadow: 0px 2px 4px 0px rgba(76, 175, 80, 0.15);
-  }
-  
+  --primary: rgb(255, 193, 7); /* Kept bright for contrast */
+  --second: rgb(41, 41, 0); /* Dark yellow */
+  --hover-color: #3d3a00; /* Slightly lighter than --second */
+  --bar-color: rgba(255, 193, 7, 0.2);
+  --shadow: 50px 50px 100px 10px rgba(255, 193, 7, 0.1);
+  --card-shadow: 0px 2px 4px 0px rgba(255, 193, 7, 0.15);
+}
+
+@mixin brown-dark-theme {
+  --primary: rgb(121, 85, 72); /* Kept as is for recognition */
+  --second: rgb(43, 30, 25); /* Dark brown */
+  --hover-color: #51392f; /* Slightly lighter than --second */
+  --bar-color: rgba(121, 85, 72, 0.2);
+  --shadow: 50px 50px 100px 10px rgba(121, 85, 72, 0.1);
+  --card-shadow: 0px 2px 4px 0px rgba(121, 85, 72, 0.15);
+}
+
+@mixin purple-dark-theme {
+  --primary: rgb(147, 112, 219); /* Kept as is */
+  --second: rgb(74, 56, 110); /* Dark purple */
+  --hover-color: #3a2b57; /* Slightly lighter than --second */
+  --bar-color: rgba(147, 112, 219, 0.2);
+  --shadow: 50px 50px 100px 10px rgba(103, 58, 183, 0.1);
+  --card-shadow: 0px 2px 4px 0px rgba(103, 58, 183, 0.15);
+}
+
+@mixin green-dark-theme {
+  --primary: rgb(76, 175, 80); /* Kept as is for recognition */
+  --second: rgb(0, 43, 2); /* Dark green */
+  --hover-color: #004d1a; /* Slightly lighter than --second */
+  --bar-color: rgba(76, 175, 80, 0.2);
+  --shadow: 50px 50px 100px 10px rgba(76, 175, 80, 0.1);
+  --card-shadow: 0px 2px 4px 0px rgba(76, 175, 80, 0.15);
+}

@@ -1,3 +1,4 @@
+// sidebar.tsx
 import React, { useEffect, useRef, useMemo, useState, Fragment } from "react";
 
 import styles from "./home.module.scss";
@@ -212,14 +213,17 @@ export function SideBarTail(props: {
 
 export function SideBar(props: { className?: string }) {
   useHotKey();
+
   const { onDragStart, shouldNarrow } = useDragSideBar();
   const [showPluginSelector, setShowPluginSelector] = useState(false);
   const navigate = useNavigate();
   const config = useAppConfig();
   const chatStore = useChatStore();
+
+  // hook to change the class name by the theme mode and theme color
   useEffect(() => {
-    document.body.style.setProperty("--theme-color", config.themeColor);
-  }, [config.themeColor]);
+    document.body.className = `${config.themeColor}-${config.theme}`;
+  }, [config.theme, config.themeColor]);
 
   return (
     <SideBarContainer
