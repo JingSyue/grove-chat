@@ -1158,6 +1158,10 @@ export function Settings() {
                     updateConfig((config) => (config.avatar = avatar));
                     setShowEmojiPicker(false);
                   }}
+                  onImageUpload={(imageUrl: string) => {
+                    updateConfig((config) => (config.avatar = imageUrl));
+                    setShowEmojiPicker(false);
+                  }}
                 />
               }
               open={showEmojiPicker}
