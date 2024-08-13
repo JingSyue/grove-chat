@@ -50,7 +50,7 @@ export const DEFAULT_CONFIG = {
   customTitle: CUSTOMTITLE, //add custom title
   customSubtitle: CUSTOMSUBTITLE, //add custom subtitle
   submitKey: SubmitKey.Enter,
-  avatar: "1f603",
+  avatar: "https://farm4.staticflickr.com/3852/14447103450_2d0ff8802b_z_d.jpg",
   fontSize: 14,
   theme: Theme.Dark as Theme,
   themeColor: ThemeColor.Green,

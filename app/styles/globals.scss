@@ -374,6 +374,14 @@ pre {
   border-radius: 11px;
 }
 
+.user-avatar img {
+  width: 100%; /* Ensure the image covers the entire container */
+  height: 100%; /* Ensure the image covers the entire container */
+  object-fit: cover;
+  object-position: center; /* centers the image within the element */
+}
+
+
 .one-line {
   white-space: nowrap;
   overflow: hidden;

@@ -5,7 +5,6 @@ import EmojiPicker, {
 } from "emoji-picker-react";
 
 import { ModelType } from "../store";
-
 import BotIcon from "../icons/bot.svg";
 import BlackBotIcon from "../icons/black-bot.svg";
 
@@ -14,6 +13,10 @@ export function getEmojiUrl(unified: string, style: EmojiStyle) {
   // Old CDN broken, so I had to switch to this one
   // Author: https://github.com/H0llyW00dzZ
   return `https://fastly.jsdelivr.net/npm/emoji-datasource-apple/img/${style}/64/${unified}.png`;
+}
+
+export function getImageUrl() {
+  return "https://fastly.jsdelivr.net/npm/emoji-datasource-apple/img/64/1f600.png";
 }
 
 export function AvatarPicker(props: {
@@ -45,9 +48,19 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
     );
   }
 
+  const isImageUrl = (url: string) => {
+    return url.match(/\.(jpeg|jpg|gif|png)$/) != null;
+  };
+
   return (
     <div className="user-avatar">
-      {props.avatar && <EmojiAvatar avatar={props.avatar} />}
+      {props.avatar &&
+        (isImageUrl(props.avatar) ? (
+          <img src={props.avatar} className="user-avatar img" /> // Renders image if URL ends with image extensions
+        ) : (
+          <EmojiAvatar avatar={props.avatar} />
+        )) // Otherwise use EmojiAvatar component
+      }
     </div>
   );
 }
@@ -56,7 +69,7 @@ export function EmojiAvatar(props: { avatar: string; size?: number }) {
   return (
     <Emoji
       unified={props.avatar}
-      size={props.size ?? 18}
+      size={props.size ?? 30}
       getEmojiUrl={getEmojiUrl}
     />
   );

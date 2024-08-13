@@ -42,7 +42,6 @@ import {
   useAccessStore,
   useAppConfig,
   ThemeColor,
-  Background,
 } from "../store";
 
 import Locale, {
@@ -1281,27 +1280,6 @@ export function Settings() {
               {Object.values(ThemeColor).map((v) => (
                 <option value={v} key={v}>
                   {Locale.Chat.InputActions.ThemeColor[v] || v}
-                </option>
-              ))}
-            </Select>
-          </ListItem>
-
-          <ListItem
-            className={styles.mobile}
-            title={Locale.Settings.Background.Title}
-          >
-            <Select
-              value={config.background}
-              onChange={(e) => {
-                updateConfig(
-                  (config) =>
-                    (config.background = e.target.value as any as Background),
-                );
-              }}
-            >
-              {Object.values(Background).map((v) => (
-                <option value={v} key={v}>
-                  {Locale.Chat.InputActions.Background[v] || v}
                 </option>
               ))}
             </Select>
