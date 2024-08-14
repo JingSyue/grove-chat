@@ -55,7 +55,6 @@ export const DEFAULT_CONFIG = {
   theme: Theme.Light as Theme,
   themeColor: ThemeColor.Green,
   background: Background.dot,
-
   tightBorder: !!config?.isApp,
   sendPreviewBubble: true,
   enableAutoGenerateTitle: true,
