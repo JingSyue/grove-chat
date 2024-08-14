@@ -25,7 +25,7 @@ const sk: PartialLocaleType = {
     ChatItemCount: (count: number) => `${count} správ`,
   },
   Chat: {
-    SubTitle: (count: number) => `${count} správ`,
+    SubTitle: (model: string, count: number) => `${count} správ`,
     EditMessage: {
       Title: "Upraviť všetky správy",
       Topic: {

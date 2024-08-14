@@ -23,7 +23,7 @@ const pt: PartialLocaleType = {
     ChatItemCount: (count: number) => `${count} mensagens`,
   },
   Chat: {
-    SubTitle: (count: number) => `${count} mensagens`,
+    SubTitle: (model: string, count: number) => `${count} mensagens`,
     EditMessage: {
       Title: "Editar Todas as Mensagens",
       Topic: {

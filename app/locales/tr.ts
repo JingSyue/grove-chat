@@ -11,7 +11,8 @@ const tr: PartialLocaleType = {
     ChatItemCount: (count: number) => `${count} mesaj`,
   },
   Chat: {
-    SubTitle: (count: number) => `ChatGPT tarafından ${count} mesaj`,
+    SubTitle: (model: string, count: number) =>
+      `${model} tarafından ${count} mesaj`,
     Actions: {
       ChatList: "Sohbet Listesine Git",
       CompressedHistory: "Sıkıştırılmış Geçmiş Bellek Komutu",

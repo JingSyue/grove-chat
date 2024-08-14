@@ -22,7 +22,8 @@ const cn = {
     ChatItemCount: (count: number) => `${count} 条对话`,
   },
   Chat: {
-    SubTitle: (count: number) => `共 ${count} 条对话`,
+    SubTitle: (model: string, count: number) =>
+      `您已和${model}进行了${count} 条对话`,
     EditMessage: {
       Title: "编辑消息记录",
       Topic: {

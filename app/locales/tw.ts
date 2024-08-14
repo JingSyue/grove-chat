@@ -23,7 +23,8 @@ const tw = {
     ChatItemCount: (count: number) => `${count} 則對話`,
   },
   Chat: {
-    SubTitle: (count: number) => `您已進行了 ${count} 則對話`,
+    SubTitle: (model: string, count: number) =>
+      `您已和${model}進行了${count} 則對話`,
     EditMessage: {
       Title: "編輯訊息記錄",
       Topic: {

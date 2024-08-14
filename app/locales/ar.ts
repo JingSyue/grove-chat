@@ -19,7 +19,7 @@ const ar: PartialLocaleType = {
     ChatItemCount: (count: number) => `${count} رسائل`,
   },
   Chat: {
-    SubTitle: (count: number) => ` ${count} رسائل مع ChatGPT`,
+    SubTitle: (model: string, count: number) => ` ${count} رسائل مع ${model}`,
     Actions: {
       ChatList: "الانتقال إلى قائمة الدردشة",
       CompressedHistory: "ملخص ضغط ذاكرة التاريخ",

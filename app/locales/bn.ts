@@ -19,7 +19,7 @@ const bn: PartialLocaleType = {
     ChatItemCount: (count: number) => `${count} টি বার্তা`,
   },
   Chat: {
-    SubTitle: (count: number) => `${count} টি বার্তা`,
+    SubTitle: (model: string, count: number) => `${count} টি বার্তা`,
     Actions: {
       ChatList: "চ্যাট তালিকায় যান",
       CompressedHistory: "সংক্ষিপ্ত ইতিহাস মেমোরি প্রম্পট",

@@ -11,7 +11,8 @@ const jp: PartialLocaleType = {
     ChatItemCount: (count: number) => `${count} 通のチャット`,
   },
   Chat: {
-    SubTitle: (count: number) => `ChatGPTとの ${count} 通のチャット`,
+    SubTitle: (model: string, count: number) =>
+      `${model}との ${count} 通のチャット`,
     EditMessage: {
       Title: "全てのメッセージを修正",
       Topic: {
