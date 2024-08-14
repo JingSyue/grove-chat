@@ -482,14 +482,12 @@ export function ChatActions(props: {
   const [showPluginSelector, setShowPluginSelector] = useState(false);
   const [showUploadImage, setShowUploadImage] = useState(false);
 
-  const { setAttachImages, setUploading } = props;
-
   useEffect(() => {
     const show = isVisionModel(currentModel);
     setShowUploadImage(show);
     if (!show) {
-      setAttachImages([]);
-      setUploading(false);
+      props.setAttachImages([]);
+      props.setUploading(false);
     }
 
     // if current model is not available
@@ -509,7 +507,7 @@ export function ChatActions(props: {
           : nextModel.name,
       );
     }
-  }, [chatStore, currentModel, models, setAttachImages, setUploading]);
+  }, [chatStore, currentModel, models]);
 
   return (
     <div className={styles["chat-input-actions"]}>

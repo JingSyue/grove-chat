@@ -102,7 +102,7 @@ export function Sd() {
 
   useEffect(() => {
     setSdImages(sdStore.draw);
-  }, [sdStore.currentId, sdStore.draw]);
+  }, [sdStore.currentId]);
 
   return (
     <>
@@ -163,8 +163,6 @@ export function Sd() {
                           className={styles["img"]}
                           src={item.img_data}
                           alt={item.id}
-                          width={500} // Adjust as needed
-                          height={300} // Adjust as needed
                           onClick={(e) =>
                             showImageModal(
                               item.img_data,
