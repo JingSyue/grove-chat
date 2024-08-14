@@ -4,6 +4,7 @@ import EmojiPicker, {
   Theme as EmojiTheme,
 } from "emoji-picker-react";
 import React, { useState } from "react";
+import Image from "next/image";
 import AvatarEditor from "react-avatar-editor";
 
 import { ModelType } from "../store";
@@ -113,10 +114,12 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
     <div className="user-avatar">
       {props.avatar &&
         (isLocalImage(props.avatar) ? (
-          <img
+          <Image
             src={props.avatar}
             alt="User avatar"
             className="user-avatar img"
+            width={30}
+            height={30}
           />
         ) : (
           // Renders image if URL ends with image extensions

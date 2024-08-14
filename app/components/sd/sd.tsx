@@ -1,6 +1,7 @@
 import chatStyles from "@/app/components/chat.module.scss";
 import styles from "@/app/components/sd/sd.module.scss";
 import homeStyles from "@/app/components/home.module.scss";
+import Image from "next/image";
 
 import { IconButton } from "@/app/components/button";
 import ReturnIcon from "@/app/icons/return.svg";
@@ -101,7 +102,7 @@ export function Sd() {
 
   useEffect(() => {
     setSdImages(sdStore.draw);
-  }, [sdStore.currentId]);
+  }, [sdStore.currentId, sdStore.draw]);
 
   return (
     <>
@@ -158,10 +159,12 @@ export function Sd() {
                       className={styles["sd-img-item"]}
                     >
                       {item.status === "success" ? (
-                        <img
+                        <Image
                           className={styles["img"]}
                           src={item.img_data}
                           alt={item.id}
+                          width={500} // Adjust as needed
+                          height={300} // Adjust as needed
                           onClick={(e) =>
                             showImageModal(
                               item.img_data,

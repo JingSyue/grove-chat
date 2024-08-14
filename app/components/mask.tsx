@@ -121,6 +121,10 @@ export function MaskConfig(props: {
                   props.updateMask((mask) => (mask.avatar = emoji));
                   setShowPicker(false);
                 }}
+                onImageUpload={(imageUrl) => {
+                  props.updateMask((mask) => (mask.avatar = imageUrl));
+                  setShowPicker(false);
+                }}
               ></AvatarPicker>
             }
             open={showPicker}

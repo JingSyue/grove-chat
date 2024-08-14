@@ -9,7 +9,7 @@ import React, {
   Fragment,
   RefObject,
 } from "react";
-
+import Image from "next/image";
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
 import RenameIcon from "../icons/rename.svg";
@@ -482,12 +482,14 @@ export function ChatActions(props: {
   const [showPluginSelector, setShowPluginSelector] = useState(false);
   const [showUploadImage, setShowUploadImage] = useState(false);
 
+  const { setAttachImages, setUploading } = props;
+
   useEffect(() => {
     const show = isVisionModel(currentModel);
     setShowUploadImage(show);
     if (!show) {
-      props.setAttachImages([]);
-      props.setUploading(false);
+      setAttachImages([]);
+      setUploading(false);
     }
 
     // if current model is not available
@@ -507,7 +509,7 @@ export function ChatActions(props: {
           : nextModel.name,
       );
     }
-  }, [chatStore, currentModel, models]);
+  }, [chatStore, currentModel, models, setAttachImages, setUploading]);
 
   return (
     <div className={styles["chat-input-actions"]}>
@@ -1487,7 +1489,7 @@ function _Chat() {
                       defaultShow={i >= messages.length - 6}
                     />
                     {getMessageImages(message).length == 1 && (
-                      <img
+                      <Image
                         className={styles["chat-message-item-image"]}
                         src={getMessageImages(message)[0]}
                         alt=""
@@ -1504,7 +1506,7 @@ function _Chat() {
                       >
                         {getMessageImages(message).map((image, index) => {
                           return (
-                            <img
+                            <Image
                               className={
                                 styles["chat-message-item-image-multi"]
                               }
