@@ -54,7 +54,7 @@ export const DEFAULT_CONFIG = {
   fontSize: 14,
   theme: Theme.Light as Theme,
   themeColor: ThemeColor.Green,
-  background: Background.dot,
+  background: Background.mountain,
   tightBorder: !!config?.isApp,
   sendPreviewBubble: true,
   enableAutoGenerateTitle: true,

@@ -61,7 +61,7 @@ export function AvatarPicker(props: {
         <ImageIcon className="image-icon" />
       </label>
 
-      {showImageEditor && (
+      {showImageEditor ? (
         <div className="image-editor-wrapper">
           <AvatarEditor
             ref={editorRef}
@@ -72,20 +72,21 @@ export function AvatarPicker(props: {
             borderRadius={50}
             scale={1.2}
           />
-          <div onClick={handleSave} className="confirm-icon-wrapper">
-            <ConfirmIcon />
+          <div className="confirm-icon-wrapper">
+            <ConfirmIcon onClick={handleSave} />
           </div>
         </div>
+      ) : (
+        <EmojiPicker
+          width={"100%"}
+          lazyLoadEmojis
+          theme={EmojiTheme.AUTO}
+          getEmojiUrl={getEmojiUrl}
+          onEmojiClick={(e) => {
+            props.onEmojiClick(e.unified);
+          }}
+        />
       )}
-      <EmojiPicker
-        width={"100%"}
-        lazyLoadEmojis
-        theme={EmojiTheme.AUTO}
-        getEmojiUrl={getEmojiUrl}
-        onEmojiClick={(e) => {
-          props.onEmojiClick(e.unified);
-        }}
-      />
     </div>
   );
 }
