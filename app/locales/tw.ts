@@ -144,6 +144,10 @@ const tw = {
     Title: "設定",
     SubTitle: "設定選項",
 
+    GeneralSettings: "一般設定",
+    ModelSettings: "模型設定",
+    DataSettings: "資料設定",
+
     Danger: {
       Reset: {
         Title: "重設所有設定",

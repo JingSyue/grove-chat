@@ -150,6 +150,10 @@ const cn = {
   Settings: {
     Title: "设置",
     SubTitle: "所有设置选项",
+    // add settings
+    GeneralSettings: "通用设置",
+    ModelSettings: "模型设置",
+    DataSettings: "数据设置",
 
     Danger: {
       Reset: {
