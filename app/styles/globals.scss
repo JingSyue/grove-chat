@@ -170,28 +170,43 @@ input {
   font-family: inherit;
 }
 
+
 input[type="checkbox"] {
-  cursor: pointer;
-  background-color: var(--white);
-  color: var(--black);
   appearance: none;
-  border: var(--border-in-light);
-  border-radius: 5px;
-  height: 16px;
-  width: 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  width: 50px;  
+  height: 25px;  
+  border-radius: 12.5px;  
+  background-color: grey;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+}
+
+input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 1.25px;  
+  left: 1.25px;  
+  width: 22.5px;  
+  height: 22.5px;  
+  border-radius: 11.25px;  
+  background-color: white;
+  transition: all 0.3s;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--primary);
 }
 
 input[type="checkbox"]:checked::after {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background-color: var(--primary);
-  content: " ";
-  border-radius: 2px;
+  left: calc(100% - 23.75px);  
 }
+
+input[type="checkbox"]:active::after {
+  width: 27px;  
+}
+
 
 input[type="range"] {
   appearance: none;
