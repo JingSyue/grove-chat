@@ -237,7 +237,20 @@ export function SideBar(props: { className?: string }) {
       <SideBarHeader
         title={config.customTitle || CUSTOMTITLE}
         subTitle={config.customSubtitle || CUSTOMSUBTITLE}
-        logo={<ChatGptIcon />}
+        logo={
+          <div
+            onClick={() => {
+              if (config.dontShowMaskSplashScreen) {
+                chatStore.newSession();
+                navigate(Path.Chat);
+              } else {
+                navigate(Path.NewChat);
+              }
+            }}
+          >
+            <ChatGptIcon />
+          </div>
+        }
       >
         <div className={styles["sidebar-header-bar"]}>
           <IconButton
