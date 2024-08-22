@@ -25,6 +25,9 @@ export const BYTEDANCE_BASE_URL = "https://ark.cn-beijing.volces.com";
 export const ALIBABA_BASE_URL = "https://dashscope.aliyuncs.com/api/";
 export const MOONSHOT_BASE_URL = "https://api.moonshot.cn";
 
+// greptile
+export const GREPTILE_BASE_URL = "https://api.greptile.com/v2/";
+
 export const CACHE_URL_PREFIX = "/api/cache";
 export const UPLOAD_URL = `${CACHE_URL_PREFIX}/upload`;
 
@@ -100,13 +103,13 @@ export const EXPORT_MESSAGE_CLASS_NAME = "export-markdown";
 
 export enum ServiceProvider {
   OpenAI = "OpenAI",
-  //Azure = "Azure",
+  Azure = "Azure",
   Google = "Google",
   Anthropic = "Anthropic",
-  //Baidu = "Baidu",
-  //ByteDance = "ByteDance",
-  //Alibaba = "Alibaba",
-  //Moonshot = "Moonshot",
+  Baidu = "Baidu",
+  ByteDance = "ByteDance",
+  Alibaba = "Alibaba",
+  Moonshot = "Moonshot",
   Stability = "Stability",
 }
 
@@ -124,10 +127,10 @@ export enum ModelProvider {
   GPT = "GPT",
   GeminiPro = "GeminiPro",
   Claude = "Claude",
-  //Ernie = "Ernie",
-  //Doubao = "Doubao",
-  //Qwen = "Qwen",
-  //Moonshot = "Moonshot",
+  Ernie = "Ernie",
+  Doubao = "Doubao",
+  Qwen = "Qwen",
+  Moonshot = "Moonshot",
 }
 
 export const Stability = {
@@ -239,6 +242,14 @@ const googleModels = ["gemini-pro-vision"];
 
 const anthropicModels = ["claude-3-5-sonnet-20240620"];
 
+const baiduModels = ["ernie-4.0-8k-latest"];
+
+const bytedanceModels = ["Doubao-pro-128k"];
+
+const alibabaModes = ["qwen-max-longcontext"];
+
+const moonshotModes = ["moonshot-v1-128k"];
+
 export const DEFAULT_MODELS = [
   ...openaiModels.map((name) => ({
     name,
@@ -265,6 +276,42 @@ export const DEFAULT_MODELS = [
       id: "anthropic",
       providerName: "Anthropic",
       providerType: "anthropic",
+    },
+  })),
+  ...baiduModels.map((name) => ({
+    name,
+    available: true,
+    provider: {
+      id: "baidu",
+      providerName: "Baidu",
+      providerType: "baidu",
+    },
+  })),
+  ...bytedanceModels.map((name) => ({
+    name,
+    available: true,
+    provider: {
+      id: "bytedance",
+      providerName: "ByteDance",
+      providerType: "bytedance",
+    },
+  })),
+  ...alibabaModes.map((name) => ({
+    name,
+    available: true,
+    provider: {
+      id: "alibaba",
+      providerName: "Alibaba",
+      providerType: "alibaba",
+    },
+  })),
+  ...moonshotModes.map((name) => ({
+    name,
+    available: true,
+    provider: {
+      id: "moonshot",
+      providerName: "Moonshot",
+      providerType: "moonshot",
     },
   })),
 ] as const;
