@@ -275,8 +275,10 @@ export class ChatGPTApi implements LLMApi {
               return finish();
             }
             const text = msg.data;
+
             try {
               const json = JSON.parse(text);
+              console.log("[GPT] Stream message:", json);
               const choices = json.choices as Array<{
                 delta: { content: string };
               }>;
@@ -314,6 +316,7 @@ export class ChatGPTApi implements LLMApi {
         });
       } else {
         const res = await fetch(chatPath, chatPayload);
+
         clearTimeout(requestTimeoutId);
 
         const resJson = await res.json();
