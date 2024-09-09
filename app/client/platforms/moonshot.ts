@@ -160,7 +160,7 @@ export class MoonshotApi implements LLMApi {
             clearTimeout(requestTimeoutId);
             const contentType = res.headers.get("content-type");
             console.log(
-              "[OpenAI] request response content type: ",
+              "[Moonshot] request response content type: ",
               contentType,
             );
 
@@ -207,7 +207,6 @@ export class MoonshotApi implements LLMApi {
                 delta: { content: string };
               }>;
               const delta = choices[0]?.delta?.content;
-              const textmoderation = json?.prompt_filter_results;
 
               if (delta) {
                 remainText += delta;
