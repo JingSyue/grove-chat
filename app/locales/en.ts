@@ -435,6 +435,17 @@ const en: LocaleType = {
           SubTitle: "Example: ",
         },
       },
+      Perplexity: {
+        ApiKey: {
+          Title: "Perplexity API Key",
+          SubTitle: "Use a custom Perplexity API Key",
+          Placeholder: "Perplexity API Key",
+        },
+        Endpoint: {
+          Title: "Endpoint Address",
+          SubTitle: "Example:",
+        },
+      },
       CustomModel: {
         Title: "Custom Models",
         SubTitle: "Custom model options, seperated by comma",

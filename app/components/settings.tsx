@@ -72,6 +72,7 @@ import {
   SlotID,
   UPDATE_URL,
   Stability,
+  Perplexity,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -1035,6 +1036,42 @@ function GeneralSettings() {
     </>
   );
 
+  const perplexityConfigComponent = accessStore.provider ===
+    ServiceProvider.Perplexity && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Perplexity.Endpoint.Title}
+        subTitle={Locale.Settings.Access.Perplexity.Endpoint.SubTitle}
+      >
+        <input
+          type="text"
+          value={accessStore.perplexityUrl}
+          placeholder={Perplexity.ExampleEndpoint}
+          onChange={(e) =>
+            accessStore.update(
+              (access) => (access.perplexityUrl = e.currentTarget.value),
+            )
+          }
+        />
+      </ListItem>
+      <ListItem
+        title={Locale.Settings.Access.Perplexity.ApiKey.Title}
+        subTitle={Locale.Settings.Access.Perplexity.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.perplexityApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Perplexity.ApiKey.Placeholder}
+          onChange={(e) =>
+            accessStore.update(
+              (access) => (access.perplexityApiKey = e.currentTarget.value),
+            )
+          }
+        />
+      </ListItem>
+    </>
+  );
+
   return (
     <List>
       <List>
@@ -1336,6 +1373,7 @@ function GeneralSettings() {
                   {alibabaConfigComponent}
                   {moonshotConfigComponent}
                   {stabilityConfigComponent}
+                  {perplexityConfigComponent}
                 </>
               )}
             </>

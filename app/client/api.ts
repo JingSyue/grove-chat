@@ -13,6 +13,7 @@ import { ErnieApi } from "./platforms/baidu";
 import { DoubaoApi } from "./platforms/bytedance";
 import { QwenApi } from "./platforms/alibaba";
 import { MoonshotApi } from "./platforms/moonshot";
+import { PerplexityApi } from "./platforms/perplexity";
 
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
@@ -121,6 +122,9 @@ export class ClientApi {
       case ModelProvider.Moonshot:
         this.llm = new MoonshotApi();
         break;
+      case ModelProvider.Perplexity:
+        this.llm = new PerplexityApi();
+        break;
       default:
         this.llm = new ChatGPTApi();
     }
@@ -204,6 +208,10 @@ export function getHeaders() {
     const isByteDance = modelConfig.providerName === ServiceProvider.ByteDance;
     const isAlibaba = modelConfig.providerName === ServiceProvider.Alibaba;
     const isMoonshot = modelConfig.providerName === ServiceProvider.Moonshot;
+    // perplexity
+    const isPerplexity =
+      modelConfig.providerName === ServiceProvider.Perplexity;
+
     const isEnabledAccessControl = accessStore.enabledAccessControl();
     const apiKey = isGoogle
       ? accessStore.googleApiKey
@@ -217,6 +225,8 @@ export function getHeaders() {
       ? accessStore.alibabaApiKey
       : isMoonshot
       ? accessStore.moonshotApiKey
+      : isPerplexity
+      ? accessStore.perplexityApiKey
       : accessStore.openaiApiKey;
     return {
       isGoogle,
@@ -226,6 +236,7 @@ export function getHeaders() {
       isByteDance,
       isAlibaba,
       isMoonshot,
+      isPerplexity,
       apiKey,
       isEnabledAccessControl,
     };
@@ -277,6 +288,8 @@ export function getClientApi(provider: ServiceProvider): ClientApi {
       return new ClientApi(ModelProvider.Qwen);
     case ServiceProvider.Moonshot:
       return new ClientApi(ModelProvider.Moonshot);
+    case ServiceProvider.Perplexity:
+      return new ClientApi(ModelProvider.Perplexity);
     default:
       return new ClientApi(ModelProvider.GPT);
   }

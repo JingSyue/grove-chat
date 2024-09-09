@@ -47,6 +47,11 @@ const DEFAULT_STABILITY_URL = isApp
   ? DEFAULT_API_HOST + "/api/proxy/stability"
   : ApiPath.Stability;
 
+//perplexity
+const DEFAULT_PERPLEXITY_URL = isApp
+  ? DEFAULT_API_HOST + "/api/proxy/perplexity"
+  : ApiPath.Perplexity;
+
 const DEFAULT_ACCESS_STATE = {
   accessCode: "",
   useCustomConfig: false,
@@ -93,6 +98,10 @@ const DEFAULT_ACCESS_STATE = {
   //stability
   stabilityUrl: DEFAULT_STABILITY_URL,
   stabilityApiKey: "",
+
+  //perplexity
+  perplexityUrl: DEFAULT_PERPLEXITY_URL,
+  perplexityApiKey: "",
 
   // server config
   needCode: true,
@@ -146,6 +155,10 @@ export const useAccessStore = createPersistStore(
       return ensure(get(), ["moonshotApiKey"]);
     },
 
+    isValidPerplexity() {
+      return ensure(get(), ["perplexityApiKey"]);
+    },
+
     isAuthorized() {
       this.fetch();
 
@@ -159,6 +172,7 @@ export const useAccessStore = createPersistStore(
         this.isValidByteDance() ||
         this.isValidAlibaba() ||
         this.isValidMoonshot() ||
+        this.isValidPerplexity() ||
         !this.enabledAccessControl() ||
         (this.enabledAccessControl() && ensure(get(), ["accessCode"]))
       );

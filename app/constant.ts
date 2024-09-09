@@ -26,7 +26,10 @@ export const ALIBABA_BASE_URL = "https://dashscope.aliyuncs.com/api/";
 export const MOONSHOT_BASE_URL = "https://api.moonshot.cn";
 
 // greptile
-export const GREPTILE_BASE_URL = "https://api.greptile.com/v2/";
+export const GREPTILE_BASE_URL = "https://api.greptile.com/";
+
+// perplexity
+export const PERPLEXITY_BASE_URL = "https://api.perplexity.ai";
 
 export const CACHE_URL_PREFIX = "/api/cache";
 export const UPLOAD_URL = `${CACHE_URL_PREFIX}/upload`;
@@ -57,6 +60,7 @@ export enum ApiPath {
   Alibaba = "/api/alibaba",
   Moonshot = "/api/moonshot",
   Stability = "/api/stability",
+  Perplexity = "/api/perplexity",
   Artifacts = "/api/artifacts",
 }
 
@@ -111,6 +115,7 @@ export enum ServiceProvider {
   Alibaba = "Alibaba",
   Moonshot = "Moonshot",
   Stability = "Stability",
+  Perplexity = "Perplexity",
 }
 
 // Google API safety settings, see https://ai.google.dev/gemini-api/docs/safety-settings
@@ -131,6 +136,7 @@ export enum ModelProvider {
   Doubao = "Doubao",
   Qwen = "Qwen",
   Moonshot = "Moonshot",
+  Perplexity = "Perplexity",
 }
 
 export const Stability = {
@@ -199,6 +205,11 @@ export const Moonshot = {
   ChatPath: "v1/chat/completions",
 };
 
+export const Perplexity = {
+  ExampleEndpoint: PERPLEXITY_BASE_URL,
+  ChatPath: "chat/completions",
+};
+
 export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lang
 // export const DEFAULT_SYSTEM_TEMPLATE = `
 // You are ChatGPT, a large language model trained by {{ServiceProvider}}.
@@ -236,7 +247,7 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gemini-pro-vision": "2023-12",
 };
 
-const openaiModels = ["gpt-4o"];
+const openaiModels = ["gpt-4o", "gpt-4o-mini-2024-07-18"];
 
 const googleModels = ["gemini-pro-vision"];
 
@@ -249,6 +260,13 @@ const bytedanceModels = ["Doubao-pro-128k"];
 const alibabaModes = ["qwen-max-longcontext"];
 
 const moonshotModes = ["moonshot-v1-128k"];
+
+const perplexityModels = [
+  // Perplexity Sonar Models
+  "llama-3.1-sonar-small-128k-online",
+  "llama-3.1-sonar-large-128k-online",
+  "llama-3.1-sonar-huge-128k-online",
+];
 
 export const DEFAULT_MODELS = [
   ...openaiModels.map((name) => ({
@@ -312,6 +330,15 @@ export const DEFAULT_MODELS = [
       id: "moonshot",
       providerName: "Moonshot",
       providerType: "moonshot",
+    },
+  })),
+  ...perplexityModels.map((name) => ({
+    name,
+    available: true,
+    provider: {
+      id: "perplexity",
+      providerName: "Perplexity",
+      providerType: "perplexity",
     },
   })),
 ] as const;

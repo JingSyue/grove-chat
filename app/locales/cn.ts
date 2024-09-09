@@ -451,6 +451,18 @@ const cn = {
           SubTitle: "样例：",
         },
       },
+      Perplexity: {
+        ApiKey: {
+          Title: "接口密钥",
+          SubTitle: "使用自定义 Perplexity API Key",
+          Placeholder: "Perplexity API Key",
+        },
+        Endpoint: {
+          Title: "接口地址",
+          SubTitle: "样例：",
+        },
+      },
+
       CustomModel: {
         Title: "自定义模型名",
         SubTitle: "增加自定义模型可选项，使用英文逗号隔开",
