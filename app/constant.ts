@@ -25,9 +25,6 @@ export const BYTEDANCE_BASE_URL = "https://ark.cn-beijing.volces.com";
 export const ALIBABA_BASE_URL = "https://dashscope.aliyuncs.com/api/";
 export const MOONSHOT_BASE_URL = "https://api.moonshot.cn";
 
-// greptile
-export const GREPTILE_BASE_URL = "https://api.greptile.com/";
-
 // perplexity
 export const PERPLEXITY_BASE_URL = "https://api.perplexity.ai";
 

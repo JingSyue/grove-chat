@@ -262,6 +262,11 @@
     background-color: var(--white);
     color: var(--black);
     text-align: center;
+
+    option {
+      text-align: left;
+    }
+
   }
 
   .select-with-icon-icon {

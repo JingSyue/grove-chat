@@ -17,6 +17,11 @@ import DownloadIcon from "../icons/download.svg";
 import UploadIcon from "../icons/upload.svg";
 import ConfigIcon from "../icons/config.svg";
 import ConfirmIcon from "../icons/confirm.svg";
+import GeneralIcon from "../icons/general.svg";
+import PasswordIcon from "../icons/password.svg";
+import ModelIcon from "../icons/model.svg";
+import DataIcon from "../icons/data.svg";
+import ProxyIcon from "../icons/proxy.svg";
 
 import ConnectionIcon from "../icons/connection.svg";
 import CloudSuccessIcon from "../icons/cloud-success.svg";
@@ -482,12 +487,8 @@ function SyncConfigModal(props: { onClose?: () => void }) {
 function GeneralSettings() {
   const navigate = useNavigate();
   const updateStore = useUpdateStore();
-  const updateUrl = getClientConfig()?.isApp ? RELEASE_URL : UPDATE_URL;
   const [checkingUpdate, setCheckingUpdate] = useState(false);
 
-  const currentVersion = updateStore.formatVersion(updateStore.version);
-  const remoteId = updateStore.formatVersion(updateStore.remoteVersion);
-  const hasNewVersion = currentVersion !== remoteId;
   const config = useAppConfig();
   const updateConfig = config.update;
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -498,6 +499,952 @@ function GeneralSettings() {
   const builtinCount = SearchService.count.builtin;
   const customCount = promptStore.getUserPrompts().length ?? 0;
   const [shouldShowPromptModal, setShowPromptModal] = useState(false);
+
+  function checkUpdate(force = false) {
+    setCheckingUpdate(true);
+    updateStore.getLatestVersion(force).then(() => {
+      setCheckingUpdate(false);
+    });
+
+    console.log("[Update] local version ", updateStore.version);
+    console.log("[Update] remote version ", updateStore.remoteVersion);
+  }
+
+  const accessStore = useAccessStore();
+
+  const [loadingUsage, setLoadingUsage] = useState(false);
+  function checkUsage(force = false) {
+    if (shouldHideBalanceQuery) {
+      return;
+    }
+
+    setLoadingUsage(true);
+    updateStore.updateUsage(force).finally(() => {
+      setLoadingUsage(false);
+    });
+  }
+
+  const showUsage = accessStore.isAuthorized();
+  useEffect(() => {
+    // checks per minutes
+    checkUpdate();
+    showUsage && checkUsage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const keydownEvent = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        navigate(Path.Home);
+      }
+    };
+    if (clientConfig?.isApp) {
+      // Force to set custom endpoint to true if it's app
+      accessStore.update((state) => {
+        state.useCustomConfig = true;
+      });
+    }
+    document.addEventListener("keydown", keydownEvent);
+    return () => {
+      document.removeEventListener("keydown", keydownEvent);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const clientConfig = useMemo(() => getClientConfig(), []);
+
+  const shouldHideBalanceQuery = useMemo(() => {
+    const isOpenAiUrl = accessStore.openaiUrl.includes(OPENAI_BASE_URL);
+
+    return (
+      accessStore.hideBalanceQuery ||
+      isOpenAiUrl ||
+      accessStore.provider === ServiceProvider.Azure
+    );
+  }, [
+    accessStore.hideBalanceQuery,
+    accessStore.openaiUrl,
+    accessStore.provider,
+  ]);
+
+  return (
+    <List>
+      <List>
+        <ListItem title={Locale.Settings.Avatar}>
+          <Popover
+            onClose={() => setShowEmojiPicker(false)}
+            content={
+              <AvatarPicker
+                onEmojiClick={(avatar: string) => {
+                  updateConfig((config) => (config.avatar = avatar));
+                  setShowEmojiPicker(false);
+                }}
+                onImageUpload={(imageUrl: string) => {
+                  updateConfig((config) => (config.avatar = imageUrl));
+                  setShowEmojiPicker(false);
+                }}
+              />
+            }
+            open={showEmojiPicker}
+          >
+            <div
+              className={styles.avatar}
+              onClick={() => {
+                setShowEmojiPicker(!showEmojiPicker);
+              }}
+            >
+              <Avatar avatar={config.avatar} />
+            </div>
+          </Popover>
+        </ListItem>
+
+        <ListItem title={Locale.Settings.Lang.Name}>
+          <Select
+            value={getLang()}
+            onChange={(e) => {
+              changeLang(e.target.value as any);
+            }}
+          >
+            {AllLangs.map((lang) => (
+              <option value={lang} key={lang}>
+                {ALL_LANG_OPTIONS[lang]}
+              </option>
+            ))}
+          </Select>
+        </ListItem>
+
+        <ListItem
+          title={Locale.Settings.CustomTitle.Title}
+          subTitle={Locale.Settings.CustomTitle.SubTitle}
+        >
+          <input
+            type="text"
+            value={customTitle}
+            onChange={(e) => {
+              setCustomTitle(e.target.value);
+              updateConfig((config) => (config.customTitle = e.target.value));
+            }}
+          />
+        </ListItem>
+
+        <ListItem
+          title={Locale.Settings.CustomSubtitle.Title}
+          subTitle={Locale.Settings.CustomSubtitle.SubTitle}
+        >
+          <input
+            type="text"
+            value={customSubtitle}
+            onChange={(e) => {
+              setCustomSubtitle(e.target.value);
+              updateConfig(
+                (config) => (config.customSubtitle = e.target.value),
+              );
+            }}
+          />
+        </ListItem>
+
+        <ListItem
+          title={Locale.Settings.FontSize.Title}
+          subTitle={Locale.Settings.FontSize.SubTitle}
+        >
+          <InputRange
+            title={`${config.fontSize ?? 14}px`}
+            value={config.fontSize}
+            min="12"
+            max="40"
+            step="1"
+            onChange={(e) =>
+              updateConfig(
+                (config) =>
+                  (config.fontSize = Number.parseInt(e.currentTarget.value)),
+              )
+            }
+          ></InputRange>
+        </ListItem>
+
+        <ListItem title={Locale.Settings.Theme}>
+          <Select
+            value={config.theme}
+            onChange={(e) => {
+              updateConfig(
+                (config) => (config.theme = e.target.value as any as Theme),
+              );
+            }}
+          >
+            {Object.values(Theme).map((v) => (
+              <option value={v} key={v}>
+                {Locale.Chat.InputActions.Theme[v] || v}
+              </option>
+            ))}
+          </Select>
+        </ListItem>
+
+        <ListItem title={Locale.Settings.ThemeColor}>
+          <Select
+            value={config.themeColor}
+            onChange={(e) => {
+              updateConfig(
+                (config) =>
+                  (config.themeColor = e.target.value as any as ThemeColor),
+              );
+            }}
+          >
+            {Object.values(ThemeColor).map((v) => (
+              <option value={v} key={v}>
+                {Locale.Chat.InputActions.ThemeColor[v] || v}
+              </option>
+            ))}
+          </Select>
+        </ListItem>
+
+        <ListItem
+          className={styles.mobile}
+          title={Locale.Settings.Background.Title}
+        >
+          <Select
+            value={config.background}
+            onChange={(e) => {
+              updateConfig(
+                (config) =>
+                  (config.background = e.target.value as any as Background),
+              );
+            }}
+          >
+            {Object.values(Background).map((v) => (
+              <option value={v} key={v}>
+                {Locale.Chat.InputActions.Background[v] || v}
+              </option>
+            ))}
+          </Select>
+        </ListItem>
+      </List>
+
+      <List>
+        <ListItem title={Locale.Settings.SendKey}>
+          <Select
+            value={config.submitKey}
+            onChange={(e) => {
+              updateConfig(
+                (config) =>
+                  (config.submitKey = e.target.value as any as SubmitKey),
+              );
+            }}
+          >
+            {Object.values(SubmitKey).map((v) => (
+              <option value={v} key={v}>
+                {v}
+              </option>
+            ))}
+          </Select>
+        </ListItem>
+
+        <ListItem
+          title={Locale.Settings.AutoGenerateTitle.Title}
+          subTitle={Locale.Settings.AutoGenerateTitle.SubTitle}
+        >
+          <input
+            type="checkbox"
+            checked={config.enableAutoGenerateTitle}
+            onChange={(e) =>
+              updateConfig(
+                (config) =>
+                  (config.enableAutoGenerateTitle = e.currentTarget.checked),
+              )
+            }
+          ></input>
+        </ListItem>
+
+        <ListItem
+          title={Locale.Settings.SendPreviewBubble.Title}
+          subTitle={Locale.Settings.SendPreviewBubble.SubTitle}
+        >
+          <input
+            type="checkbox"
+            checked={config.sendPreviewBubble}
+            onChange={(e) =>
+              updateConfig(
+                (config) =>
+                  (config.sendPreviewBubble = e.currentTarget.checked),
+              )
+            }
+          ></input>
+        </ListItem>
+      </List>
+
+      <List>
+        <List>
+          <ListItem
+            title={Locale.Settings.Prompt.Disable.Title}
+            subTitle={Locale.Settings.Prompt.Disable.SubTitle}
+          >
+            <input
+              type="checkbox"
+              checked={config.disablePromptHint}
+              onChange={(e) =>
+                updateConfig(
+                  (config) =>
+                    (config.disablePromptHint = e.currentTarget.checked),
+                )
+              }
+            ></input>
+          </ListItem>
+
+          <ListItem
+            title={Locale.Settings.Prompt.List}
+            subTitle={Locale.Settings.Prompt.ListCount(
+              builtinCount,
+              customCount,
+            )}
+          >
+            <IconButton
+              icon={<EditIcon />}
+              text={Locale.Settings.Prompt.Edit}
+              onClick={() => setShowPromptModal(true)}
+            />
+          </ListItem>
+        </List>
+
+        {shouldShowPromptModal && (
+          <UserPromptModal onClose={() => setShowPromptModal(false)} />
+        )}
+      </List>
+    </List>
+  );
+}
+
+function PasswordSettings() {
+  const navigate = useNavigate();
+  const updateStore = useUpdateStore();
+  const [checkingUpdate, setCheckingUpdate] = useState(false);
+
+  function checkUpdate(force = false) {
+    setCheckingUpdate(true);
+    updateStore.getLatestVersion(force).then(() => {
+      setCheckingUpdate(false);
+    });
+
+    console.log("[Update] local version ", updateStore.version);
+    console.log("[Update] remote version ", updateStore.remoteVersion);
+  }
+
+  const accessStore = useAccessStore();
+  const usage = {
+    used: updateStore.used,
+    subscription: updateStore.subscription,
+  };
+  const [loadingUsage, setLoadingUsage] = useState(false);
+  function checkUsage(force = false) {
+    if (shouldHideBalanceQuery) {
+      return;
+    }
+
+    setLoadingUsage(true);
+    updateStore.updateUsage(force).finally(() => {
+      setLoadingUsage(false);
+    });
+  }
+
+  const enabledAccessControl = useMemo(
+    () => accessStore.enabledAccessControl(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+  const showUsage = accessStore.isAuthorized();
+  useEffect(() => {
+    // checks per minutes
+    checkUpdate();
+    showUsage && checkUsage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const keydownEvent = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        navigate(Path.Home);
+      }
+    };
+    if (clientConfig?.isApp) {
+      // Force to set custom endpoint to true if it's app
+      accessStore.update((state) => {
+        state.useCustomConfig = true;
+      });
+    }
+    document.addEventListener("keydown", keydownEvent);
+    return () => {
+      document.removeEventListener("keydown", keydownEvent);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const clientConfig = useMemo(() => getClientConfig(), []);
+  const showAccessCode = enabledAccessControl && !clientConfig?.isApp;
+
+  const shouldHideBalanceQuery = useMemo(() => {
+    const isOpenAiUrl = accessStore.openaiUrl.includes(OPENAI_BASE_URL);
+
+    return (
+      accessStore.hideBalanceQuery ||
+      isOpenAiUrl ||
+      accessStore.provider === ServiceProvider.Azure
+    );
+  }, [
+    accessStore.hideBalanceQuery,
+    accessStore.openaiUrl,
+    accessStore.provider,
+  ]);
+
+  const accessCodeComponent = showAccessCode && (
+    <ListItem
+      title={Locale.Settings.Access.AccessCode.Title}
+      subTitle={Locale.Settings.Access.AccessCode.SubTitle}
+    >
+      <PasswordInput
+        value={accessStore.accessCode}
+        type="text"
+        placeholder={Locale.Settings.Access.AccessCode.Placeholder}
+        onChange={(e) => {
+          accessStore.update(
+            (access) => (access.accessCode = e.currentTarget.value),
+          );
+        }}
+      />
+    </ListItem>
+  );
+
+  const openAIConfigComponent = accessStore.provider ===
+    ServiceProvider.OpenAI && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.OpenAI.ApiKey.Title}
+        subTitle={Locale.Settings.Access.OpenAI.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.openaiApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.OpenAI.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.openaiApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+    </>
+  );
+
+  const azureConfigComponent = accessStore.provider ===
+    ServiceProvider.Azure && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Azure.ApiKey.Title}
+        subTitle={Locale.Settings.Access.Azure.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.azureApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Azure.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.azureApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+      <ListItem
+        title={Locale.Settings.Access.Azure.ApiVerion.Title}
+        subTitle={Locale.Settings.Access.Azure.ApiVerion.SubTitle}
+      >
+        <input
+          type="text"
+          value={accessStore.azureApiVersion}
+          placeholder="2023-08-01-preview"
+          onChange={(e) =>
+            accessStore.update(
+              (access) => (access.azureApiVersion = e.currentTarget.value),
+            )
+          }
+        ></input>
+      </ListItem>
+    </>
+  );
+
+  const googleConfigComponent = accessStore.provider ===
+    ServiceProvider.Google && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Google.ApiKey.Title}
+        subTitle={Locale.Settings.Access.Google.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.googleApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Google.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.googleApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+    </>
+  );
+
+  const anthropicConfigComponent = accessStore.provider ===
+    ServiceProvider.Anthropic && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Anthropic.ApiKey.Title}
+        subTitle={Locale.Settings.Access.Anthropic.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.anthropicApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Anthropic.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.anthropicApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+    </>
+  );
+
+  const baiduConfigComponent = accessStore.provider ===
+    ServiceProvider.Baidu && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Baidu.ApiKey.Title}
+        subTitle={Locale.Settings.Access.Baidu.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.baiduApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Baidu.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.baiduApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+      <ListItem
+        title={Locale.Settings.Access.Baidu.SecretKey.Title}
+        subTitle={Locale.Settings.Access.Baidu.SecretKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.baiduSecretKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Baidu.SecretKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.baiduSecretKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+    </>
+  );
+
+  const byteDanceConfigComponent = accessStore.provider ===
+    ServiceProvider.ByteDance && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.ByteDance.ApiKey.Title}
+        subTitle={Locale.Settings.Access.ByteDance.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.bytedanceApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.ByteDance.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.bytedanceApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+    </>
+  );
+
+  const alibabaConfigComponent = accessStore.provider ===
+    ServiceProvider.Alibaba && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Alibaba.ApiKey.Title}
+        subTitle={Locale.Settings.Access.Alibaba.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.alibabaApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Alibaba.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.alibabaApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+    </>
+  );
+
+  const moonshotConfigComponent = accessStore.provider ===
+    ServiceProvider.Moonshot && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Moonshot.ApiKey.Title}
+        subTitle={Locale.Settings.Access.Moonshot.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.moonshotApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Moonshot.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.moonshotApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+    </>
+  );
+
+  const stabilityConfigComponent = accessStore.provider ===
+    ServiceProvider.Stability && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Stability.ApiKey.Title}
+        subTitle={Locale.Settings.Access.Stability.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.stabilityApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Stability.ApiKey.Placeholder}
+          onChange={(e) => {
+            accessStore.update(
+              (access) => (access.stabilityApiKey = e.currentTarget.value),
+            );
+          }}
+        />
+      </ListItem>
+    </>
+  );
+
+  const perplexityConfigComponent = accessStore.provider ===
+    ServiceProvider.Perplexity && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.Perplexity.ApiKey.Title}
+        subTitle={Locale.Settings.Access.Perplexity.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.perplexityApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.Perplexity.ApiKey.Placeholder}
+          onChange={(e) =>
+            accessStore.update(
+              (access) => (access.perplexityApiKey = e.currentTarget.value),
+            )
+          }
+        />
+      </ListItem>
+    </>
+  );
+
+  return (
+    <List id={SlotID.CustomModel}>
+      {accessCodeComponent}
+
+      {!accessStore.hideUserApiKey && (
+        <>
+          {accessStore.useCustomConfig && (
+            <>
+              <ListItem
+                title={Locale.Settings.Access.Provider.Title}
+                subTitle={Locale.Settings.Access.Provider.SubTitle}
+              >
+                <Select
+                  value={accessStore.provider}
+                  onChange={(e) => {
+                    accessStore.update(
+                      (access) =>
+                        (access.provider = e.target.value as ServiceProvider),
+                    );
+                  }}
+                >
+                  {Object.entries(ServiceProvider).map(([k, v]) => (
+                    <option value={v} key={k}>
+                      {k}
+                    </option>
+                  ))}
+                </Select>
+              </ListItem>
+
+              {openAIConfigComponent}
+              {azureConfigComponent}
+              {googleConfigComponent}
+              {anthropicConfigComponent}
+              {baiduConfigComponent}
+              {byteDanceConfigComponent}
+              {alibabaConfigComponent}
+              {moonshotConfigComponent}
+              {stabilityConfigComponent}
+              {perplexityConfigComponent}
+            </>
+          )}
+        </>
+      )}
+
+      {!shouldHideBalanceQuery && !clientConfig?.isApp ? (
+        <ListItem
+          title={Locale.Settings.Usage.Title}
+          subTitle={
+            showUsage
+              ? loadingUsage
+                ? Locale.Settings.Usage.IsChecking
+                : Locale.Settings.Usage.SubTitle(
+                    usage?.used ?? "[?]",
+                    usage?.subscription ?? "[?]",
+                  )
+              : Locale.Settings.Usage.NoAccess
+          }
+        >
+          {!showUsage || loadingUsage ? (
+            <div />
+          ) : (
+            <IconButton
+              icon={<ResetIcon></ResetIcon>}
+              text={Locale.Settings.Usage.Check}
+              onClick={() => checkUsage(true)}
+            />
+          )}
+        </ListItem>
+      ) : null}
+    </List>
+  );
+}
+function ModelSettings() {
+  const config = useAppConfig();
+  const updateConfig = config.update;
+
+  return (
+    <List>
+      <List>
+        <ModelConfigList
+          modelConfig={config.modelConfig}
+          updateConfig={(updater) => {
+            const modelConfig = { ...config.modelConfig };
+            updater(modelConfig);
+            config.update((config) => (config.modelConfig = modelConfig));
+          }}
+        />
+      </List>
+
+      <List>
+        <ListItem
+          title={Locale.Settings.Mask.Splash.Title}
+          subTitle={Locale.Settings.Mask.Splash.SubTitle}
+        >
+          <input
+            type="checkbox"
+            checked={!config.dontShowMaskSplashScreen}
+            onChange={(e) =>
+              updateConfig(
+                (config) =>
+                  (config.dontShowMaskSplashScreen = !e.currentTarget.checked),
+              )
+            }
+          ></input>
+        </ListItem>
+
+        <ListItem
+          title={Locale.Settings.Mask.Builtin.Title}
+          subTitle={Locale.Settings.Mask.Builtin.SubTitle}
+        >
+          <input
+            type="checkbox"
+            checked={config.hideBuiltinMasks}
+            onChange={(e) =>
+              updateConfig(
+                (config) => (config.hideBuiltinMasks = e.currentTarget.checked),
+              )
+            }
+          ></input>
+        </ListItem>
+      </List>
+    </List>
+  );
+}
+
+function SyncSettings() {
+  const navigate = useNavigate();
+  const updateStore = useUpdateStore();
+  const updateUrl = getClientConfig()?.isApp ? RELEASE_URL : UPDATE_URL;
+  const [checkingUpdate, setCheckingUpdate] = useState(false);
+
+  const currentVersion = updateStore.formatVersion(updateStore.version);
+  const remoteId = updateStore.formatVersion(updateStore.remoteVersion);
+  const hasNewVersion = currentVersion !== remoteId;
+
+  function checkUpdate(force = false) {
+    setCheckingUpdate(true);
+    updateStore.getLatestVersion(force).then(() => {
+      setCheckingUpdate(false);
+    });
+
+    console.log("[Update] local version ", updateStore.version);
+    console.log("[Update] remote version ", updateStore.remoteVersion);
+  }
+
+  const accessStore = useAccessStore();
+
+  useEffect(() => {
+    const keydownEvent = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        navigate(Path.Home);
+      }
+    };
+    if (clientConfig?.isApp) {
+      // Force to set custom endpoint to true if it's app
+      accessStore.update((state) => {
+        state.useCustomConfig = true;
+      });
+    }
+    document.addEventListener("keydown", keydownEvent);
+    return () => {
+      document.removeEventListener("keydown", keydownEvent);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const clientConfig = useMemo(() => getClientConfig(), []);
+
+  const syncStore = useSyncStore();
+  const chatStore = useChatStore();
+  const promptStore = usePromptStore();
+  const maskStore = useMaskStore();
+  const couldSync = useMemo(() => {
+    return syncStore.cloudSync();
+  }, [syncStore]);
+
+  const [showSyncConfigModal, setShowSyncConfigModal] = useState(false);
+
+  const stateOverview = useMemo(() => {
+    const sessions = chatStore.sessions;
+    const messageCount = sessions.reduce((p, c) => p + c.messages.length, 0);
+
+    return {
+      chat: sessions.length,
+      message: messageCount,
+      prompt: Object.keys(promptStore.prompts).length,
+      mask: Object.keys(maskStore.masks).length,
+    };
+  }, [chatStore.sessions, maskStore.masks, promptStore.prompts]);
+
+  return (
+    <>
+      <List>
+        <ListItem
+          title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
+          subTitle={
+            checkingUpdate
+              ? Locale.Settings.Update.IsChecking
+              : hasNewVersion
+              ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
+              : Locale.Settings.Update.IsLatest
+          }
+        >
+          {checkingUpdate ? (
+            <LoadingIcon />
+          ) : hasNewVersion ? (
+            <Link href={updateUrl} target="_blank" className="link">
+              {Locale.Settings.Update.GoToUpdate}
+            </Link>
+          ) : (
+            <IconButton
+              icon={<ResetIcon></ResetIcon>}
+              text={Locale.Settings.Update.CheckUpdate}
+              onClick={() => checkUpdate(true)}
+            />
+          )}
+        </ListItem>
+
+        <ListItem
+          title={Locale.Settings.Sync.CloudState}
+          subTitle={
+            syncStore.lastProvider
+              ? `${new Date(syncStore.lastSyncTime).toLocaleString()} [${
+                  syncStore.lastProvider
+                }]`
+              : Locale.Settings.Sync.NotSyncYet
+          }
+        >
+          <div style={{ display: "flex" }}>
+            <IconButton
+              icon={<ConfigIcon />}
+              text={Locale.UI.Config}
+              onClick={() => {
+                setShowSyncConfigModal(true);
+              }}
+            />
+            {couldSync && (
+              <IconButton
+                icon={<ResetIcon />}
+                text={Locale.UI.Sync}
+                onClick={async () => {
+                  try {
+                    await syncStore.sync();
+                    showToast(Locale.Settings.Sync.Success);
+                  } catch (e) {
+                    showToast(Locale.Settings.Sync.Fail);
+                    console.error("[Sync]", e);
+                  }
+                }}
+              />
+            )}
+          </div>
+        </ListItem>
+
+        <ListItem
+          title={Locale.Settings.Sync.LocalState}
+          subTitle={Locale.Settings.Sync.Overview(stateOverview)}
+        >
+          <div style={{ display: "flex" }}>
+            <IconButton
+              icon={<UploadIcon />}
+              text={Locale.UI.Export}
+              onClick={() => {
+                syncStore.export();
+              }}
+            />
+            <IconButton
+              icon={<DownloadIcon />}
+              text={Locale.UI.Import}
+              onClick={() => {
+                syncStore.import();
+              }}
+            />
+          </div>
+        </ListItem>
+      </List>
+
+      <List>
+        <DangerItems />
+      </List>
+
+      {showSyncConfigModal && (
+        <SyncConfigModal onClose={() => setShowSyncConfigModal(false)} />
+      )}
+    </>
+  );
+}
+
+function ProxySettings() {
+  const navigate = useNavigate();
+  const updateStore = useUpdateStore();
+  const [checkingUpdate, setCheckingUpdate] = useState(false);
+
+  const config = useAppConfig();
 
   function checkUpdate(force = false) {
     setCheckingUpdate(true);
@@ -1073,512 +2020,95 @@ function GeneralSettings() {
   );
 
   return (
-    <List>
-      <List>
-        <ListItem title={Locale.Settings.Avatar}>
-          <Popover
-            onClose={() => setShowEmojiPicker(false)}
-            content={
-              <AvatarPicker
-                onEmojiClick={(avatar: string) => {
-                  updateConfig((config) => (config.avatar = avatar));
-                  setShowEmojiPicker(false);
-                }}
-                onImageUpload={(imageUrl: string) => {
-                  updateConfig((config) => (config.avatar = imageUrl));
-                  setShowEmojiPicker(false);
-                }}
-              />
-            }
-            open={showEmojiPicker}
-          >
-            <div
-              className={styles.avatar}
-              onClick={() => {
-                setShowEmojiPicker(!showEmojiPicker);
-              }}
-            >
-              <Avatar avatar={config.avatar} />
-            </div>
-          </Popover>
-        </ListItem>
+    <List id={SlotID.CustomModel}>
+      {accessCodeComponent}
+
+      {!accessStore.hideUserApiKey && (
+        <>
+          {useCustomConfigComponent}
+
+          {accessStore.useCustomConfig && (
+            <>
+              <ListItem
+                title={Locale.Settings.Access.Provider.Title}
+                subTitle={Locale.Settings.Access.Provider.SubTitle}
+              >
+                <Select
+                  value={accessStore.provider}
+                  onChange={(e) => {
+                    accessStore.update(
+                      (access) =>
+                        (access.provider = e.target.value as ServiceProvider),
+                    );
+                  }}
+                >
+                  {Object.entries(ServiceProvider).map(([k, v]) => (
+                    <option value={v} key={k}>
+                      {k}
+                    </option>
+                  ))}
+                </Select>
+              </ListItem>
+
+              {openAIConfigComponent}
+              {azureConfigComponent}
+              {googleConfigComponent}
+              {anthropicConfigComponent}
+              {baiduConfigComponent}
+              {byteDanceConfigComponent}
+              {alibabaConfigComponent}
+              {moonshotConfigComponent}
+              {stabilityConfigComponent}
+              {perplexityConfigComponent}
+            </>
+          )}
+        </>
+      )}
+
+      {!shouldHideBalanceQuery && !clientConfig?.isApp ? (
         <ListItem
-          title={Locale.Settings.CustomTitle.Title}
-          subTitle={Locale.Settings.CustomTitle.SubTitle}
-        >
-          <input
-            type="text"
-            value={customTitle}
-            onChange={(e) => {
-              setCustomTitle(e.target.value);
-              updateConfig((config) => (config.customTitle = e.target.value));
-            }}
-          />
-        </ListItem>
-
-        <ListItem
-          title={Locale.Settings.CustomSubtitle.Title}
-          subTitle={Locale.Settings.CustomSubtitle.SubTitle}
-        >
-          <input
-            type="text"
-            value={customSubtitle}
-            onChange={(e) => {
-              setCustomSubtitle(e.target.value);
-              updateConfig(
-                (config) => (config.customSubtitle = e.target.value),
-              );
-            }}
-          />
-        </ListItem>
-
-        <ListItem
-          title={Locale.Settings.FontSize.Title}
-          subTitle={Locale.Settings.FontSize.SubTitle}
-        >
-          <InputRange
-            title={`${config.fontSize ?? 14}px`}
-            value={config.fontSize}
-            min="12"
-            max="40"
-            step="1"
-            onChange={(e) =>
-              updateConfig(
-                (config) =>
-                  (config.fontSize = Number.parseInt(e.currentTarget.value)),
-              )
-            }
-          ></InputRange>
-        </ListItem>
-
-        <ListItem title={Locale.Settings.Theme}>
-          <Select
-            value={config.theme}
-            onChange={(e) => {
-              updateConfig(
-                (config) => (config.theme = e.target.value as any as Theme),
-              );
-            }}
-          >
-            {Object.values(Theme).map((v) => (
-              <option value={v} key={v}>
-                {Locale.Chat.InputActions.Theme[v] || v}
-              </option>
-            ))}
-          </Select>
-        </ListItem>
-
-        <ListItem title={Locale.Settings.ThemeColor}>
-          <Select
-            value={config.themeColor}
-            onChange={(e) => {
-              updateConfig(
-                (config) =>
-                  (config.themeColor = e.target.value as any as ThemeColor),
-              );
-            }}
-          >
-            {Object.values(ThemeColor).map((v) => (
-              <option value={v} key={v}>
-                {Locale.Chat.InputActions.ThemeColor[v] || v}
-              </option>
-            ))}
-          </Select>
-        </ListItem>
-
-        <ListItem
-          className={styles.mobile}
-          title={Locale.Settings.Background.Title}
-        >
-          <Select
-            value={config.background}
-            onChange={(e) => {
-              updateConfig(
-                (config) =>
-                  (config.background = e.target.value as any as Background),
-              );
-            }}
-          >
-            {Object.values(Background).map((v) => (
-              <option value={v} key={v}>
-                {Locale.Chat.InputActions.Background[v] || v}
-              </option>
-            ))}
-          </Select>
-        </ListItem>
-
-        <ListItem title={Locale.Settings.Lang.Name}>
-          <Select
-            value={getLang()}
-            onChange={(e) => {
-              changeLang(e.target.value as any);
-            }}
-          >
-            {AllLangs.map((lang) => (
-              <option value={lang} key={lang}>
-                {ALL_LANG_OPTIONS[lang]}
-              </option>
-            ))}
-          </Select>
-        </ListItem>
-
-        <ListItem
-          title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
+          title={Locale.Settings.Usage.Title}
           subTitle={
-            checkingUpdate
-              ? Locale.Settings.Update.IsChecking
-              : hasNewVersion
-              ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
-              : Locale.Settings.Update.IsLatest
+            showUsage
+              ? loadingUsage
+                ? Locale.Settings.Usage.IsChecking
+                : Locale.Settings.Usage.SubTitle(
+                    usage?.used ?? "[?]",
+                    usage?.subscription ?? "[?]",
+                  )
+              : Locale.Settings.Usage.NoAccess
           }
         >
-          {checkingUpdate ? (
-            <LoadingIcon />
-          ) : hasNewVersion ? (
-            <Link href={updateUrl} target="_blank" className="link">
-              {Locale.Settings.Update.GoToUpdate}
-            </Link>
+          {!showUsage || loadingUsage ? (
+            <div />
           ) : (
             <IconButton
               icon={<ResetIcon></ResetIcon>}
-              text={Locale.Settings.Update.CheckUpdate}
-              onClick={() => checkUpdate(true)}
+              text={Locale.Settings.Usage.Check}
+              onClick={() => checkUsage(true)}
             />
           )}
         </ListItem>
-      </List>
+      ) : null}
 
-      <List>
-        <ListItem title={Locale.Settings.SendKey}>
-          <Select
-            value={config.submitKey}
-            onChange={(e) => {
-              updateConfig(
-                (config) =>
-                  (config.submitKey = e.target.value as any as SubmitKey),
-              );
-            }}
-          >
-            {Object.values(SubmitKey).map((v) => (
-              <option value={v} key={v}>
-                {v}
-              </option>
-            ))}
-          </Select>
-        </ListItem>
-
-        <ListItem
-          title={Locale.Settings.AutoGenerateTitle.Title}
-          subTitle={Locale.Settings.AutoGenerateTitle.SubTitle}
-        >
-          <input
-            type="checkbox"
-            checked={config.enableAutoGenerateTitle}
-            onChange={(e) =>
-              updateConfig(
-                (config) =>
-                  (config.enableAutoGenerateTitle = e.currentTarget.checked),
-              )
-            }
-          ></input>
-        </ListItem>
-
-        <ListItem
-          title={Locale.Settings.SendPreviewBubble.Title}
-          subTitle={Locale.Settings.SendPreviewBubble.SubTitle}
-        >
-          <input
-            type="checkbox"
-            checked={config.sendPreviewBubble}
-            onChange={(e) =>
-              updateConfig(
-                (config) =>
-                  (config.sendPreviewBubble = e.currentTarget.checked),
-              )
-            }
-          ></input>
-        </ListItem>
-      </List>
-
-      <List>
-        <List>
-          <ListItem
-            title={Locale.Settings.Prompt.Disable.Title}
-            subTitle={Locale.Settings.Prompt.Disable.SubTitle}
-          >
-            <input
-              type="checkbox"
-              checked={config.disablePromptHint}
-              onChange={(e) =>
-                updateConfig(
-                  (config) =>
-                    (config.disablePromptHint = e.currentTarget.checked),
-                )
-              }
-            ></input>
-          </ListItem>
-
-          <ListItem
-            title={Locale.Settings.Prompt.List}
-            subTitle={Locale.Settings.Prompt.ListCount(
-              builtinCount,
-              customCount,
-            )}
-          >
-            <IconButton
-              icon={<EditIcon />}
-              text={Locale.Settings.Prompt.Edit}
-              onClick={() => setShowPromptModal(true)}
-            />
-          </ListItem>
-        </List>
-
-        <List id={SlotID.CustomModel}>
-          {accessCodeComponent}
-
-          {!accessStore.hideUserApiKey && (
-            <>
-              {useCustomConfigComponent}
-
-              {accessStore.useCustomConfig && (
-                <>
-                  <ListItem
-                    title={Locale.Settings.Access.Provider.Title}
-                    subTitle={Locale.Settings.Access.Provider.SubTitle}
-                  >
-                    <Select
-                      value={accessStore.provider}
-                      onChange={(e) => {
-                        accessStore.update(
-                          (access) =>
-                            (access.provider = e.target
-                              .value as ServiceProvider),
-                        );
-                      }}
-                    >
-                      {Object.entries(ServiceProvider).map(([k, v]) => (
-                        <option value={v} key={k}>
-                          {k}
-                        </option>
-                      ))}
-                    </Select>
-                  </ListItem>
-
-                  {openAIConfigComponent}
-                  {azureConfigComponent}
-                  {googleConfigComponent}
-                  {anthropicConfigComponent}
-                  {baiduConfigComponent}
-                  {byteDanceConfigComponent}
-                  {alibabaConfigComponent}
-                  {moonshotConfigComponent}
-                  {stabilityConfigComponent}
-                  {perplexityConfigComponent}
-                </>
-              )}
-            </>
-          )}
-
-          {!shouldHideBalanceQuery && !clientConfig?.isApp ? (
-            <ListItem
-              title={Locale.Settings.Usage.Title}
-              subTitle={
-                showUsage
-                  ? loadingUsage
-                    ? Locale.Settings.Usage.IsChecking
-                    : Locale.Settings.Usage.SubTitle(
-                        usage?.used ?? "[?]",
-                        usage?.subscription ?? "[?]",
-                      )
-                  : Locale.Settings.Usage.NoAccess
-              }
-            >
-              {!showUsage || loadingUsage ? (
-                <div />
-              ) : (
-                <IconButton
-                  icon={<ResetIcon></ResetIcon>}
-                  text={Locale.Settings.Usage.Check}
-                  onClick={() => checkUsage(true)}
-                />
-              )}
-            </ListItem>
-          ) : null}
-
-          <ListItem
-            title={Locale.Settings.Access.CustomModel.Title}
-            subTitle={Locale.Settings.Access.CustomModel.SubTitle}
-          >
-            <input
-              type="text"
-              value={config.customModels}
-              placeholder="model1,model2,model3"
-              onChange={(e) =>
-                config.update(
-                  (config) => (config.customModels = e.currentTarget.value),
-                )
-              }
-            ></input>
-          </ListItem>
-        </List>
-
-        {shouldShowPromptModal && (
-          <UserPromptModal onClose={() => setShowPromptModal(false)} />
-        )}
-      </List>
-    </List>
-  );
-}
-
-function ModelSettings() {
-  const config = useAppConfig();
-  const updateConfig = config.update;
-
-  return (
-    <List>
-      <List>
-        <ModelConfigList
-          modelConfig={config.modelConfig}
-          updateConfig={(updater) => {
-            const modelConfig = { ...config.modelConfig };
-            updater(modelConfig);
-            config.update((config) => (config.modelConfig = modelConfig));
-          }}
-        />
-      </List>
-
-      <List>
-        <ListItem
-          title={Locale.Settings.Mask.Splash.Title}
-          subTitle={Locale.Settings.Mask.Splash.SubTitle}
-        >
-          <input
-            type="checkbox"
-            checked={!config.dontShowMaskSplashScreen}
-            onChange={(e) =>
-              updateConfig(
-                (config) =>
-                  (config.dontShowMaskSplashScreen = !e.currentTarget.checked),
-              )
-            }
-          ></input>
-        </ListItem>
-
-        <ListItem
-          title={Locale.Settings.Mask.Builtin.Title}
-          subTitle={Locale.Settings.Mask.Builtin.SubTitle}
-        >
-          <input
-            type="checkbox"
-            checked={config.hideBuiltinMasks}
-            onChange={(e) =>
-              updateConfig(
-                (config) => (config.hideBuiltinMasks = e.currentTarget.checked),
-              )
-            }
-          ></input>
-        </ListItem>
-      </List>
-    </List>
-  );
-}
-
-function SyncSettings() {
-  const syncStore = useSyncStore();
-  const chatStore = useChatStore();
-  const promptStore = usePromptStore();
-  const maskStore = useMaskStore();
-  const couldSync = useMemo(() => {
-    return syncStore.cloudSync();
-  }, [syncStore]);
-
-  const [showSyncConfigModal, setShowSyncConfigModal] = useState(false);
-
-  const stateOverview = useMemo(() => {
-    const sessions = chatStore.sessions;
-    const messageCount = sessions.reduce((p, c) => p + c.messages.length, 0);
-
-    return {
-      chat: sessions.length,
-      message: messageCount,
-      prompt: Object.keys(promptStore.prompts).length,
-      mask: Object.keys(maskStore.masks).length,
-    };
-  }, [chatStore.sessions, maskStore.masks, promptStore.prompts]);
-
-  return (
-    <>
-      <List>
-        <ListItem
-          title={Locale.Settings.Sync.CloudState}
-          subTitle={
-            syncStore.lastProvider
-              ? `${new Date(syncStore.lastSyncTime).toLocaleString()} [${
-                  syncStore.lastProvider
-                }]`
-              : Locale.Settings.Sync.NotSyncYet
+      <ListItem
+        title={Locale.Settings.Access.CustomModel.Title}
+        subTitle={Locale.Settings.Access.CustomModel.SubTitle}
+      >
+        <input
+          type="text"
+          value={config.customModels}
+          placeholder="model1,model2,model3"
+          onChange={(e) =>
+            config.update(
+              (config) => (config.customModels = e.currentTarget.value),
+            )
           }
-        >
-          <div style={{ display: "flex" }}>
-            <IconButton
-              icon={<ConfigIcon />}
-              text={Locale.UI.Config}
-              onClick={() => {
-                setShowSyncConfigModal(true);
-              }}
-            />
-            {couldSync && (
-              <IconButton
-                icon={<ResetIcon />}
-                text={Locale.UI.Sync}
-                onClick={async () => {
-                  try {
-                    await syncStore.sync();
-                    showToast(Locale.Settings.Sync.Success);
-                  } catch (e) {
-                    showToast(Locale.Settings.Sync.Fail);
-                    console.error("[Sync]", e);
-                  }
-                }}
-              />
-            )}
-          </div>
-        </ListItem>
-
-        <ListItem
-          title={Locale.Settings.Sync.LocalState}
-          subTitle={Locale.Settings.Sync.Overview(stateOverview)}
-        >
-          <div style={{ display: "flex" }}>
-            <IconButton
-              icon={<UploadIcon />}
-              text={Locale.UI.Export}
-              onClick={() => {
-                syncStore.export();
-              }}
-            />
-            <IconButton
-              icon={<DownloadIcon />}
-              text={Locale.UI.Import}
-              onClick={() => {
-                syncStore.import();
-              }}
-            />
-          </div>
-        </ListItem>
-      </List>
-
-      <List>
-        <DangerItems />
-      </List>
-
-      {showSyncConfigModal && (
-        <SyncConfigModal onClose={() => setShowSyncConfigModal(false)} />
-      )}
-    </>
+        ></input>
+      </ListItem>
+    </List>
   );
 }
-
 export function Settings() {
   const [selectedSetting, setSelectedSetting] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -1618,6 +2148,7 @@ export function Settings() {
           <>
             <List>
               <ListItem
+                icon={<GeneralIcon />}
                 title={Locale.Settings.GeneralSettings}
                 onClick={() => toggleSetting("general")}
               >
@@ -1626,6 +2157,16 @@ export function Settings() {
             </List>
             <List>
               <ListItem
+                icon={<PasswordIcon />}
+                title={Locale.Settings.PasswordSettings}
+                onClick={() => toggleSetting("password")}
+              >
+                <DownIcon />
+              </ListItem>
+            </List>
+            <List>
+              <ListItem
+                icon={<ModelIcon />}
                 title={Locale.Settings.ModelSettings}
                 onClick={() => toggleSetting("model")}
               >
@@ -1634,8 +2175,18 @@ export function Settings() {
             </List>
             <List>
               <ListItem
+                icon={<DataIcon />}
                 title={Locale.Settings.DataSettings}
                 onClick={() => toggleSetting("sync")}
+              >
+                <DownIcon />
+              </ListItem>
+            </List>
+            <List>
+              <ListItem
+                icon={<ProxyIcon />}
+                title={Locale.Settings.ProxySettings}
+                onClick={() => toggleSetting("proxy")}
               >
                 <DownIcon />
               </ListItem>
@@ -1646,6 +2197,7 @@ export function Settings() {
         {selectedSetting === "general" && (
           <List>
             <ListItem
+              icon={<GeneralIcon />}
               title={Locale.Settings.GeneralSettings}
               onClick={() => toggleSetting("general")}
             >
@@ -1655,9 +2207,23 @@ export function Settings() {
         )}
         {selectedSetting === "general" && <GeneralSettings />}
 
+        {selectedSetting === "password" && (
+          <List>
+            <ListItem
+              icon={<PasswordIcon />}
+              title={Locale.Settings.PasswordSettings}
+              onClick={() => toggleSetting("password")}
+            >
+              <UpIcon />
+            </ListItem>
+          </List>
+        )}
+        {selectedSetting === "password" && <PasswordSettings />}
+
         {selectedSetting === "model" && (
           <List>
             <ListItem
+              icon={<ModelIcon />}
               title={Locale.Settings.ModelSettings}
               onClick={() => toggleSetting("model")}
             >
@@ -1670,6 +2236,7 @@ export function Settings() {
         {selectedSetting === "sync" && (
           <List>
             <ListItem
+              icon={<DataIcon />}
               title={Locale.Settings.DataSettings}
               onClick={() => toggleSetting("sync")}
             >
@@ -1678,6 +2245,19 @@ export function Settings() {
           </List>
         )}
         {selectedSetting === "sync" && <SyncSettings />}
+
+        {selectedSetting === "proxy" && (
+          <List>
+            <ListItem
+              icon={<ProxyIcon />}
+              title={Locale.Settings.ProxySettings}
+              onClick={() => toggleSetting("proxy")}
+            >
+              <UpIcon />
+            </ListItem>
+          </List>
+        )}
+        {selectedSetting === "proxy" && <ProxySettings />}
       </div>
     </ErrorBoundary>
   );

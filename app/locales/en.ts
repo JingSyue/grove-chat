@@ -151,8 +151,11 @@ const en: LocaleType = {
     SubTitle: "All Settings",
 
     GeneralSettings: "General Settings",
+    PasswordSettings: "Password Settings",
     ModelSettings: "Model Settings",
     DataSettings: "Data Settings",
+    ProxySettings: "Proxy Settings",
+
     Danger: {
       Reset: {
         Title: "Reset All Settings",
@@ -322,11 +325,11 @@ const en: LocaleType = {
       },
       CustomEndpoint: {
         Title: "Custom Endpoint",
-        SubTitle: "Use custom Azure or OpenAI service",
+        SubTitle: "Use custom service",
       },
       Provider: {
         Title: "Model Provider",
-        SubTitle: "Select Azure or OpenAI",
+        SubTitle: "Select provider",
       },
       OpenAI: {
         ApiKey: {

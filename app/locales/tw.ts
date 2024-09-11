@@ -145,8 +145,10 @@ const tw = {
     SubTitle: "設定選項",
 
     GeneralSettings: "一般設定",
+    PasswordSettings: "密碼設定",
     ModelSettings: "模型設定",
     DataSettings: "資料設定",
+    ProxySettings: "代理設定",
 
     Danger: {
       Reset: {
