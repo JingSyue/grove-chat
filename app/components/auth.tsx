@@ -1,16 +1,27 @@
 import styles from "./auth.module.scss";
 import { IconButton } from "./button";
-
+import { PasswordSettings } from "./settings";
 import { useNavigate } from "react-router-dom";
 import { Path } from "../constant";
 import { useAccessStore } from "../store";
 import Locale from "../locales";
+import PasswordIcon from "../icons/password.svg";
+
+import { List, ListItem, Select, PasswordInput, Input } from "./ui-lib";
+import DownIcon from "../icons/down.svg";
 
 import BotIcon from "../icons/bot.svg";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getClientConfig } from "../config/client";
 
 export function AuthPage() {
+  const [selectedSetting, setSelectedSetting] = useState<string | null>(null);
+
+  const toggleSetting = (setting: string) => {
+    setSelectedSetting((prevSetting) =>
+      prevSetting === setting ? null : setting,
+    );
+  };
   const navigate = useNavigate();
   const accessStore = useAccessStore();
 
@@ -37,46 +48,8 @@ export function AuthPage() {
       </div>
 
       <div className={styles["auth-title"]}>{Locale.Auth.Title}</div>
-      <div className={styles["auth-tips"]}>{Locale.Auth.Tips}</div>
 
-      <input
-        className={styles["auth-input"]}
-        type="password"
-        placeholder={Locale.Auth.Input}
-        value={accessStore.accessCode}
-        onChange={(e) => {
-          accessStore.update(
-            (access) => (access.accessCode = e.currentTarget.value),
-          );
-        }}
-      />
-      {!accessStore.hideUserApiKey ? (
-        <>
-          <div className={styles["auth-tips"]}>{Locale.Auth.SubTips}</div>
-          <input
-            className={styles["auth-input"]}
-            type="password"
-            placeholder={Locale.Settings.Access.OpenAI.ApiKey.Placeholder}
-            value={accessStore.openaiApiKey}
-            onChange={(e) => {
-              accessStore.update(
-                (access) => (access.openaiApiKey = e.currentTarget.value),
-              );
-            }}
-          />
-          <input
-            className={styles["auth-input"]}
-            type="password"
-            placeholder={Locale.Settings.Access.Google.ApiKey.Placeholder}
-            value={accessStore.googleApiKey}
-            onChange={(e) => {
-              accessStore.update(
-                (access) => (access.googleApiKey = e.currentTarget.value),
-              );
-            }}
-          />
-        </>
-      ) : null}
+      <PasswordSettings />
 
       <div className={styles["auth-actions"]}>
         <IconButton
