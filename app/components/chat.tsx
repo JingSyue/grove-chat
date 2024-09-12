@@ -940,6 +940,7 @@ function _Chat() {
     // 2. for a bot's message, find the last user's input
     // 3. delete original user input and bot's message
     // 4. resend the user's input
+    const session = chatStore.currentSession();
 
     const resendingIndex = session.messages.findIndex(
       (m) => m.id === message.id,

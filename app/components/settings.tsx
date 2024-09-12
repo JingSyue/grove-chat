@@ -812,7 +812,7 @@ function GeneralSettings() {
   );
 }
 
-function PasswordSettings() {
+export function PasswordSettings() {
   const navigate = useNavigate();
   const updateStore = useUpdateStore();
   const [checkingUpdate, setCheckingUpdate] = useState(false);
@@ -2021,8 +2021,6 @@ function ProxySettings() {
 
   return (
     <List id={SlotID.CustomModel}>
-      {accessCodeComponent}
-
       {!accessStore.hideUserApiKey && (
         <>
           {useCustomConfigComponent}
