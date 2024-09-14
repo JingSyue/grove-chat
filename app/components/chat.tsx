@@ -40,6 +40,15 @@ import StopIcon from "../icons/pause.svg";
 import RobotIcon from "../icons/robot.svg";
 import PluginIcon from "../icons/plugin.svg";
 
+import OpenAIIcon from "../icons/openai.svg";
+import AnthropicIcon from "../icons/anthropic.svg";
+import PerplexityIcon from "../icons/perplexity.svg";
+import BaiduIcon from "../icons/baidu.svg";
+import ByteDanceIcon from "../icons/bytedance.svg";
+import AlibabaIcon from "../icons/alibaba.svg";
+import GoogleIcon from "../icons/gemini.svg";
+import MoonshotIcon from "../icons/moonshot.svg";
+
 import {
   ChatMessage,
   SubmitKey,
@@ -92,6 +101,7 @@ import {
   UNFINISHED_INPUT,
   ServiceProvider,
   Plugin,
+  Baidu,
 } from "../constant";
 import { Avatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
@@ -509,6 +519,17 @@ export function ChatActions(props: {
     }
   }, [chatStore, currentModel, models]);
 
+  const ProviderIcon = {
+    OpenAI: <OpenAIIcon />,
+    Anthropic: <AnthropicIcon />,
+    Google: <GoogleIcon />,
+    ByteDance: <ByteDanceIcon />,
+    Baidu: <BaiduIcon />,
+    Alibaba: <AlibabaIcon />,
+    Moonshot: <MoonshotIcon />,
+    Perplexity: <PerplexityIcon />,
+  };
+
   return (
     <div className={styles["chat-input-actions"]}>
       {couldStop && (
@@ -601,6 +622,11 @@ export function ChatActions(props: {
                 : ""
             }`,
             value: `${m.name}@${m?.provider?.providerName}`,
+            icon: m?.provider?.providerName
+              ? ProviderIcon[
+                  m.provider.providerName as keyof typeof ProviderIcon
+                ]
+              : undefined,
           }))}
           onClose={() => setShowModelSelector(false)}
           onSelection={(s) => {

@@ -462,6 +462,7 @@ export function Selector<T>(props: {
   items: Array<{
     title: string;
     subTitle?: string;
+    icon?: JSX.Element;
     value: T;
     disable?: boolean;
   }>;
@@ -505,6 +506,7 @@ export function Selector<T>(props: {
                   item.disable && styles["selector-item-disabled"]
                 }`}
                 key={i}
+                icon={item.icon}
                 title={item.title}
                 subTitle={item.subTitle}
                 onClick={(e) => {
