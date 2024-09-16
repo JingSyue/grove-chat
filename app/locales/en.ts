@@ -75,6 +75,11 @@ const en: LocaleType = {
         pinwheel: "Pinwheel",
         rain: "Rain",
       },
+      SuggestConfig: {
+        RealTime: "Real-time Query",
+        Creative: "Branstorming",
+        Programming: "Coding",
+      },
       Prompt: "Prompts",
       Masks: "Masks",
       Clear: "Clear Context",
@@ -477,6 +482,11 @@ const en: LocaleType = {
     },
 
     Model: "Model",
+    SuggestConfig: {
+      Title: "Recommended settings",
+      SubTitle:
+        "Based on your use case, we've suggested the best parameter and model combinations for you",
+    },
     Temperature: {
       Title: "Temperature",
       SubTitle: "A larger value makes the more random output",

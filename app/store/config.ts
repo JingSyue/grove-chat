@@ -45,6 +45,44 @@ export enum Background {
 }
 const config = getClientConfig();
 
+export enum SuggestConfig {
+  RealTime = "RealTime",
+  Creative = "Creative",
+  Programming = "Programming",
+}
+
+export const CustomConfig = {
+  [SuggestConfig.RealTime]: {
+    name: "RealTime",
+    model: "llama-3.1-sonar-small-128k-online",
+    providerName: "Perplexity" as ServiceProvider,
+    temperature: 0.5,
+    top_p: 1,
+    presence_penalty: 0.5,
+    frequency_penalty: 1,
+  },
+  [SuggestConfig.Creative]: {
+    name: "Creative",
+    model: "gpt-4o",
+    providerName: "OpenAI" as ServiceProvider,
+    temperature: 0.8,
+    top_p: 0.9,
+    max_tokens: 3000,
+    presence_penalty: 0,
+    frequency_penalty: 0.3,
+  },
+  [SuggestConfig.Programming]: {
+    name: "Programming",
+    model: "claude-3-5-sonnet-20240620",
+    providerName: "Anthropic" as ServiceProvider,
+    temperature: 0.3,
+    top_p: 0.5,
+    max_tokens: 3000,
+    presence_penalty: 0.1,
+    frequency_penalty: 0.6,
+  },
+};
+
 export const DEFAULT_CONFIG = {
   lastUpdate: Date.now(), // timestamp, to merge state
   customTitle: CUSTOMTITLE, //add custom title
@@ -68,8 +106,11 @@ export const DEFAULT_CONFIG = {
   customModels: "",
   models: DEFAULT_MODELS as any as LLMModel[],
 
+  //suggestConfig: SuggestConfig.RealTime as SuggestConfig|| null,
+
   modelConfig: {
-    model: "gpt-3.5-turbo" as ModelType,
+    name: "RealTime",
+    model: "gpt-4o" as ModelType,
     providerName: "OpenAI" as ServiceProvider,
     temperature: 0.5,
     top_p: 1,

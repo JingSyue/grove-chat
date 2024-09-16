@@ -77,6 +77,13 @@ const cn = {
         rain: "雨滴",
       },
 
+      // Suggest Config
+      SuggestConfig: {
+        RealTime: "实时查询",
+        Creative: "创意萌发",
+        Programming: "代码编写",
+      },
+
       Prompt: "快捷指令",
       Masks: "所有面具",
       Clear: "清除聊天",
@@ -472,6 +479,10 @@ const cn = {
     },
 
     Model: "模型 (model)",
+    SuggestConfig: {
+      Title: "推荐设置",
+      SubTitle: "基于你的使用场景，我们为你推荐了合适的参数和模型组合",
+    },
     Temperature: {
       Title: "随机性 (temperature)",
       SubTitle: "值越大，回复越随机",

@@ -74,6 +74,11 @@ const tw = {
         pinwheel: "風車",
         rain: "雨滴",
       },
+      SuggestConfig: {
+        RealTime: "即時查詢",
+        Creative: "創意發想",
+        Programming: "程式編寫",
+      },
       Prompt: "快捷指令",
       Masks: "所有角色範本",
       Clear: "清除聊天",
@@ -390,6 +395,10 @@ const tw = {
     },
 
     Model: "模型 (model)",
+    SuggestConfig: {
+      Title: "推薦配置",
+      SubTitle: "基于對話場景，我们為你推薦了最佳的参數和模型组合",
+    },
     Temperature: {
       Title: "隨機性 (temperature)",
       SubTitle: "值越大，回應越隨機",

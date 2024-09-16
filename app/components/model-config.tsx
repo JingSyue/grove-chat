@@ -1,5 +1,11 @@
 import { ServiceProvider } from "@/app/constant";
-import { ModalConfigValidator, ModelConfig } from "../store";
+import {
+  ModalConfigValidator,
+  ModelConfig,
+  ModelType,
+  SuggestConfig,
+  CustomConfig,
+} from "../store";
 
 import Locale from "../locales";
 import { InputRange } from "./input-range";
@@ -15,6 +21,36 @@ export function ModelConfigList(props: {
 
   return (
     <>
+      <ListItem
+        title={Locale.Settings.SuggestConfig.Title}
+        subTitle={Locale.Settings.SuggestConfig.SubTitle}
+      >
+        <Select
+          value={props.modelConfig.name}
+          onChange={(e) => {
+            const selectedConfig = e.currentTarget.value as SuggestConfig;
+
+            props.updateConfig((config) => {
+              config.name = CustomConfig[selectedConfig].name;
+              config.model = ModalConfigValidator.model(
+                CustomConfig[selectedConfig].model,
+              );
+              config.providerName = CustomConfig[selectedConfig].providerName;
+              config.temperature = CustomConfig[selectedConfig].temperature;
+              config.frequency_penalty =
+                CustomConfig[selectedConfig].frequency_penalty;
+              config.top_p = CustomConfig[selectedConfig].top_p;
+            });
+          }}
+        >
+          {Object.values(SuggestConfig).map((v) => (
+            <option value={v} key={v}>
+              {Locale.Chat.InputActions.SuggestConfig[v] || v}
+            </option>
+          ))}
+        </Select>
+      </ListItem>
+
       <ListItem title={Locale.Settings.Model}>
         <Select
           value={value}
@@ -35,6 +71,7 @@ export function ModelConfigList(props: {
             ))}
         </Select>
       </ListItem>
+
       <ListItem
         title={Locale.Settings.Temperature.Title}
         subTitle={Locale.Settings.Temperature.SubTitle}
@@ -54,6 +91,7 @@ export function ModelConfigList(props: {
           }}
         ></InputRange>
       </ListItem>
+
       <ListItem
         title={Locale.Settings.TopP.Title}
         subTitle={Locale.Settings.TopP.SubTitle}
@@ -73,6 +111,7 @@ export function ModelConfigList(props: {
           }}
         ></InputRange>
       </ListItem>
+
       <ListItem
         title={Locale.Settings.MaxTokens.Title}
         subTitle={Locale.Settings.MaxTokens.SubTitle}
