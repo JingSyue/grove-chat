@@ -48,6 +48,8 @@ import ByteDanceIcon from "../icons/bytedance.svg";
 import AlibabaIcon from "../icons/alibaba.svg";
 import GoogleIcon from "../icons/gemini.svg";
 import MoonshotIcon from "../icons/moonshot.svg";
+import GroveIcon from "../icons/grove.svg";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 import {
   ChatMessage,
@@ -1327,15 +1329,6 @@ function _Chat() {
           </div>
         </div>
         <div className="window-actions">
-          {!isMobileScreen && (
-            <div className="window-action-button">
-              <IconButton
-                icon={<RenameIcon />}
-                bordered
-                onClick={() => setIsEditingMessage(true)}
-              />
-            </div>
-          )}
           <div className="window-action-button">
             <IconButton
               icon={<ExportIcon />}
@@ -1346,6 +1339,14 @@ function _Chat() {
               }}
             />
           </div>
+          <div className="window-action-button">
+            <IconButton
+              icon={<RenameIcon />}
+              bordered
+              onClick={() => setIsEditingMessage(true)}
+            />
+          </div>
+
           {showMaxIcon && (
             <div className="window-action-button">
               <IconButton

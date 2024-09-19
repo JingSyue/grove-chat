@@ -109,7 +109,7 @@ export const DEFAULT_CONFIG = {
   //suggestConfig: SuggestConfig.RealTime as SuggestConfig|| null,
 
   modelConfig: {
-    name: "RealTime",
+    name: "Creactive",
     model: "gpt-4o" as ModelType,
     providerName: "OpenAI" as ServiceProvider,
     temperature: 0.5,

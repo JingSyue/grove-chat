@@ -54,7 +54,7 @@ const DEFAULT_PERPLEXITY_URL = isApp
 
 const DEFAULT_ACCESS_STATE = {
   accessCode: "",
-  useCustomConfig: true,
+  useCustomConfig: false,
 
   provider: ServiceProvider.OpenAI,
 

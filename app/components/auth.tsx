@@ -5,11 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { Path } from "../constant";
 import { useAccessStore } from "../store";
 import Locale from "../locales";
-import PasswordIcon from "../icons/password.svg";
-
-import { List, ListItem, Select, PasswordInput, Input } from "./ui-lib";
-import DownIcon from "../icons/down.svg";
-
 import BotIcon from "../icons/bot.svg";
 import { useEffect, useState } from "react";
 import { getClientConfig } from "../config/client";
