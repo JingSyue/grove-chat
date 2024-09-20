@@ -48,8 +48,6 @@ import ByteDanceIcon from "../icons/bytedance.svg";
 import AlibabaIcon from "../icons/alibaba.svg";
 import GoogleIcon from "../icons/gemini.svg";
 import MoonshotIcon from "../icons/moonshot.svg";
-import GroveIcon from "../icons/grove.svg";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 import {
   ChatMessage,
@@ -103,7 +101,6 @@ import {
   UNFINISHED_INPUT,
   ServiceProvider,
   Plugin,
-  Baidu,
 } from "../constant";
 import { Avatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
@@ -522,14 +519,46 @@ export function ChatActions(props: {
   }, [chatStore, currentModel, models]);
 
   const ProviderIcon = {
-    OpenAI: <OpenAIIcon />,
-    Anthropic: <AnthropicIcon />,
-    Google: <GoogleIcon />,
-    ByteDance: <ByteDanceIcon />,
-    Baidu: <BaiduIcon />,
-    Alibaba: <AlibabaIcon />,
-    Moonshot: <MoonshotIcon />,
-    Perplexity: <PerplexityIcon />,
+    OpenAI: (
+      <div className="no-dark">
+        <OpenAIIcon />
+      </div>
+    ),
+    Anthropic: (
+      <div className="no-dark">
+        <AnthropicIcon />
+      </div>
+    ),
+    Google: (
+      <div className="no-dark">
+        <GoogleIcon />
+      </div>
+    ),
+    ByteDance: (
+      <div className="no-dark">
+        <ByteDanceIcon />
+      </div>
+    ),
+    Baidu: (
+      <div className="no-dark">
+        <BaiduIcon />
+      </div>
+    ),
+    Alibaba: (
+      <div className="no-dark">
+        <AlibabaIcon />
+      </div>
+    ),
+    Moonshot: (
+      <div className="no-dark">
+        <MoonshotIcon />
+      </div>
+    ),
+    Perplexity: (
+      <div className="no-dark">
+        <PerplexityIcon />
+      </div>
+    ),
   };
 
   return (

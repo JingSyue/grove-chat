@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16">
+<rect x="3" y="3" width="10" height="10" fill="#FFFFFF"/>
   <g transform="translate(0,16) scale(0.008,-0.008)" fill="#000000" stroke="none">
     <path d="M450 1984 c-217 -46 -389 -220 -435 -439 -21 -98 -21 -998 -1 -1093
     46 -213 225 -393 433 -437 86 -18 977 -22 1082 -4 222 37 409 219 456 444 21
