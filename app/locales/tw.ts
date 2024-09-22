@@ -151,6 +151,8 @@ const tw = {
 
     GeneralSettings: "一般設定",
     PasswordSettings: "密碼設定",
+    MaskSettings: "角色設定",
+    PromptSettings: "提示詞設定",
     ModelSettings: "模型設定",
     DataSettings: "資料設定",
     ProxySettings: "代理設定",

@@ -157,10 +157,12 @@ const cn = {
   Settings: {
     Title: "设置",
     SubTitle: "所有设置选项",
-    // add settings
     GeneralSettings: "通用设置",
     PasswordSettings: "密码设置",
     ModelSettings: "模型设置",
+    // add prompt and mask settings
+    PromptSettings: "提示词设置",
+    MaskSettings: "面具设置",
     DataSettings: "数据设置",
     ProxySettings: "代理设置",
 

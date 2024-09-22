@@ -158,6 +158,8 @@ const en: LocaleType = {
     GeneralSettings: "General Settings",
     PasswordSettings: "Password Settings",
     ModelSettings: "Model Settings",
+    MaskSettings: "Mask Settings",
+    PromptSettings: "Prompt Settings",
     DataSettings: "Data Settings",
     ProxySettings: "Proxy Settings",
 

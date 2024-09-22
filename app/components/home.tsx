@@ -15,6 +15,8 @@ import dynamic from "next/dynamic";
 import { Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
 
+import { checkPermission, PermissionLevel } from "./auth/permission";
+
 import { getISOLang, getLang } from "../locales";
 
 import {
@@ -29,6 +31,7 @@ import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
 import { type ClientApi, getClientApi } from "../client/api";
 import { useAccessStore } from "../store";
+import useUserRole from "./auth/useUserRole";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -212,6 +215,7 @@ export function Home() {
   useLoadData();
   useHtmlLang();
 
+  useUserRole();
   useEffect(() => {
     console.log("[Config] got config from build time", getClientConfig());
     useAccessStore.getState().fetch();
