@@ -15,8 +15,6 @@ import dynamic from "next/dynamic";
 import { Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
 
-import { checkPermission, PermissionLevel } from "./auth/permission";
-
 import { getISOLang, getLang } from "../locales";
 
 import {
@@ -31,7 +29,8 @@ import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
 import { type ClientApi, getClientApi } from "../client/api";
 import { useAccessStore } from "../store";
-import useUserRole from "./auth/useUserRole";
+import { useUpdateClerkUser } from "../store";
+import LogRocket from "logrocket";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -49,6 +48,10 @@ const Artifacts = dynamic(async () => (await import("./artifacts")).Artifacts, {
 const Settings = dynamic(async () => (await import("./settings")).Settings, {
   loading: () => <Loading noLogo />,
 });
+
+// const Classroom = dynamic(async () => (await import("./classroom")).Classroom, {
+//   loading: () => <Loading noLogo />,
+// });
 
 const Chat = dynamic(async () => (await import("./chat")).Chat, {
   loading: () => <Loading noLogo />,
@@ -179,6 +182,7 @@ function Screen() {
             <Route path={Path.Masks} element={<MaskPage />} />
             <Route path={Path.Chat} element={<Chat />} />
             <Route path={Path.Settings} element={<Settings />} />
+            {/* <Route path={Path.Classroom} element={<Classroom />} /> */}
           </Routes>
         </WindowContent>
       </>
@@ -214,12 +218,17 @@ export function Home() {
   useSwitchTheme();
   useLoadData();
   useHtmlLang();
-
-  useUserRole();
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      LogRocket.init("4rxkij/grovechat");
+    }
+  }, []);
   useEffect(() => {
     console.log("[Config] got config from build time", getClientConfig());
     useAccessStore.getState().fetch();
   }, []);
+
+  useUpdateClerkUser();
 
   if (!useHasHydrated()) {
     return <Loading />;

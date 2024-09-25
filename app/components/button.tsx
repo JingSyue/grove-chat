@@ -1,5 +1,4 @@
-import * as React from "react";
-
+import { UserButton } from "@clerk/nextjs"; // Import UserButton from Clerk
 import styles from "./button.module.scss";
 import { CSSProperties } from "react";
 
@@ -18,6 +17,7 @@ export function IconButton(props: {
   tabIndex?: number;
   autoFocus?: boolean;
   style?: CSSProperties;
+  userButton?: boolean; // Add a prop to check if it's for UserButton
 }) {
   return (
     <button
@@ -35,19 +35,26 @@ export function IconButton(props: {
       autoFocus={props.autoFocus}
       style={props.style}
     >
-      {props.icon && (
-        <div
-          className={
-            styles["icon-button-icon"] +
-            ` ${props.type === "primary" && "no-dark"}`
-          }
-        >
-          {props.icon}
-        </div>
-      )}
+      {/* Render UserButton if the userButton prop is true */}
+      {props.userButton ? (
+        <UserButton />
+      ) : (
+        <>
+          {props.icon && (
+            <div
+              className={
+                styles["icon-button-icon"] +
+                ` ${props.type === "primary" && "no-dark"}`
+              }
+            >
+              {props.icon}
+            </div>
+          )}
 
-      {props.text && (
-        <div className={styles["icon-button-text"]}>{props.text}</div>
+          {props.text && (
+            <div className={styles["icon-button-text"]}>{props.text}</div>
+          )}
+        </>
       )}
     </button>
   );

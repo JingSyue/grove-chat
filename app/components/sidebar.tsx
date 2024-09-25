@@ -13,6 +13,7 @@ import MaskIcon from "../icons/mask.svg";
 import DragIcon from "../icons/drag.svg";
 import DiscoveryIcon from "../icons/discovery.svg";
 import Locale from "../locales";
+import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 import { useAppConfig, useChatStore } from "../store";
 
@@ -252,28 +253,55 @@ export function SideBar(props: { className?: string }) {
           </div>
         }
       >
-        <div className={styles["sidebar-header-bar"]}>
-          <IconButton
-            icon={<MaskIcon />}
-            text={shouldNarrow ? undefined : Locale.Mask.Name}
-            className={styles["sidebar-bar-button"]}
-            onClick={() => {
-              if (config.dontShowMaskSplashScreen !== true) {
-                navigate(Path.NewChat, { state: { fromHome: true } });
-              } else {
-                navigate(Path.Masks, { state: { fromHome: true } });
-              }
-            }}
-            shadow
-          />
-          <IconButton
+        <SignedOut>
+          <div className={styles["sidebar-header-bar"]}>
+            {/* 登入後顯示面具頁面 */}
+            <SignInButton mode="modal" forceRedirectUrl="/#/new-chat">
+              <IconButton
+                icon={<DiscoveryIcon />}
+                text={shouldNarrow ? undefined : Locale.SignIn.Name}
+                className={styles["sidebar-bar-button"]}
+                shadow
+              />
+            </SignInButton>
+          </div>
+        </SignedOut>
+
+        <SignedIn>
+          <div className={styles["sidebar-header-bar"]}>
+            <IconButton
+              icon={<MaskIcon />}
+              text={shouldNarrow ? undefined : Locale.Mask.Name}
+              className={styles["sidebar-bar-button"]}
+              onClick={() => {
+                if (config.dontShowMaskSplashScreen !== true) {
+                  navigate(Path.NewChat, { state: { fromHome: true } });
+                } else {
+                  navigate(Path.Masks, { state: { fromHome: true } });
+                }
+              }}
+              shadow
+            />
+            {/* <IconButton
             icon={<DiscoveryIcon />}
             text={shouldNarrow ? undefined : Locale.Discovery.Name}
             className={styles["sidebar-bar-button"]}
             onClick={() => setShowPluginSelector(true)}
             shadow
-          />
-        </div>
+          /> */}
+            <IconButton userButton={true} />
+            {/* <IconButton
+                icon={<DiscoveryIcon />}
+                text={shouldNarrow ? undefined : Locale.Discovery.Name}
+                className={styles["sidebar-bar-button"]}
+                onClick={() =>
+                  navigate(Path.Classroom, { state: { fromHome: true } })
+                }
+                shadow
+              /> */}
+          </div>
+        </SignedIn>
+
         {showPluginSelector && (
           <Selector
             items={[
@@ -305,6 +333,7 @@ export function SideBar(props: { className?: string }) {
       >
         <ChatList narrow={shouldNarrow} />
       </SideBarBody>
+
       <SideBarTail
         primaryAction={
           <>

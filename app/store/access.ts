@@ -10,6 +10,8 @@ import { getClientConfig } from "../config/client";
 import { createPersistStore } from "../utils/store";
 import { ensure } from "../utils/clone";
 import { DEFAULT_CONFIG } from "./config";
+import { useUser } from "@clerk/nextjs";
+import { useEffect } from "react";
 
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
 
@@ -53,8 +55,22 @@ const DEFAULT_PERPLEXITY_URL = isApp
   : ApiPath.Perplexity;
 
 const DEFAULT_ACCESS_STATE = {
+  isSignedIn: false,
+  userId: "",
+  userEmail: "",
+  userRole: "",
+
   accessCode: "",
   useCustomConfig: false,
+
+  // server config
+  needCode: false,
+  hideUserApiKey: false,
+  hideBalanceQuery: false,
+  disableGPT4: false,
+  disableFastLink: false,
+  customModels: "",
+  defaultModel: "",
 
   provider: ServiceProvider.OpenAI,
 
@@ -102,15 +118,6 @@ const DEFAULT_ACCESS_STATE = {
   //perplexity
   perplexityUrl: DEFAULT_PERPLEXITY_URL,
   perplexityApiKey: "",
-
-  // server config
-  needCode: true,
-  hideUserApiKey: false,
-  hideBalanceQuery: false,
-  disableGPT4: false,
-  disableFastLink: false,
-  customModels: "",
-  defaultModel: "",
 };
 
 export const useAccessStore = createPersistStore(
@@ -159,11 +166,21 @@ export const useAccessStore = createPersistStore(
       return ensure(get(), ["perplexityApiKey"]);
     },
 
+    setClerkUser: (userInfo: {
+      isSignedIn: boolean;
+      userId: string;
+      userEmail: string;
+      userRole: string;
+    }) => {
+      set(userInfo);
+    },
+
     isAuthorized() {
       this.fetch();
 
       // has token or has code or disabled access control
       return (
+        get().isSignedIn ||
         this.isValidOpenAI() ||
         this.isValidAzure() ||
         this.isValidGoogle() ||
@@ -209,7 +226,7 @@ export const useAccessStore = createPersistStore(
   }),
   {
     name: StoreKey.Access,
-    version: 2,
+    version: 3,
     migrate(persistedState, version) {
       if (version < 2) {
         const state = persistedState as {
@@ -221,8 +238,37 @@ export const useAccessStore = createPersistStore(
         state.openaiApiKey = state.token;
         state.azureApiVersion = "2023-08-01-preview";
       }
-
+      if (version < 3) {
+        (persistedState as any).isSignedIn = false;
+        (persistedState as any).userId = "";
+        (persistedState as any).userEmail = "";
+        (persistedState as any).userRole = "guest";
+      }
       return persistedState as any;
     },
   },
 );
+
+export function useUpdateClerkUser() {
+  const { user, isLoaded, isSignedIn } = useUser();
+  const setClerkUser = useAccessStore((state) => state.setClerkUser);
+
+  useEffect(() => {
+    if (isLoaded) {
+      setClerkUser({
+        isSignedIn: isSignedIn || false,
+        userId: user?.id || "",
+        userEmail: user?.primaryEmailAddress?.emailAddress || "",
+        userRole: (user?.publicMetadata.role as string) || "guest",
+      });
+      console.log(
+        "useUpdateClerkUser",
+        isLoaded,
+        isSignedIn,
+        user?.id,
+        user?.primaryEmailAddress?.emailAddress,
+        user?.publicMetadata.role,
+      );
+    }
+  }, [isLoaded, isSignedIn, user, setClerkUser]);
+}

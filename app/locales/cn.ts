@@ -8,7 +8,7 @@ const cn = {
   Error: {
     Unauthorized: isApp
       ? "检测到无效 API Key，请前往[设置](/#/settings)页检查 API Key 是否配置正确。"
-      : "访问密码不正确或为空，请前往[登录](/#/auth)页输入正确的访问密码，或者在[设置](/#/settings)页填入你自己的 API Key。",
+      : "请登录，或者在[设置](/#/settings)页填入你自己的 API Key。",
   },
   Auth: {
     Title: "需要密码",
@@ -539,6 +539,19 @@ const cn = {
   },
   Discovery: {
     Name: "发现",
+  },
+  // add Sign in
+  SignIn: {
+    Title: "登录",
+    Name: "登录",
+    Username: {
+      Title: "信箱",
+      SubTitle: "輸入信箱",
+    },
+    Password: {
+      Title: "密碼",
+      SubTitle: "輸入密碼",
+    },
   },
   FineTuned: {
     Sysmessage: "你是一个助手",

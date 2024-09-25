@@ -35,6 +35,7 @@ export const CUSTOMTITLE: string = "Grove"; //set your default custom title
 export const CUSTOMSUBTITLE: string = "Promptbooks for GitHub repository"; // set your default custom subtitle
 
 export enum Path {
+  // Classroom = "/classroom",
   Home = "/",
   Chat = "/chat",
   Settings = "/settings",
@@ -244,25 +245,25 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gemini-pro-vision": "2023-12",
 };
 
-const openaiModels = ["gpt-4o", "gpt-4o-mini-2024-07-18"];
+const openaiModels = ["gpt-3.5-turbo"];
 
 const googleModels = ["gemini-pro-vision"];
 
-const anthropicModels = ["claude-3-5-sonnet-20240620"];
+const anthropicModels = ["claude-3-sonnet-20240229"];
 
-const baiduModels = ["ernie-4.0-8k-latest"];
+const baiduModels = [""];
 
-const bytedanceModels = ["Doubao-pro-128k"];
+const bytedanceModels = [""];
 
-const alibabaModes = ["qwen-max-longcontext"];
+const alibabaModes = [""];
 
-const moonshotModes = ["moonshot-v1-128k"];
+const moonshotModes = [""];
 
 const perplexityModels = [
   // Perplexity Sonar Models
   "llama-3.1-sonar-small-128k-online",
-  "llama-3.1-sonar-large-128k-online",
-  "llama-3.1-sonar-huge-128k-online",
+  //"llama-3.1-sonar-large-128k-online",
+  //"llama-3.1-sonar-huge-128k-online",
 ];
 
 export const DEFAULT_MODELS = [

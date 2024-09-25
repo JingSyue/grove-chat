@@ -8,7 +8,7 @@ const tw = {
   Error: {
     Unauthorized: isApp
       ? "偵測到無效的 API Key，請前往[設定](/#/settings)頁面檢查 API Key 是否設定正確。"
-      : "存取密碼不正確或尚未填寫，請前往[登入](/#/auth)頁面輸入正確的存取密碼，或者在[設定](/#/settings)頁面填入你自己的 API Key。",
+      : "請登入，或者在[設定](/#/settings)頁面在代理設定填入你自己的 API Key。",
   },
 
   Auth: {
@@ -100,6 +100,18 @@ const tw = {
       SaveAs: "另存新檔",
     },
     IsContext: "預設提示詞",
+  },
+  SignIn: {
+    Title: "登入",
+    Name: "登入",
+    Username: {
+      Title: "信箱",
+      SubTitle: "輸入信箱",
+    },
+    Password: {
+      Title: "密碼",
+      SubTitle: "輸入密碼",
+    },
   },
   Export: {
     Title: "將聊天記錄匯出為 Markdown",

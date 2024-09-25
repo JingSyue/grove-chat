@@ -1,6 +1,5 @@
 // settings.tsx
-import { useState, useEffect, useMemo } from "react";
-
+import React, { useState, useEffect, useMemo } from "react";
 import styles from "./settings.module.scss";
 
 import DownIcon from "../icons/down.svg";
@@ -92,7 +91,7 @@ import { nanoid } from "nanoid";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
 
-import useUserRole from "./auth/useUserRole";
+import { hasPermission, Role } from "../utils/auth";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -1138,6 +1137,7 @@ export function PasswordSettings() {
 }
 function ModelSettings() {
   const config = useAppConfig();
+
   return (
     <List>
       <List>
@@ -1193,87 +1193,12 @@ function MaskSettings() {
 }
 
 function PromptSettings() {
-  const navigate = useNavigate();
-  const updateStore = useUpdateStore();
-  const [checkingUpdate, setCheckingUpdate] = useState(false);
-
   const config = useAppConfig();
   const updateConfig = config.update;
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [customTitle, setCustomTitle] = useState(config.customTitle);
-  const [customSubtitle, setCustomSubtitle] = useState(config.customSubtitle);
-
   const promptStore = usePromptStore();
   const builtinCount = SearchService.count.builtin;
   const customCount = promptStore.getUserPrompts().length ?? 0;
   const [shouldShowPromptModal, setShowPromptModal] = useState(false);
-
-  function checkUpdate(force = false) {
-    setCheckingUpdate(true);
-    updateStore.getLatestVersion(force).then(() => {
-      setCheckingUpdate(false);
-    });
-
-    console.log("[Update] local version ", updateStore.version);
-    console.log("[Update] remote version ", updateStore.remoteVersion);
-  }
-
-  const accessStore = useAccessStore();
-
-  const [loadingUsage, setLoadingUsage] = useState(false);
-  function checkUsage(force = false) {
-    if (shouldHideBalanceQuery) {
-      return;
-    }
-
-    setLoadingUsage(true);
-    updateStore.updateUsage(force).finally(() => {
-      setLoadingUsage(false);
-    });
-  }
-
-  const showUsage = accessStore.isAuthorized();
-  useEffect(() => {
-    // checks per minutes
-    checkUpdate();
-    showUsage && checkUsage();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const keydownEvent = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        navigate(Path.Home);
-      }
-    };
-    if (clientConfig?.isApp) {
-      // Force to set custom endpoint to true if it's app
-      accessStore.update((state) => {
-        state.useCustomConfig = true;
-      });
-    }
-    document.addEventListener("keydown", keydownEvent);
-    return () => {
-      document.removeEventListener("keydown", keydownEvent);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const clientConfig = useMemo(() => getClientConfig(), []);
-
-  const shouldHideBalanceQuery = useMemo(() => {
-    const isOpenAiUrl = accessStore.openaiUrl.includes(OPENAI_BASE_URL);
-
-    return (
-      accessStore.hideBalanceQuery ||
-      isOpenAiUrl ||
-      accessStore.provider === ServiceProvider.Azure
-    );
-  }, [
-    accessStore.hideBalanceQuery,
-    accessStore.openaiUrl,
-    accessStore.provider,
-  ]);
 
   return (
     <List>
@@ -2147,7 +2072,10 @@ function ProxySettings() {
 export function Settings() {
   const [selectedSetting, setSelectedSetting] = useState<string | null>(null);
   const navigate = useNavigate();
-  const userRole = useUserRole();
+  const { isSignedIn, userRole } = useAccessStore((state) => ({
+    userRole: state.userRole as Role,
+    isSignedIn: state.isSignedIn,
+  }));
 
   const toggleSetting = (setting: string) => {
     setSelectedSetting((prevSetting) =>
@@ -2182,16 +2110,20 @@ export function Settings() {
       <div className={styles["settings"]}>
         {selectedSetting === null && (
           <>
-            <List>
-              <ListItem
-                icon={<GeneralIcon />}
-                title={Locale.Settings.GeneralSettings}
-                onClick={() => toggleSetting("general")}
-              >
-                <DownIcon />
-              </ListItem>
-            </List>
-            <List>
+            {
+              <List>
+                <ListItem
+                  icon={<GeneralIcon />}
+                  title={Locale.Settings.GeneralSettings}
+                  onClick={() => toggleSetting("general")}
+                >
+                  <DownIcon />
+                </ListItem>
+              </List>
+            }
+
+            {/* delete access code */}
+            {/* <List>
               <ListItem
                 icon={<PasswordIcon />}
                 title={Locale.Settings.PasswordSettings}
@@ -2199,9 +2131,9 @@ export function Settings() {
               >
                 <DownIcon />
               </ListItem>
-            </List>
+            </List> */}
 
-            {userRole.role === "assistant" && (
+            {hasPermission(userRole, "teacher") && (
               <List>
                 <ListItem
                   icon={<ModelIcon />}
@@ -2213,7 +2145,7 @@ export function Settings() {
               </List>
             )}
 
-            {userRole.role === "assistant" && (
+            {hasPermission(userRole, "student") && (
               <List>
                 <ListItem
                   icon={<MaskIcon />}
@@ -2225,7 +2157,7 @@ export function Settings() {
               </List>
             )}
 
-            {userRole.role === "assistant" && (
+            {isSignedIn && (
               <List>
                 <ListItem
                   icon={<PromptIcon />}
@@ -2237,25 +2169,29 @@ export function Settings() {
               </List>
             )}
 
-            <List>
-              <ListItem
-                icon={<DataIcon />}
-                title={Locale.Settings.DataSettings}
-                onClick={() => toggleSetting("sync")}
-              >
-                <DownIcon />
-              </ListItem>
-            </List>
+            {isSignedIn && (
+              <List>
+                <ListItem
+                  icon={<DataIcon />}
+                  title={Locale.Settings.DataSettings}
+                  onClick={() => toggleSetting("sync")}
+                >
+                  <DownIcon />
+                </ListItem>
+              </List>
+            )}
 
-            <List>
-              <ListItem
-                icon={<ProxyIcon />}
-                title={Locale.Settings.ProxySettings}
-                onClick={() => toggleSetting("proxy")}
-              >
-                <DownIcon />
-              </ListItem>
-            </List>
+            {hasPermission(userRole, "guest") && (
+              <List>
+                <ListItem
+                  icon={<ProxyIcon />}
+                  title={Locale.Settings.ProxySettings}
+                  onClick={() => toggleSetting("proxy")}
+                >
+                  <DownIcon />
+                </ListItem>
+              </List>
+            )}
           </>
         )}
 
@@ -2315,7 +2251,7 @@ export function Settings() {
           <List>
             <ListItem
               icon={<MaskIcon />}
-              title={Locale.Settings.ModelSettings}
+              title={Locale.Settings.MaskSettings}
               onClick={() => toggleSetting("mask")}
             >
               <UpIcon />

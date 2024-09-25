@@ -100,7 +100,7 @@ export const DEFAULT_CONFIG = {
 
   disablePromptHint: false,
 
-  dontShowMaskSplashScreen: true, // dont show splash screen when create chat
+  dontShowMaskSplashScreen: false, // dont show splash screen when create chat
   hideBuiltinMasks: false, // dont add builtin masks
 
   customModels: "",
@@ -110,11 +110,11 @@ export const DEFAULT_CONFIG = {
 
   modelConfig: {
     name: "Creactive",
-    model: "gpt-4o" as ModelType,
+    model: "gpt-4o-mini" as ModelType,
     providerName: "OpenAI" as ServiceProvider,
     temperature: 0.5,
     top_p: 1,
-    max_tokens: 4000,
+    max_tokens: 2000,
     presence_penalty: 0,
     frequency_penalty: 0,
     sendMemory: true,

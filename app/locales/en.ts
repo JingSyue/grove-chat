@@ -10,7 +10,7 @@ const en: LocaleType = {
   Error: {
     Unauthorized: isApp
       ? "Invalid API Key, please check it in [Settings](/#/settings) page."
-      : "Unauthorized access, please enter access code in [auth](/#/auth) page, or enter your API Key.",
+      : "please signin, or enter your API Key.",
   },
   Auth: {
     Title: "Need Access Code",
@@ -19,6 +19,19 @@ const en: LocaleType = {
     Input: "access code",
     Confirm: "Confirm",
     Later: "Later",
+  },
+
+  SignIn: {
+    Title: "Sign in",
+    Name: "Sigin in",
+    Username: {
+      Title: "Email",
+      SubTitle: "Enter Email",
+    },
+    Password: {
+      Title: "Password",
+      SubTitle: "Enter password",
+    },
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,

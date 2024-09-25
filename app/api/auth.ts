@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { getServerSideConfig } from "../config/server";
 import md5 from "spark-md5";
 import { ACCESS_CODE_PREFIX, ModelProvider } from "../constant";
+import { getAuth } from "@clerk/nextjs/server";
 
 function getIP(req: NextRequest) {
   let ip = req.ip ?? req.headers.get("x-real-ip");
@@ -17,7 +18,6 @@ function getIP(req: NextRequest) {
 function parseApiKey(bearToken: string) {
   const token = bearToken.trim().replaceAll("Bearer ", "").trim();
   const isApiKey = !token.startsWith(ACCESS_CODE_PREFIX);
-
   return {
     accessCode: isApiKey ? "" : token.slice(ACCESS_CODE_PREFIX.length),
     apiKey: isApiKey ? token : "",
@@ -29,6 +29,8 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
 
   // check if it is openai api key or user token
   const { accessCode, apiKey } = parseApiKey(authToken);
+
+  const { userId } = getAuth(req);
 
   const hashedCode = md5.hash(accessCode ?? "").trim();
 
@@ -50,6 +52,15 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
     return {
       error: true,
       msg: "you are not allowed to access with your own api key",
+    };
+  }
+
+  // if user is signe
+
+  if (!userId) {
+    return {
+      error: true,
+      msg: "Sign in before start the conversation, or access with your own api key",
     };
   }
 

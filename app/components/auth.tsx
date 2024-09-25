@@ -1,22 +1,14 @@
+// this auth page is not using
 import styles from "./auth.module.scss";
 import { IconButton } from "./button";
-import { PasswordSettings } from "./settings";
 import { useNavigate } from "react-router-dom";
 import { Path } from "../constant";
 import { useAccessStore } from "../store";
 import Locale from "../locales";
-import BotIcon from "../icons/bot.svg";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getClientConfig } from "../config/client";
 
 export function AuthPage() {
-  const [selectedSetting, setSelectedSetting] = useState<string | null>(null);
-
-  const toggleSetting = (setting: string) => {
-    setSelectedSetting((prevSetting) =>
-      prevSetting === setting ? null : setting,
-    );
-  };
   const navigate = useNavigate();
   const accessStore = useAccessStore();
 
@@ -38,13 +30,10 @@ export function AuthPage() {
 
   return (
     <div className={styles["auth-page"]}>
-      <div className={`no-dark ${styles["auth-logo"]}`}>
-        <BotIcon />
-      </div>
+      <div className={`no-dark ${styles["auth-logo"]}`}></div>
 
-      <div className={styles["auth-title"]}>{Locale.Auth.Title}</div>
-
-      <PasswordSettings />
+      {/* used to be access code */}
+      {/* <PasswordSettings /> */}
 
       <div className={styles["auth-actions"]}>
         <IconButton
@@ -52,6 +41,7 @@ export function AuthPage() {
           type="primary"
           onClick={goChat}
         />
+
         <IconButton
           text={Locale.Auth.Later}
           onClick={() => {

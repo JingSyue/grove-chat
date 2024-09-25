@@ -1357,6 +1357,7 @@ function _Chat() {
             )}
           </div>
         </div>
+
         <div className="window-actions">
           <div className="window-action-button">
             <IconButton
@@ -1368,6 +1369,7 @@ function _Chat() {
               }}
             />
           </div>
+
           <div className="window-action-button">
             <IconButton
               icon={<RenameIcon />}
