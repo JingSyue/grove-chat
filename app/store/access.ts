@@ -12,6 +12,7 @@ import { ensure } from "../utils/clone";
 import { DEFAULT_CONFIG } from "./config";
 import { useUser } from "@clerk/nextjs";
 import { useEffect } from "react";
+import LogRocket from "logrocket";
 
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
 
@@ -61,7 +62,7 @@ const DEFAULT_ACCESS_STATE = {
   userRole: "",
 
   accessCode: "",
-  useCustomConfig: false,
+  useCustomConfig: true,
 
   // server config
   needCode: false,
@@ -121,7 +122,7 @@ const DEFAULT_ACCESS_STATE = {
 };
 
 export const useAccessStore = createPersistStore(
-  { ...DEFAULT_ACCESS_STATE },
+  { ...DEFAULT_ACCESS_STATE, clerkUser: null },
 
   (set, get) => ({
     enabledAccessControl() {
@@ -261,14 +262,21 @@ export function useUpdateClerkUser() {
         userEmail: user?.primaryEmailAddress?.emailAddress || "",
         userRole: (user?.publicMetadata.role as string) || "guest",
       });
-      // console.log(
-      //   "useUpdateClerkUser",
-      //   isLoaded,
-      //   isSignedIn,
-      //   user?.id,
-      //   user?.primaryEmailAddress?.emailAddress,
-      //   user?.publicMetadata.role,
-      // );
+
+      if (isSignedIn && user?.id) {
+        LogRocket.identify(user?.id, {
+          email: user?.primaryEmailAddress?.emailAddress || "",
+        });
+      }
+
+      console.log(
+        "useUpdateClerkUser",
+        isLoaded,
+        isSignedIn,
+        user?.id,
+        user?.primaryEmailAddress?.emailAddress,
+        user?.publicMetadata.role,
+      );
     }
   }, [isLoaded, isSignedIn, user, setClerkUser]);
 }

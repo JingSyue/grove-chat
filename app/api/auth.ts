@@ -31,6 +31,7 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
   const { accessCode, apiKey } = parseApiKey(authToken);
 
   const { userId } = getAuth(req);
+  console.log("userid", userId);
 
   const hashedCode = md5.hash(accessCode ?? "").trim();
 
@@ -52,15 +53,6 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
     return {
       error: true,
       msg: "you are not allowed to access with your own api key",
-    };
-  }
-
-  // if user is signedin
-
-  if (!userId) {
-    return {
-      error: true,
-      msg: "Sign in before start the conversation, or access with your own api key",
     };
   }
 
@@ -110,15 +102,14 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
           systemApiKey = serverConfig.apiKey;
         }
     }
-
-    if (systemApiKey) {
+    if (systemApiKey && userId) {
       console.log("[Auth] use system api key");
       req.headers.set("Authorization", `Bearer ${systemApiKey}`);
     } else {
       console.log("[Auth] admin did not provide an api key");
       return {
         error: true,
-        msg: "Your plan is not supporting this model. You can access with your own api key",
+        msg: "Your plan is not supporting this model.",
       };
     }
   } else {

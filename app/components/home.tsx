@@ -219,15 +219,15 @@ export function Home() {
   useLoadData();
   useHtmlLang();
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      LogRocket.init("4rxkij/grovechat");
-    }
-  }, []);
-  useEffect(() => {
     console.log("[Config] got config from build time", getClientConfig());
     useAccessStore.getState().fetch();
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      LogRocket.init("4rxkij/grovechat");
+    }
+  }, []);
   useUpdateClerkUser();
 
   if (!useHasHydrated()) {
