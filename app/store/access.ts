@@ -261,14 +261,14 @@ export function useUpdateClerkUser() {
         userEmail: user?.primaryEmailAddress?.emailAddress || "",
         userRole: (user?.publicMetadata.role as string) || "guest",
       });
-      console.log(
-        "useUpdateClerkUser",
-        isLoaded,
-        isSignedIn,
-        user?.id,
-        user?.primaryEmailAddress?.emailAddress,
-        user?.publicMetadata.role,
-      );
+      // console.log(
+      //   "useUpdateClerkUser",
+      //   isLoaded,
+      //   isSignedIn,
+      //   user?.id,
+      //   user?.primaryEmailAddress?.emailAddress,
+      //   user?.publicMetadata.role,
+      // );
     }
   }, [isLoaded, isSignedIn, user, setClerkUser]);
 }

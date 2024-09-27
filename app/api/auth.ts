@@ -55,7 +55,7 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
     };
   }
 
-  // if user is signe
+  // if user is signedin
 
   if (!userId) {
     return {
@@ -116,6 +116,10 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
       req.headers.set("Authorization", `Bearer ${systemApiKey}`);
     } else {
       console.log("[Auth] admin did not provide an api key");
+      return {
+        error: true,
+        msg: "Your plan is not supporting this model. You can access with your own api key",
+      };
     }
   } else {
     console.log("[Auth] use user api key");
