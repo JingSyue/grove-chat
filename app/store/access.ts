@@ -268,7 +268,6 @@ export function useUpdateClerkUser() {
           email: user?.primaryEmailAddress?.emailAddress || "",
         });
       }
-
       // console.log(
       //   "useUpdateClerkUser",
       //   isLoaded,
