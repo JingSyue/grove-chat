@@ -247,7 +247,7 @@ export const KnowledgeCutOffDate: Record<string, string> = {
 
 const openaiModels = ["gpt-3.5-turbo"];
 
-const googleModels = ["gemini-pro-vision"];
+const googleModels = ["gemini-1.5-flash"];
 
 const anthropicModels = ["claude-3-sonnet-20240229"];
 
