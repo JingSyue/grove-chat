@@ -10,9 +10,6 @@ import { getClientConfig } from "../config/client";
 import { createPersistStore } from "../utils/store";
 import { ensure } from "../utils/clone";
 import { DEFAULT_CONFIG } from "./config";
-import { useUser } from "@clerk/nextjs";
-import { useEffect } from "react";
-import LogRocket from "logrocket";
 
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
 
@@ -56,11 +53,6 @@ const DEFAULT_PERPLEXITY_URL = isApp
   : ApiPath.Perplexity;
 
 const DEFAULT_ACCESS_STATE = {
-  isSignedIn: false,
-  userId: "",
-  userEmail: "",
-  userRole: "",
-
   accessCode: "",
   useCustomConfig: true,
 
@@ -167,21 +159,10 @@ export const useAccessStore = createPersistStore(
       return ensure(get(), ["perplexityApiKey"]);
     },
 
-    setClerkUser: (userInfo: {
-      isSignedIn: boolean;
-      userId: string;
-      userEmail: string;
-      userRole: string;
-    }) => {
-      set(userInfo);
-    },
-
     isAuthorized() {
       this.fetch();
-
       // has token or has code or disabled access control
       return (
-        get().isSignedIn ||
         this.isValidOpenAI() ||
         this.isValidAzure() ||
         this.isValidGoogle() ||
@@ -249,33 +230,3 @@ export const useAccessStore = createPersistStore(
     },
   },
 );
-
-export function useUpdateClerkUser() {
-  const { user, isLoaded, isSignedIn } = useUser();
-  const setClerkUser = useAccessStore((state) => state.setClerkUser);
-
-  useEffect(() => {
-    if (isLoaded) {
-      setClerkUser({
-        isSignedIn: isSignedIn || false,
-        userId: user?.id || "",
-        userEmail: user?.primaryEmailAddress?.emailAddress || "",
-        userRole: (user?.publicMetadata.role as string) || "guest",
-      });
-
-      if (isSignedIn && user?.id) {
-        LogRocket.identify(user?.id, {
-          email: user?.primaryEmailAddress?.emailAddress || "",
-        });
-      }
-      // console.log(
-      //   "useUpdateClerkUser",
-      //   isLoaded,
-      //   isSignedIn,
-      //   user?.id,
-      //   user?.primaryEmailAddress?.emailAddress,
-      //   user?.publicMetadata.role,
-      // );
-    }
-  }, [isLoaded, isSignedIn, user, setClerkUser]);
-}

@@ -1,5 +1,4 @@
 // utils/auth.ts
-
 export type Role = "teacher" | "assistant" | "student" | "guest";
 // 定義role層級
 export const ROLE_HIERARCHY: Record<Role, number> = {

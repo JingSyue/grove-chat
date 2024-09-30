@@ -29,8 +29,8 @@ import { AuthPage } from "./auth";
 import { getClientConfig } from "../config/client";
 import { type ClientApi, getClientApi } from "../client/api";
 import { useAccessStore } from "../store";
-import { useUpdateClerkUser } from "../store";
 import LogRocket from "logrocket";
+import { useUser } from "@clerk/nextjs";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -222,13 +222,32 @@ export function Home() {
     console.log("[Config] got config from build time", getClientConfig());
     useAccessStore.getState().fetch();
   }, []);
+  const { isSignedIn, user } = useUser();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      LogRocket.init("4rxkij/grovechat");
+      LogRocket.init("4rxkij/grovechat", {
+        dom: {
+          textSanitizer: true,
+          privateClassNameBlocklist: ["chat-body"],
+        },
+        network: {
+          isEnabled: true,
+        },
+        console: {
+          isEnabled: false,
+        },
+      });
     }
   }, []);
-  useUpdateClerkUser();
+
+  useEffect(() => {
+    if (isSignedIn && typeof window !== "undefined") {
+      LogRocket.identify(user?.id, {
+        email: user?.primaryEmailAddress?.emailAddress || "",
+      });
+    }
+  }, [isSignedIn, user]); // 當 isSignedIn 或 user 變化時，識別用戶
 
   if (!useHasHydrated()) {
     return <Loading />;

@@ -5,8 +5,16 @@ import { IconButton } from "./button";
 import CloseIcon from "../icons/close.svg";
 import { useNavigate } from "react-router-dom";
 
-import { useUser } from "@clerk/nextjs";
+import {
+  CreateOrganization,
+  useUser,
+  SignedIn,
+  SignedOut,
+  OrganizationSwitcher,
+  OrganizationList,
+} from "@clerk/nextjs";
 import { Path } from "../constant";
+import styles from "./classroom.module.scss";
 
 export function Dashboard() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -52,10 +60,13 @@ export function Classroom() {
         </div>
       </div>
 
-      {/* <div className={styles["classroom"]}>
-        {selectedSetting === null && (
+      <div className={styles["classroom"]}>
+        {
           <>
-            <List>
+            <OrganizationSwitcher hidePersonal={true} />
+            <OrganizationSwitcher.OrganizationProfilePage label="members" />
+
+            {/* <List>
               <IconButton userButton={true} />
               <UserButton>
                
@@ -113,11 +124,10 @@ export function Classroom() {
                   />
                 </div>
               </ListItem>
-            </List>
-
+            </List> */}
           </>
-        )}
-      </div> */}
+        }
+      </div>
     </ErrorBoundary>
   );
 }

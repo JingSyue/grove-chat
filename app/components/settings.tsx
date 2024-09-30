@@ -90,8 +90,7 @@ import { useSyncStore } from "../store/sync";
 import { nanoid } from "nanoid";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
-
-import { hasPermission, Role } from "../utils/auth";
+import { useUser } from "@clerk/clerk-react";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -2072,10 +2071,7 @@ function ProxySettings() {
 export function Settings() {
   const [selectedSetting, setSelectedSetting] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { isSignedIn, userRole } = useAccessStore((state) => ({
-    userRole: state.userRole as Role,
-    isSignedIn: state.isSignedIn,
-  }));
+  const { isSignedIn } = useUser();
 
   const toggleSetting = (setting: string) => {
     setSelectedSetting((prevSetting) =>
@@ -2133,7 +2129,7 @@ export function Settings() {
               </ListItem>
             </List> */}
 
-            {hasPermission(userRole, "teacher") && (
+            {isSignedIn && (
               <List>
                 <ListItem
                   icon={<ModelIcon />}
@@ -2145,7 +2141,7 @@ export function Settings() {
               </List>
             )}
 
-            {hasPermission(userRole, "student") && (
+            {isSignedIn && (
               <List>
                 <ListItem
                   icon={<MaskIcon />}
@@ -2181,7 +2177,7 @@ export function Settings() {
               </List>
             )}
 
-            {hasPermission(userRole, "guest") && (
+            {
               <List>
                 <ListItem
                   icon={<ProxyIcon />}
@@ -2191,7 +2187,7 @@ export function Settings() {
                   <DownIcon />
                 </ListItem>
               </List>
-            )}
+            }
           </>
         )}
 

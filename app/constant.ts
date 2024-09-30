@@ -35,7 +35,7 @@ export const CUSTOMTITLE: string = "Grove"; //set your default custom title
 export const CUSTOMSUBTITLE: string = "Promptbooks for GitHub repository"; // set your default custom subtitle
 
 export enum Path {
-  // Classroom = "/classroom",
+  Classroom = "/classroom",
   Home = "/",
   Chat = "/chat",
   Settings = "/settings",
@@ -245,25 +245,84 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gemini-pro-vision": "2023-12",
 };
 
-const openaiModels = ["gpt-3.5-turbo"];
+const openaiModels = [
+  "gpt-3.5-turbo",
+  "gpt-3.5-turbo-1106",
+  "gpt-3.5-turbo-0125",
+  "gpt-4",
+  "gpt-4-0613",
+  "gpt-4-32k",
+  "gpt-4-32k-0613",
+  "gpt-4-turbo",
+  "gpt-4-turbo-preview",
+  "gpt-4o",
+  "gpt-4o-2024-05-13",
+  "gpt-4o-2024-08-06",
+  "chatgpt-4o-latest",
+  "gpt-4o-mini",
+  "gpt-4o-mini-2024-07-18",
+  "gpt-4-vision-preview",
+  "gpt-4-turbo-2024-04-09",
+  "gpt-4-1106-preview",
+];
 
-const googleModels = ["gemini-1.5-flash"];
+const googleModels = [
+  "gemini-1.0-pro",
+  "gemini-1.5-pro-latest",
+  "gemini-1.5-flash-latest",
+  "gemini-pro-vision",
+];
 
-const anthropicModels = ["claude-3-sonnet-20240229"];
+const anthropicModels = [
+  "claude-instant-1.2",
+  "claude-2.0",
+  "claude-2.1",
+  "claude-3-sonnet-20240229",
+  "claude-3-opus-20240229",
+  "claude-3-haiku-20240307",
+  "claude-3-5-sonnet-20240620",
+];
 
-const baiduModels = [""];
+const baiduModels = [
+  "ernie-4.0-turbo-8k",
+  "ernie-4.0-8k",
+  "ernie-4.0-8k-preview",
+  "ernie-4.0-8k-preview-0518",
+  "ernie-4.0-8k-latest",
+  "ernie-3.5-8k",
+  "ernie-3.5-8k-0205",
+  "ernie-speed-128k",
+  "ernie-speed-8k",
+  "ernie-lite-8k",
+  "ernie-tiny-8k",
+];
 
-const bytedanceModels = [""];
+const bytedanceModels = [
+  "Doubao-lite-4k",
+  "Doubao-lite-32k",
+  "Doubao-lite-128k",
+  "Doubao-pro-4k",
+  "Doubao-pro-32k",
+  "Doubao-pro-128k",
+];
 
-const alibabaModes = [""];
+const alibabaModes = [
+  "qwen-turbo",
+  "qwen-plus",
+  "qwen-max",
+  "qwen-max-0428",
+  "qwen-max-0403",
+  "qwen-max-0107",
+  "qwen-max-longcontext",
+];
 
-const moonshotModes = [""];
+const moonshotModes = ["moonshot-v1-8k", "moonshot-v1-32k", "moonshot-v1-128k"];
 
 const perplexityModels = [
   // Perplexity Sonar Models
   "llama-3.1-sonar-small-128k-online",
-  //"llama-3.1-sonar-large-128k-online",
-  //"llama-3.1-sonar-huge-128k-online",
+  "llama-3.1-sonar-large-128k-online",
+  "llama-3.1-sonar-huge-128k-online",
 ];
 
 export const DEFAULT_MODELS = [
