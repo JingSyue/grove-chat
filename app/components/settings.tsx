@@ -59,7 +59,7 @@ import Locale, {
   changeLang,
   getLang,
 } from "../locales";
-import { copyToClipboard } from "../utils";
+import { copyToClipboard, useMobileScreen } from "../utils";
 import Link from "next/link";
 import {
   Anthropic,
@@ -90,7 +90,7 @@ import { useSyncStore } from "../store/sync";
 import { nanoid } from "nanoid";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
-import { useUser } from "@clerk/clerk-react";
+import { useUser, OrganizationSwitcher } from "@clerk/clerk-react";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -2072,6 +2072,7 @@ export function Settings() {
   const [selectedSetting, setSelectedSetting] = useState<string | null>(null);
   const navigate = useNavigate();
   const { isSignedIn } = useUser();
+  const isMobileScreen = useMobileScreen();
 
   const toggleSetting = (setting: string) => {
     setSelectedSetting((prevSetting) =>
@@ -2093,6 +2094,8 @@ export function Settings() {
         <div className="window-actions">
           <div className="window-action-button"></div>
           <div className="window-action-button"></div>
+          {isMobileScreen && <OrganizationSwitcher hidePersonal={true} />}
+
           <div className="window-action-button">
             <IconButton
               icon={<CloseIcon />}

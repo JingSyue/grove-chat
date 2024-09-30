@@ -111,7 +111,7 @@ import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
 import { useAllModels } from "../utils/hooks";
 import { MultimodalContent } from "../client/api";
-import { OrganizationSwitcher } from "@clerk/nextjs";
+import { OrganizationSwitcher, useUser } from "@clerk/nextjs";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -791,6 +791,7 @@ function _Chat() {
   const session = chatStore.currentSession();
   const config = useAppConfig();
   const fontSize = config.fontSize;
+  const user = useUser();
 
   const [showExport, setShowExport] = useState(false);
 
@@ -1360,7 +1361,7 @@ function _Chat() {
         </div>
 
         <div className="window-actions">
-          <OrganizationSwitcher hidePersonal={true} />
+          {!isMobileScreen && <OrganizationSwitcher hidePersonal={true} />}
           <div className="window-action-button">
             <IconButton
               icon={<ExportIcon />}
