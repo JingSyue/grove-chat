@@ -111,7 +111,8 @@ import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
 import { useAllModels } from "../utils/hooks";
 import { MultimodalContent } from "../client/api";
-import { OrganizationSwitcher, useUser } from "@clerk/nextjs";
+import { OrganizationSwitcher, useUser, useOrganization } from "@clerk/nextjs";
+import { ROLE_ALLOWED_MODEL_NAMES } from "../constant";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -432,6 +433,24 @@ function useScrollToBottom(
   };
 }
 
+const ROLE_PRIORITY = { teacher: 1, assistant: 2, student: 3, guest: 4 };
+
+export function getHighestUserRole(
+  user: { organizationMemberships?: { role: string }[] } | null | undefined,
+): string {
+  if (!user || !user.organizationMemberships) {
+    return "guest"; // Return "guest" if user or organizationMemberships is not available
+  }
+
+  return user.organizationMemberships
+    ?.map((m) => m.role.replace("org:", "") as keyof typeof ROLE_PRIORITY)
+    .reduce(
+      (highest, role) =>
+        ROLE_PRIORITY[role] < ROLE_PRIORITY[highest] ? role : highest,
+      "guest",
+    );
+}
+
 export function ChatActions(props: {
   uploadImage: () => void;
   setAttachImages: (images: string[]) => void;
@@ -445,6 +464,18 @@ export function ChatActions(props: {
   const config = useAppConfig();
   const navigate = useNavigate();
   const chatStore = useChatStore();
+  const { user } = useUser();
+
+  // const userRole = user.user?.organizationMemberships[0]?.role?.replace("org:", "") as keyof typeof ROLE_ALLOWED_MODEL_NAMES || "guest";
+
+  // get the highest user role in all organizations
+  // if there is no organization, use guest
+  // guest role and student role are not allowed to create organization
+
+  const userRole =
+    (getHighestUserRole(user) as keyof typeof ROLE_ALLOWED_MODEL_NAMES) ||
+    "guest";
+  //console.log("userRole", userRole);
 
   // switch themes
   const theme = config.theme;
@@ -468,7 +499,17 @@ export function ChatActions(props: {
   const allModels = useAllModels();
   const models = useMemo(() => {
     const filteredModels = allModels.filter((m) => m.available);
-    const defaultModel = filteredModels.find((m) => m.isDefault);
+
+    const allowedModelNames: readonly string[] =
+      ROLE_ALLOWED_MODEL_NAMES[userRole] || [];
+
+    const roleFilteredModels = filteredModels.filter((m) =>
+      allowedModelNames.includes(m.name),
+    );
+
+    // console.log("filteredModels", roleFilteredModels);
+
+    const defaultModel = roleFilteredModels.find((m) => m.isDefault);
 
     if (defaultModel) {
       const arr = [
@@ -477,9 +518,10 @@ export function ChatActions(props: {
       ];
       return arr;
     } else {
-      return filteredModels;
+      return roleFilteredModels;
     }
-  }, [allModels]);
+  }, [allModels, userRole]);
+
   const currentModelName = useMemo(() => {
     const model = models.find(
       (m) =>

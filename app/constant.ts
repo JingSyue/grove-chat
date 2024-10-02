@@ -417,3 +417,33 @@ export const internalAllowedWebDavEndpoints = [
 ];
 
 export const PLUGINS = [{ name: "Stable Diffusion", path: Path.Sd }];
+
+export const ROLE_ALLOWED_MODEL_NAMES = {
+  teacher: [
+    "gpt-4",
+    "gpt-4o-mini",
+    "gemini-1.5-flash-latest",
+    "llama-3.1-sonar-large-128k-online",
+    "claude-3-5-sonnet-20240620",
+  ],
+  assistant: [
+    "claude-3-sonnet-20240229",
+    "gpt-4o-mini",
+    "gemini-1.5-flash-latest",
+    "llama-3.1-sonar-small-128k-online",
+    "claude-3-5-sonnet-20240620",
+  ],
+  student: [
+    "gpt-3.5-turbo",
+    "gpt-4o-mini",
+    "gpt-3.5-turbo",
+    "claude-3-5-sonnet-20240620",
+    "llama-3.1-sonar-small-128k-online",
+  ],
+  guest: [
+    "gpt-3.5-turbo",
+    "gemini-1.5-flash-latest",
+    "claude-3-sonnet-20240229",
+    "llama-3.1-sonar-small-128k-online",
+  ],
+} as const;
