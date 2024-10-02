@@ -14,7 +14,6 @@ export function trimTopic(topic: string) {
       .replace(/[，。！？”“"、,.!?*]*$/, "")
   );
 }
-
 export async function copyToClipboard(text: string) {
   try {
     if (window.__TAURI__) {

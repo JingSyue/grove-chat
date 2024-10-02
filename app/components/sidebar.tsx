@@ -16,7 +16,7 @@ import Locale from "../locales";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 import { useAppConfig, useChatStore } from "../store";
-
+import { OrganizationSwitcher } from "@clerk/nextjs";
 import {
   DEFAULT_SIDEBAR_WIDTH,
   MAX_SIDEBAR_WIDTH,
