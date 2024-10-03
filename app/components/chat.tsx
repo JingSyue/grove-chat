@@ -833,7 +833,8 @@ function _Chat() {
   const session = chatStore.currentSession();
   const config = useAppConfig();
   const fontSize = config.fontSize;
-  const user = useUser();
+  const { user } = useUser();
+  const userRole = getHighestUserRole(user);
 
   const [showExport, setShowExport] = useState(false);
 
@@ -1403,7 +1404,10 @@ function _Chat() {
         </div>
 
         <div className="window-actions">
-          {!isMobileScreen && <OrganizationSwitcher hidePersonal={true} />}
+          {/* guest and student cant see the organization switcher */}
+          {!isMobileScreen && userRole != "guest" && userRole != "student" && (
+            <OrganizationSwitcher hidePersonal={true} />
+          )}
           <div className="window-action-button">
             <IconButton
               icon={<ExportIcon />}

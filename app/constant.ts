@@ -266,14 +266,12 @@ const openaiModels = [
   "gpt-4-1106-preview",
 ];
 
-
 const googleModels = [
   "gemini-1.0-pro",
   "gemini-1.5-pro-latest",
   "gemini-1.5-flash-latest",
   "gemini-pro-vision",
 ];
-
 
 const anthropicModels = [
   "claude-instant-1.2",
@@ -422,25 +420,52 @@ export const PLUGINS = [{ name: "Stable Diffusion", path: Path.Sd }];
 
 export const ROLE_ALLOWED_MODEL_NAMES = {
   teacher: [
+    "gpt-3.5-turbo",
     "gpt-4",
+    "gpt-4-32k",
+    "gpt-4o-2024-08-06",
+    "chatgpt-4o-latest",
     "gpt-4o-mini",
-    "gemini-1.5-flash-latest",
-    "llama-3.1-sonar-large-128k-online",
+    "gpt-4o-mini-2024-07-18",
+    "gpt-4-vision-preview",
+    "gpt-4-turbo-2024-04-09",
+    "claude-3-sonnet-20240229",
     "claude-3-5-sonnet-20240620",
+    "llama-3.1-sonar-small-128k-online",
+    "llama-3.1-sonar-large-128k-online",
+    "llama-3.1-sonar-huge-128k-online",
+    "gemini-1.5-pro-latest",
+    "gemini-1.5-flash-latest",
+    "gemini-pro-vision",
   ],
   assistant: [
-    "claude-3-sonnet-20240229",
+    "gpt-3.5-turbo",
+    "gpt-4",
+    "gpt-4-32k",
+    "gpt-4o-2024-08-06",
+    "chatgpt-4o-latest",
     "gpt-4o-mini",
-    "gemini-1.5-flash-latest",
-    "llama-3.1-sonar-small-128k-online",
+    "gpt-4o-mini-2024-07-18",
+    "gpt-4-vision-preview",
+    "gpt-4-turbo-2024-04-09",
+    "claude-3-sonnet-20240229",
     "claude-3-5-sonnet-20240620",
+    "llama-3.1-sonar-small-128k-online",
+    "llama-3.1-sonar-large-128k-online",
+    "llama-3.1-sonar-huge-128k-online",
+    "gemini-1.5-pro-latest",
+    "gemini-1.5-flash-latest",
+    "gemini-pro-vision",
   ],
   student: [
     "gpt-3.5-turbo",
     "gpt-4o-mini",
-    "gpt-3.5-turbo",
+    "gemini-1.5-pro-latest",
+    "gemini-1.5-flash-latest",
     "claude-3-5-sonnet-20240620",
+    "claude-3-sonnet-20240229",
     "llama-3.1-sonar-small-128k-online",
+    "llama-3.1-sonar-large-128k-online",
   ],
   guest: [
     "gpt-3.5-turbo",

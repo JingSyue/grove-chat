@@ -226,7 +226,7 @@ export function Home() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      LogRocket.init("j9ngla/grovechat", {
+      LogRocket.init("j9ngla/grove", {
         dom: {
           textSanitizer: true,
           privateClassNameBlocklist: ["chat-body"],
