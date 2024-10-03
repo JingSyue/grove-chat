@@ -35,7 +35,7 @@
         "template": "{{input}}"
       },
       "lang": "en",
-      "builtin": false,
+      "builtin": true,
       "createdAt": 1727843714422,
       "plugin": ["artifacts"],
       "hideContext": true
@@ -75,7 +75,7 @@
         "template": "{{input}}"
       },
       "lang": "en",
-      "builtin": false,
+      "builtin": true,
       "createdAt": 1727839469196,
       "plugin": ["artifacts"],
       "hideContext": true
