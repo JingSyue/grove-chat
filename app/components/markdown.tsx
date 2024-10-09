@@ -9,6 +9,8 @@ import { useRef, useState, RefObject, useEffect, useMemo } from "react";
 import { copyToClipboard, useWindowSize } from "../utils";
 import mermaid from "mermaid";
 
+import { useAppConfig } from "../store/config";
+
 import LoadingIcon from "../icons/three-dots.svg";
 import React from "react";
 import { useDebouncedCallback } from "use-debounce";
@@ -91,10 +93,9 @@ export function PreCode(props: { children: any }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refText]);
 
-  const enableArtifacts = useMemo(
-    () => plugins?.includes(Plugin.Artifacts),
-    [plugins],
-  );
+  const config = useAppConfig();
+  const enableArtifacts =
+    session.mask?.enableArtifacts !== false && config.enableArtifacts;
 
   return (
     <>

@@ -503,6 +503,10 @@ const tw = {
         SubTitle: "產生此角色範本的直達連結",
         Action: "複製連結",
       },
+      Artifacts: {
+        Title: "允許可視化",
+        SubTitle: "允許生成HTML可視化結果",
+      },
     },
   },
   NewChat: {

@@ -602,6 +602,10 @@ const en: LocaleType = {
         SubTitle: "Generate a link to this mask",
         Action: "Copy Link",
       },
+      Artifacts: {
+        Title: "Enable Artifacts",
+        SubTitle: "Can render HTML page when enable artifacts.",
+      },
     },
   },
   NewChat: {

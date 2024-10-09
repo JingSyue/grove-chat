@@ -18,6 +18,7 @@ export type Mask = {
   lang: Lang;
   builtin: boolean;
   plugin?: Plugin[];
+  enableArtifacts?: boolean;
 };
 
 export const DEFAULT_MASK_STATE = {

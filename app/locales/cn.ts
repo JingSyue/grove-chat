@@ -595,6 +595,10 @@ const cn = {
         SubTitle: "生成此面具的直达链接",
         Action: "复制链接",
       },
+      Artifacts: {
+        Title: "Enable Artifacts",
+        SubTitle: "Can render HTML page when enable artifacts.",
+      },
     },
   },
   NewChat: {

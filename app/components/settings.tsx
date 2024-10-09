@@ -79,6 +79,7 @@ import {
   UPDATE_URL,
   Stability,
   Perplexity,
+  ROLE_ALLOWED_MODEL_NAMES,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
@@ -91,6 +92,7 @@ import { nanoid } from "nanoid";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
 import { useUser, OrganizationSwitcher } from "@clerk/clerk-react";
+import { getHighestUserRole } from "./chat";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();
@@ -1187,6 +1189,22 @@ function MaskSettings() {
           }
         ></input>
       </ListItem>
+
+      <ListItem
+        title={Locale.Mask.Config.Artifacts.Title}
+        subTitle={Locale.Mask.Config.Artifacts.SubTitle}
+      >
+        <input
+          aria-label={Locale.Mask.Config.Artifacts.Title}
+          type="checkbox"
+          checked={config.enableArtifacts}
+          onChange={(e) =>
+            updateConfig(
+              (config) => (config.enableArtifacts = e.currentTarget.checked),
+            )
+          }
+        ></input>
+      </ListItem>
     </List>
   );
 }
@@ -2072,13 +2090,17 @@ export function Settings() {
   const [selectedSetting, setSelectedSetting] = useState<string | null>(null);
   const navigate = useNavigate();
   const { isSignedIn } = useUser();
-  const isMobileScreen = useMobileScreen();
 
   const toggleSetting = (setting: string) => {
     setSelectedSetting((prevSetting) =>
       prevSetting === setting ? null : setting,
     );
   };
+  const { user } = useUser();
+
+  const userRole =
+    (getHighestUserRole(user) as keyof typeof ROLE_ALLOWED_MODEL_NAMES) ||
+    "guest";
 
   return (
     <ErrorBoundary>
@@ -2094,7 +2116,9 @@ export function Settings() {
         <div className="window-actions">
           <div className="window-action-button"></div>
           <div className="window-action-button"></div>
-          {isMobileScreen && <OrganizationSwitcher hidePersonal={true} />}
+          {userRole != "guest" && userRole != "student" && (
+            <OrganizationSwitcher hidePersonal={true} />
+          )}
 
           <div className="window-action-button">
             <IconButton
