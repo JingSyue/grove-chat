@@ -635,7 +635,8 @@ export function ChatActions(props: {
           icon={props.uploading ? <LoadingButtonIcon /> : <ImageIcon />}
         />
       )}
-      <ChatAction
+
+      {/* <ChatAction
         onClick={nextTheme}
         text={Locale.Chat.InputActions.Theme[theme]}
         icon={
@@ -649,7 +650,7 @@ export function ChatActions(props: {
             ) : null}
           </>
         }
-      />
+      /> */}
 
       <ChatAction
         onClick={props.showPromptHints}
@@ -657,15 +658,15 @@ export function ChatActions(props: {
         icon={<PromptIcon />}
       />
 
-      <ChatAction
+      {/* <ChatAction
         onClick={() => {
           navigate(Path.Masks);
         }}
         text={Locale.Chat.InputActions.Masks}
         icon={<MaskIcon />}
-      />
+      /> */}
 
-      <ChatAction
+      {/* <ChatAction
         text={Locale.Chat.InputActions.Clear}
         icon={<BreakIcon />}
         onClick={() => {
@@ -678,7 +679,7 @@ export function ChatActions(props: {
             }
           });
         }}
-      />
+      /> */}
 
       <ChatAction
         onClick={() => setShowModelSelector(true)}
@@ -725,12 +726,12 @@ export function ChatActions(props: {
         />
       )}
 
-      <ChatAction
+      {/* <ChatAction
         onClick={() => setShowPluginSelector(true)}
         text={Locale.Plugin.Name}
         icon={<PluginIcon />}
-      />
-      {showPluginSelector && (
+      /> */}
+      {/* {showPluginSelector && (
         <Selector
           multiple
           defaultSelectedValue={chatStore.currentSession().mask?.plugin}
@@ -751,7 +752,7 @@ export function ChatActions(props: {
             }
           }}
         />
-      )}
+      )} */}
     </div>
   );
 }
@@ -834,7 +835,9 @@ function _Chat() {
   const config = useAppConfig();
   const fontSize = config.fontSize;
   const { user } = useUser();
-  const userRole = getHighestUserRole(user);
+  const userRole =
+    (getHighestUserRole(user) as keyof typeof ROLE_ALLOWED_MODEL_NAMES) ||
+    "guest";
 
   const [showExport, setShowExport] = useState(false);
 
@@ -1372,6 +1375,80 @@ function _Chat() {
     setAttachImages(images);
   }
 
+  const currentModel = chatStore.currentSession().mask.modelConfig.model;
+  const [showModelSelector, setShowModelSelector] = useState(false);
+  const ProviderIcon = {
+    OpenAI: (
+      <div className="no-dark">
+        <OpenAIIcon />
+      </div>
+    ),
+    Anthropic: (
+      <div className="no-dark">
+        <AnthropicIcon />
+      </div>
+    ),
+    Google: (
+      <div className="no-dark">
+        <GoogleIcon />
+      </div>
+    ),
+    ByteDance: (
+      <div className="no-dark">
+        <ByteDanceIcon />
+      </div>
+    ),
+    Baidu: (
+      <div className="no-dark">
+        <BaiduIcon />
+      </div>
+    ),
+    Alibaba: (
+      <div className="no-dark">
+        <AlibabaIcon />
+      </div>
+    ),
+    Moonshot: (
+      <div className="no-dark">
+        <MoonshotIcon />
+      </div>
+    ),
+    Perplexity: (
+      <div className="no-dark">
+        <PerplexityIcon />
+      </div>
+    ),
+  };
+  const currentProviderName =
+    chatStore.currentSession().mask.modelConfig?.providerName ||
+    ServiceProvider.OpenAI;
+  const allModels = useAllModels();
+
+  const models = useMemo(() => {
+    const filteredModels = allModels.filter((m) => m.available);
+
+    const allowedModelNames: readonly string[] =
+      ROLE_ALLOWED_MODEL_NAMES[userRole] || [];
+
+    const roleFilteredModels = filteredModels.filter((m) =>
+      allowedModelNames.includes(m.name),
+    );
+
+    // console.log("filteredModels", roleFilteredModels);
+
+    const defaultModel = roleFilteredModels.find((m) => m.isDefault);
+
+    if (defaultModel) {
+      const arr = [
+        defaultModel,
+        ...filteredModels.filter((m) => m !== defaultModel),
+      ];
+      return arr;
+    } else {
+      return roleFilteredModels;
+    }
+  }, [allModels, userRole]);
+
   return (
     <div className={styles.chat} key={session.id}>
       <div className="window-header" data-tauri-drag-region>
@@ -1386,6 +1463,59 @@ function _Chat() {
               />
             </div>
           </div>
+        )}
+
+        {!isMobileScreen && (
+          <IconButton
+            onClick={() => setShowModelSelector(true)}
+            bordered
+            icon={
+              ProviderIcon[
+                session.mask.modelConfig
+                  .providerName as keyof typeof ProviderIcon
+              ]
+            }
+          />
+        )}
+
+        {showModelSelector && (
+          <Selector
+            defaultSelectedValue={`${currentModel}@${currentProviderName}`}
+            items={models.map((m) => ({
+              title: `${m.displayName}${
+                m?.provider?.providerName
+                  ? "(" + m?.provider?.providerName + ")"
+                  : ""
+              }`,
+              value: `${m.name}@${m?.provider?.providerName}`,
+              icon: m?.provider?.providerName
+                ? ProviderIcon[
+                    m.provider.providerName as keyof typeof ProviderIcon
+                  ]
+                : undefined,
+            }))}
+            onClose={() => setShowModelSelector(false)}
+            onSelection={(s) => {
+              if (s.length === 0) return;
+              const [model, providerName] = s[0].split("@");
+              chatStore.updateCurrentSession((session) => {
+                session.mask.modelConfig.model = model as ModelType;
+                session.mask.modelConfig.providerName =
+                  providerName as ServiceProvider;
+                session.mask.syncGlobalConfig = false;
+              });
+              if (providerName == "ByteDance") {
+                const selectedModel = models.find(
+                  (m) =>
+                    m.name == model &&
+                    m?.provider?.providerName == providerName,
+                );
+                showToast(selectedModel?.displayName ?? "");
+              } else {
+                showToast(model);
+              }
+            }}
+          />
         )}
 
         <div className={`window-header-title ${styles["chat-body-title"]}`}>
@@ -1405,10 +1535,10 @@ function _Chat() {
 
         <div className="window-actions">
           {/* guest and student cant see the organization switcher */}
-          {!isMobileScreen && userRole != "guest" && userRole != "student" && (
+          {/* {!isMobileScreen && userRole != "guest" && userRole != "student" && (
             <OrganizationSwitcher hidePersonal={true} />
-          )}
-          <div className="window-action-button">
+          )} */}
+          {/* <div className="window-action-button">
             <IconButton
               icon={<ExportIcon />}
               bordered
@@ -1417,15 +1547,31 @@ function _Chat() {
                 setShowExport(true);
               }}
             />
-          </div>
+          </div> */}
 
-          <div className="window-action-button">
+          {/* <div className="window-action-button">
             <IconButton
               icon={<RenameIcon />}
               bordered
               onClick={() => setIsEditingMessage(true)}
             />
-          </div>
+          </div> */}
+
+          {isMobileScreen && (
+            <div className="window-action-button">
+              <IconButton
+                onClick={() => setShowModelSelector(true)}
+                bordered
+                //text={session.mask.modelConfig.model}
+                icon={
+                  ProviderIcon[
+                    session.mask.modelConfig
+                      .providerName as keyof typeof ProviderIcon
+                  ]
+                }
+              />
+            </div>
+          )}
 
           {showMaxIcon && (
             <div className="window-action-button">
