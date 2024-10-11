@@ -232,7 +232,7 @@ export function Home() {
           privateClassNameBlocklist: ["chat-body"],
         },
         network: {
-          isEnabled: true,
+          isEnabled: false,
         },
         console: {
           isEnabled: false,

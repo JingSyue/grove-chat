@@ -1820,6 +1820,7 @@ function _Chat() {
           htmlFor="chat-input"
         >
           <textarea
+            data-private="lipsum" // protect user input privacy
             id="chat-input"
             ref={inputRef}
             className={styles["chat-input"]}
