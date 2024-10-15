@@ -620,13 +620,13 @@ export function ChatActions(props: {
           icon={<BottomIcon />}
         />
       )}
-      {props.hitBottom && (
+      {/* {props.hitBottom && (
         <ChatAction
           onClick={props.showPromptModal}
           text={Locale.Chat.InputActions.Settings}
           icon={<SettingsIcon />}
         />
-      )}
+      )} */}
 
       {showUploadImage && (
         <ChatAction
@@ -1744,7 +1744,8 @@ function _Chat() {
                       defaultShow={i >= messages.length - 6}
                     />
                     {getMessageImages(message).length == 1 && (
-                      <Image
+                      /* eslint-disable @next/next/no-img-element */
+                      <img
                         className={styles["chat-message-item-image"]}
                         src={getMessageImages(message)[0]}
                         alt=""
@@ -1761,7 +1762,7 @@ function _Chat() {
                       >
                         {getMessageImages(message).map((image, index) => {
                           return (
-                            <Image
+                            <img
                               className={
                                 styles["chat-message-item-image-multi"]
                               }
