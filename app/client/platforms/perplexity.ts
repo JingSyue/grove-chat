@@ -69,6 +69,16 @@ export class PerplexityApi implements LLMApi {
 
   async chat(options: ChatOptions) {
     const messages: ChatOptions["messages"] = [];
+    console.log(messages);
+
+    messages.filter((message, index, arr) => {
+      // 檢查是否為第一個訊息，如果是則直接保留
+      if (index === 0) return true;
+      // 檢查當前訊息的角色是否與前一個訊息的角色不同
+      return message.role !== arr[index - 1].role;
+    });
+
+    console.log(messages);
 
     for (const v of options.messages) {
       const content = getMessageTextContent(v);
