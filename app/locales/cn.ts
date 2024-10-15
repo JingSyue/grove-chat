@@ -557,11 +557,11 @@ const cn = {
     Sysmessage: "你是一个助手",
   },
   Mask: {
-    Name: "面具",
+    Name: "智能助理",
     Page: {
-      Title: "预设角色面具",
-      SubTitle: (count: number) => `${count} 个预设角色定义`,
-      Search: "搜索角色面具",
+      Title: "预设智能助理",
+      SubTitle: (count: number) => `${count} 个预设智能助理`,
+      Search: "搜索智能助理",
       Create: "新建",
     },
     Item: {
@@ -579,8 +579,8 @@ const cn = {
       Clone: "克隆预设",
     },
     Config: {
-      Avatar: "角色头像",
-      Name: "角色名称",
+      Avatar: "助理头像",
+      Name: "助理名称",
       Sync: {
         Title: "使用全局设置",
         SubTitle: "当前对话是否使用全局模型设置",
@@ -591,8 +591,8 @@ const cn = {
         SubTitle: "隐藏后预设对话不会出现在聊天界面",
       },
       Share: {
-        Title: "分享此面具",
-        SubTitle: "生成此面具的直达链接",
+        Title: "分享此助理",
+        SubTitle: "生成此助理的直达链接",
         Action: "复制链接",
       },
       Artifacts: {
@@ -606,8 +606,8 @@ const cn = {
     Skip: "直接开始",
     NotShow: "不再展示",
     ConfirmNoShow: "确认禁用？禁用后可以随时在设置中重新启用。",
-    Title: "挑选一个面具",
-    SubTitle: "现在开始，与面具背后的灵魂思维碰撞",
+    Title: "挑选一个智能助理",
+    SubTitle: "现在开始，讓智能助理解決你的問題",
     More: "查看全部",
   },
 

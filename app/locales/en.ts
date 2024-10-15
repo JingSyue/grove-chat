@@ -564,7 +564,7 @@ const en: LocaleType = {
     Sysmessage: "You are an assistant that",
   },
   Mask: {
-    Name: "Mask",
+    Name: "AI assistant",
     Page: {
       Title: "Prompt Template",
       SubTitle: (count: number) => `${count} prompt templates`,
@@ -598,8 +598,8 @@ const en: LocaleType = {
         SubTitle: "Do not show in-context prompts in chat",
       },
       Share: {
-        Title: "Share This Mask",
-        SubTitle: "Generate a link to this mask",
+        Title: "Share This Assistant",
+        SubTitle: "Generate a link to this assistant",
         Action: "Copy Link",
       },
       Artifacts: {
@@ -611,8 +611,8 @@ const en: LocaleType = {
   NewChat: {
     Return: "Return",
     Skip: "Just Start",
-    Title: "Pick a Mask",
-    SubTitle: "Chat with the Soul behind the Mask",
+    Title: "Pick an AI assistant",
+    SubTitle: "Chat with the assistant to solve your problem",
     More: "Find More",
     NotShow: "Never Show Again",
     ConfirmNoShow: "Confirm to disable？You can enable it in settings later.",

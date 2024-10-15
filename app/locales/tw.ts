@@ -80,7 +80,7 @@ const tw = {
         Programming: "程式編寫",
       },
       Prompt: "快捷指令",
-      Masks: "所有角色範本",
+      Masks: "所有智能助理",
       Clear: "清除聊天",
       Settings: "對話設定",
       UploadImage: "上傳圖片",
@@ -125,8 +125,8 @@ const tw = {
       SubTitle: "可以匯出 Markdown 文字檔或者 PNG 圖片",
     },
     IncludeContext: {
-      Title: "包含角色範本上下文",
-      SubTitle: "是否在訊息中顯示角色範本上下文",
+      Title: "包含助理範本上下文",
+      SubTitle: "是否在訊息中顯示助理範本上下文",
     },
     Steps: {
       Select: "選取",
@@ -284,8 +284,8 @@ const tw = {
         SubTitle: "新增聊天時，呈現角色範本啟動頁面",
       },
       Builtin: {
-        Title: "隱藏內建角色範本",
-        SubTitle: "在所有角色範本列表中隱藏內建角色範本",
+        Title: "隱藏內建助理範本",
+        SubTitle: "在所有助理範本列表中隱藏內建助理範本",
       },
     },
     Prompt: {
@@ -465,11 +465,11 @@ const tw = {
   Plugin: { Name: "外掛" },
   FineTuned: { Sysmessage: "你是一個助手" },
   Mask: {
-    Name: "角色範本",
+    Name: "智能助理",
     Page: {
-      Title: "預設角色角色範本",
-      SubTitle: (count: number) => `${count} 個預設角色定義`,
-      Search: "搜尋角色角色範本",
+      Title: "預設智能助理範本",
+      SubTitle: (count: number) => `${count} 個預設智能助理定義`,
+      Search: "搜尋智能助理範本",
       Create: "新增",
     },
     Item: {
@@ -482,13 +482,13 @@ const tw = {
     },
     EditModal: {
       Title: (readonly: boolean) =>
-        `編輯預設角色範本 ${readonly ? "（唯讀）" : ""}`,
+        `編輯預設助理範本 ${readonly ? "（唯讀）" : ""}`,
       Download: "下載預設值",
       Clone: "以此預設值建立副本",
     },
     Config: {
-      Avatar: "角色頭像",
-      Name: "角色名稱",
+      Avatar: "助理頭像",
+      Name: "助理名稱",
       Sync: {
         Title: "使用全域設定",
         SubTitle: "目前對話是否使用全域模型設定",
@@ -499,8 +499,8 @@ const tw = {
         SubTitle: "隱藏後預設對話不會出現在聊天介面",
       },
       Share: {
-        Title: "分享此角色範本",
-        SubTitle: "產生此角色範本的直達連結",
+        Title: "分享此助理範本",
+        SubTitle: "產生此助理範本的直達連結",
         Action: "複製連結",
       },
       Artifacts: {
@@ -514,8 +514,8 @@ const tw = {
     Skip: "跳過",
     NotShow: "不再顯示",
     ConfirmNoShow: "確認停用？停用後可以隨時在設定中重新啟用。",
-    Title: "挑選一個角色範本",
-    SubTitle: "現在開始，與角色範本背後的靈魂思維碰撞",
+    Title: "挑選一個AI智能助理範本",
+    SubTitle: "讓專屬的AI智能助理幫你解決問題",
     More: "搜尋更多",
   },
   URLCommand: {
