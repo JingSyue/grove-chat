@@ -153,6 +153,8 @@ export const Anthropic = {
 
 export const OpenaiPath = {
   ChatPath: "v1/chat/completions",
+  SpeechPath: "v1/audio/speech",
+  ImagePath: "v1/images/generations",
   UsagePath: "dashboard/billing/usage",
   SubsPath: "dashboard/billing/subscription",
   ListModelPath: "v1/models",
@@ -161,7 +163,10 @@ export const OpenaiPath = {
 export const Azure = {
   ChatPath: (deployName: string, apiVersion: string) =>
     `deployments/${deployName}/chat/completions?api-version=${apiVersion}`,
-  ExampleEndpoint: "https://{resource-url}/openai/deployments/{deploy-id}",
+  // https://<your_resource_name>.openai.azure.com/openai/deployments/<your_deployment_name>/images/generations?api-version=<api_version>
+  ImagePath: (deployName: string, apiVersion: string) =>
+    `deployments/${deployName}/images/generations?api-version=${apiVersion}`,
+  ExampleEndpoint: "https://{resource-url}/openai",
 };
 
 export const Google = {
@@ -425,15 +430,8 @@ export const PLUGINS = [
 
 export const ROLE_ALLOWED_MODEL_NAMES = {
   teacher: [
-    "gpt-3.5-turbo",
-    "gpt-4",
-    "gpt-4-32k",
     "gpt-4o-2024-08-06",
-    "chatgpt-4o-latest",
     "gpt-4o-mini",
-    "gpt-4o-mini-2024-07-18",
-    "gpt-4-vision-preview",
-    "gpt-4-turbo-2024-04-09",
     "claude-3-sonnet-20240229",
     "claude-3-5-sonnet-20240620",
     "llama-3.1-sonar-small-128k-online",
@@ -444,15 +442,8 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "gemini-pro-vision",
   ],
   assistant: [
-    "gpt-3.5-turbo",
-    "gpt-4",
-    "gpt-4-32k",
     "gpt-4o-2024-08-06",
-    "chatgpt-4o-latest",
     "gpt-4o-mini",
-    "gpt-4o-mini-2024-07-18",
-    "gpt-4-vision-preview",
-    "gpt-4-turbo-2024-04-09",
     "claude-3-sonnet-20240229",
     "claude-3-5-sonnet-20240620",
     "llama-3.1-sonar-small-128k-online",
@@ -463,7 +454,6 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "gemini-pro-vision",
   ],
   student: [
-    "gpt-3.5-turbo",
     "gpt-4o-mini",
     "gemini-1.5-pro-latest",
     "gemini-1.5-flash-latest",
