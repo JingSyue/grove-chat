@@ -16,7 +16,6 @@ import React from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { showImageModal, FullScreen } from "./ui-lib";
 import { ArtifactsShareButton, HTMLPreview } from "./artifacts";
-import { Plugin } from "../constant";
 import { useChatStore } from "../store";
 export function Mermaid(props: { code: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -72,7 +71,6 @@ export function PreCode(props: { children: any }) {
   const { height } = useWindowSize();
   const chatStore = useChatStore();
   const session = chatStore.currentSession();
-  const plugins = session.mask?.plugin;
 
   const renderArtifacts = useDebouncedCallback(() => {
     if (!ref.current) return;

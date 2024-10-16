@@ -2,6 +2,7 @@ export const OWNER = "robbiedood";
 export const REPO = "grove-chat";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
 export const ISSUE_URL = `https://github.com/${OWNER}/${REPO}/issues`;
+export const PLUGINS_REPO_URL = `https://github.com/${OWNER}/NextChat-Awesome-Plugins`;
 export const UPDATE_URL = `${REPO_URL}#keep-updated`;
 export const RELEASE_URL = `${REPO_URL}/releases`;
 export const FETCH_COMMIT_URL = `https://api.github.com/repos/${OWNER}/${REPO}/commits?per_page=1`;
@@ -35,12 +36,12 @@ export const CUSTOMTITLE: string = "Grove"; //set your default custom title
 export const CUSTOMSUBTITLE: string = "Promptbooks for GitHub repository"; // set your default custom subtitle
 
 export enum Path {
-  Classroom = "/classroom",
   Home = "/",
   Chat = "/chat",
   Settings = "/settings",
   NewChat = "/new-chat",
   Masks = "/masks",
+  Plugins = "/plugins",
   Auth = "/auth",
   Sd = "/sd",
   SdNew = "/sd-new",
@@ -78,6 +79,7 @@ export enum Plugin {
 
 export enum StoreKey {
   Chat = "chat-next-web-store",
+  Plugin = "chat-next-web-plugin",
   Access = "access-control",
   Config = "app-config",
   Mask = "mask-store",
@@ -416,7 +418,10 @@ export const internalAllowedWebDavEndpoints = [
   "https://app.koofr.net/dav/Koofr",
 ];
 
-export const PLUGINS = [{ name: "Stable Diffusion", path: Path.Sd }];
+export const PLUGINS = [
+  { name: "Plugins", path: Path.Plugins },
+  { name: "Stable Diffusion", path: Path.Sd },
+];
 
 export const ROLE_ALLOWED_MODEL_NAMES = {
   teacher: [

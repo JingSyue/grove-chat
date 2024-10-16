@@ -9,10 +9,10 @@ import React, {
   Fragment,
   RefObject,
 } from "react";
-import Image from "next/image";
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
 import RenameIcon from "../icons/rename.svg";
+import CloseIcon from "../icons/close.svg";
 import ExportIcon from "../icons/share.svg";
 import ReturnIcon from "../icons/return.svg";
 import CopyIcon from "../icons/copy.svg";
@@ -60,6 +60,7 @@ import {
   useAppConfig,
   DEFAULT_TOPIC,
   ModelType,
+  usePluginStore,
 } from "../store";
 
 import {
@@ -70,6 +71,7 @@ import {
   getMessageTextContent,
   getMessageImages,
   isVisionModel,
+  showPlugins,
 } from "../utils";
 
 import { uploadImage as uploadImageRemote } from "@/app/utils/chat";
@@ -100,7 +102,6 @@ import {
   REQUEST_TIMEOUT_MS,
   UNFINISHED_INPUT,
   ServiceProvider,
-  Plugin,
 } from "../constant";
 import { Avatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
@@ -464,6 +465,7 @@ export function ChatActions(props: {
   const config = useAppConfig();
   const navigate = useNavigate();
   const chatStore = useChatStore();
+  const pluginStore = usePluginStore();
   const { user } = useUser();
 
   // const userRole = user.user?.organizationMemberships[0]?.role?.replace("org:", "") as keyof typeof ROLE_ALLOWED_MODEL_NAMES || "guest";
@@ -686,6 +688,37 @@ export function ChatActions(props: {
         text={currentModelName}
         icon={<RobotIcon />}
       />
+
+      {showPlugins(currentProviderName, currentModel) && (
+        <ChatAction
+          onClick={() => {
+            if (pluginStore.getAll().length == 0) {
+              navigate(Path.Plugins);
+            } else {
+              setShowPluginSelector(true);
+            }
+          }}
+          text={Locale.Plugin.Name}
+          icon={<PluginIcon />}
+        />
+      )}
+
+      {showPluginSelector && (
+        <Selector
+          multiple
+          defaultSelectedValue={chatStore.currentSession().mask?.plugin}
+          items={pluginStore.getAll().map((item) => ({
+            title: `${item?.title}@${item?.version}`,
+            value: item?.id,
+          }))}
+          onClose={() => setShowPluginSelector(false)}
+          onSelection={(s) => {
+            chatStore.updateCurrentSession((session) => {
+              session.mask.plugin = s as string[];
+            });
+          }}
+        />
+      )}
 
       {showModelSelector && (
         <Selector
@@ -1721,9 +1754,29 @@ function _Chat() {
                       </div>
                     )}
                   </div>
-                  {showTyping && (
+                  {message?.tools?.length == 0 && showTyping && (
                     <div className={styles["chat-message-status"]}>
                       {Locale.Chat.Typing}
+                    </div>
+                  )}
+                  {/*@ts-ignore*/}
+                  {message?.tools?.length > 0 && (
+                    <div className={styles["chat-message-tools"]}>
+                      {message?.tools?.map((tool) => (
+                        <div
+                          key={tool.id}
+                          className={styles["chat-message-tool"]}
+                        >
+                          {tool.isError === false ? (
+                            <ConfirmIcon />
+                          ) : tool.isError === true ? (
+                            <CloseIcon />
+                          ) : (
+                            <LoadingButtonIcon />
+                          )}
+                          <span>{tool?.function?.name}</span>
+                        </div>
+                      ))}
                     </div>
                   )}
                   <div className={styles["chat-message-item"]}>

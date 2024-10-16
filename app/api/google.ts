@@ -1,22 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "../../auth";
+import { auth } from "./auth";
 import { getServerSideConfig } from "@/app/config/server";
-import { ApiPath, PERPLEXITY_BASE_URL, ModelProvider } from "@/app/constant";
+import {
+  ApiPath,
+  GEMINI_BASE_URL,
+  Google,
+  ModelProvider,
+} from "@/app/constant";
 import { prettyObject } from "@/app/utils/format";
 
 const serverConfig = getServerSideConfig();
 
-async function handle(
+export async function handle(
   req: NextRequest,
   { params }: { params: { path: string[] } },
 ) {
-  console.log("[Perplexity Route] params ", params);
+  console.log("[Google Route] params ", params);
 
   if (req.method === "OPTIONS") {
     return NextResponse.json({ body: "OK" }, { status: 200 });
   }
 
-  const authResult = auth(req, ModelProvider.Perplexity);
+  const authResult = auth(req, ModelProvider.GeminiPro);
   if (authResult.error) {
     return NextResponse.json(authResult, {
       status: 401,
@@ -26,25 +31,24 @@ async function handle(
   const bearToken = req.headers.get("Authorization") ?? "";
   const token = bearToken.trim().replaceAll("Bearer ", "").trim();
 
-  const apiKey = token ? token : serverConfig.perplexityApiKey;
+  const apiKey = token ? token : serverConfig.googleApiKey;
 
   if (!apiKey) {
     return NextResponse.json(
       {
         error: true,
-        message: `missing PERPLEXITY_API_KEY in server env vars`,
+        message: `missing GOOGLE_API_KEY in server env vars`,
       },
       {
         status: 401,
       },
     );
   }
-
   try {
     const response = await request(req, apiKey);
     return response;
   } catch (e) {
-    console.error("[Perplexity] ", e);
+    console.error("[Google] ", e);
     return NextResponse.json(prettyObject(e));
   }
 }
@@ -54,20 +58,12 @@ export const POST = handle;
 
 export const runtime = "edge";
 
-function validateAndAdjustParameters(body: any) {
-  // Ensure frequency_penalty is greater than 0
-  if (body.frequency_penalty !== undefined && body.frequency_penalty <= 0) {
-    body.frequency_penalty = 0.01; // Set a small positive value
-  }
-  // Add more parameter validations here if needed
-  return body;
-}
-
 async function request(req: NextRequest, apiKey: string) {
   const controller = new AbortController();
 
-  let baseUrl = serverConfig.perplexityUrl || PERPLEXITY_BASE_URL;
-  let path = `${req.nextUrl.pathname}`.replaceAll(ApiPath.Perplexity, "");
+  let baseUrl = serverConfig.googleUrl || GEMINI_BASE_URL;
+
+  let path = `${req.nextUrl.pathname}`.replaceAll(ApiPath.Google, "");
 
   if (!baseUrl.startsWith("http")) {
     baseUrl = `https://${baseUrl}`;
@@ -86,22 +82,19 @@ async function request(req: NextRequest, apiKey: string) {
     },
     10 * 60 * 1000,
   );
-
-  const fetchUrl = `${baseUrl}${path}`;
+  const fetchUrl = `${baseUrl}${path}?key=${apiKey}${
+    req?.nextUrl?.searchParams?.get("alt") === "sse" ? "&alt=sse" : ""
+  }`;
 
   console.log("[Fetch Url] ", fetchUrl);
-
-  let body = await req.json();
-  body = validateAndAdjustParameters(body);
-
   const fetchOptions: RequestInit = {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
       "Cache-Control": "no-store",
     },
     method: req.method,
-    body: JSON.stringify(body),
+    body: req.body,
+    // to fix #2485: https://stackoverflow.com/questions/55920957/cloudflare-worker-typeerror-one-time-use-body
     redirect: "manual",
     // @ts-ignore
     duplex: "half",
@@ -110,17 +103,10 @@ async function request(req: NextRequest, apiKey: string) {
 
   try {
     const res = await fetch(fetchUrl, fetchOptions);
-
-    if (!res.ok) {
-      const errorBody = await res.text();
-      return NextResponse.json(
-        { error: true, message: `${res.status}: ${errorBody}` },
-        { status: res.status },
-      );
-    }
-
+    // to prevent browser prompt for credentials
     const newHeaders = new Headers(res.headers);
     newHeaders.delete("www-authenticate");
+    // to disable nginx buffering
     newHeaders.set("X-Accel-Buffering", "no");
 
     return new Response(res.body, {

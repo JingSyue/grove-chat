@@ -27,12 +27,25 @@ import { createPersistStore } from "../utils/store";
 import { collectModelsWithDefaultModel } from "../utils/model";
 import { useAccessStore } from "./access";
 
+export type ChatMessageTool = {
+  id: string;
+  index?: number;
+  type?: string;
+  function?: {
+    name: string;
+    arguments?: string;
+  };
+  content?: string;
+  isError?: boolean;
+};
+
 export type ChatMessage = RequestMessage & {
   date: string;
   streaming?: boolean;
   isError?: boolean;
   id: string;
   model?: ModelType;
+  tools?: ChatMessageTool[];
 };
 
 export function createMessage(override: Partial<ChatMessage>): ChatMessage {
@@ -388,8 +401,24 @@ export const useChatStore = createPersistStore(
             }
             ChatControllerPool.remove(session.id, botMessage.id);
           },
+          onBeforeTool(tool: ChatMessageTool) {
+            (botMessage.tools = botMessage?.tools || []).push(tool);
+            get().updateCurrentSession((session) => {
+              session.messages = session.messages.concat();
+            });
+          },
+          onAfterTool(tool: ChatMessageTool) {
+            botMessage?.tools?.forEach((t, i, tools) => {
+              if (tool.id == t.id) {
+                tools[i] = { ...tool };
+              }
+            });
+            get().updateCurrentSession((session) => {
+              session.messages = session.messages.concat();
+            });
+          },
           onError(error) {
-            const isAborted = error.message.includes("aborted");
+            const isAborted = error.message?.includes?.("aborted");
             botMessage.content +=
               "\n\n" +
               prettyObject({
