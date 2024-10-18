@@ -6,6 +6,7 @@ import styles from "./home.module.scss";
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
 import GithubIcon from "../icons/github.svg";
+import FORMICON from "../icons/lightning.svg";
 import RobotIcon from "../icons/robot.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
@@ -28,6 +29,7 @@ import {
   GROVE_WEB_URL,
   CUSTOMTITLE,
   CUSTOMSUBTITLE,
+  FORM_URL,
 } from "../constant";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -343,13 +345,13 @@ export function SideBar(props: { className?: string }) {
               </Link>
             </div>
 
-            {/* <div className={styles["sidebar-action"]}>
-              <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
-                <IconButton icon={<GithubIcon />} shadow />
+            <div className={styles["sidebar-action"]}>
+              <a href={FORM_URL} target="_blank" rel="noopener noreferrer">
+                <IconButton icon={<FORMICON />} shadow />
               </a>
             </div>
 
-            <div className={styles["sidebar-action"]}>
+            {/* <div className={styles["sidebar-action"]}>
               <a href={GROVE_WEB_URL} target="_blank" rel="noopener noreferrer">
                 <IconButton icon={<RobotIcon />} shadow />
               </a>

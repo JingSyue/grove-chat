@@ -129,7 +129,7 @@ export function PluginPage() {
           </div>
 
           <div className="window-actions">
-            <div className="window-action-button">
+            {/* <div className="window-action-button">
               <a
                 href={PLUGINS_REPO_URL}
                 target="_blank"
@@ -137,7 +137,7 @@ export function PluginPage() {
               >
                 <IconButton icon={<GithubIcon />} bordered />
               </a>
-            </div>
+            </div> */}
             <div className="window-action-button">
               <IconButton
                 icon={<CloseIcon />}

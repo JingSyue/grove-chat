@@ -1323,7 +1323,7 @@ function SyncSettings() {
   return (
     <>
       <List>
-        <ListItem
+        {/* <ListItem
           title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
           subTitle={
             checkingUpdate
@@ -1346,7 +1346,7 @@ function SyncSettings() {
               onClick={() => checkUpdate(true)}
             />
           )}
-        </ListItem>
+        </ListItem> */}
 
         <ListItem
           title={Locale.Settings.Sync.CloudState}

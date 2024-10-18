@@ -1,6 +1,7 @@
 export const OWNER = "robbiedood";
 export const REPO = "grove-chat";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
+export const FORM_URL = `https://bw2lfr9nusb.typeform.com/to/jsnWYdyx`;
 export const ISSUE_URL = `https://github.com/${OWNER}/${REPO}/issues`;
 export const PLUGINS_REPO_URL = `https://github.com/${OWNER}/NextChat-Awesome-Plugins`;
 export const UPDATE_URL = `${REPO_URL}#keep-updated`;
@@ -33,7 +34,7 @@ export const CACHE_URL_PREFIX = "/api/cache";
 export const UPLOAD_URL = `${CACHE_URL_PREFIX}/upload`;
 
 export const CUSTOMTITLE: string = "Grove"; //set your default custom title
-export const CUSTOMSUBTITLE: string = "Promptbooks for GitHub repository"; // set your default custom subtitle
+export const CUSTOMSUBTITLE: string = "AI Assistant"; // set your default custom subtitle
 
 export enum Path {
   Home = "/",
@@ -439,7 +440,6 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "llama-3.1-sonar-huge-128k-online",
     "gemini-1.5-pro-latest",
     "gemini-1.5-flash-latest",
-    "gemini-pro-vision",
   ],
   assistant: [
     "gpt-4o-2024-08-06",
@@ -451,7 +451,6 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "llama-3.1-sonar-huge-128k-online",
     "gemini-1.5-pro-latest",
     "gemini-1.5-flash-latest",
-    "gemini-pro-vision",
   ],
   student: [
     "gpt-4o-mini",

@@ -257,6 +257,8 @@ export function Home() {
     <ErrorBoundary>
       <Router>
         <Screen />
+        <div data-tf-live="01JADHGHQBAFXMV950413KKXZ8"></div>
+        <script src="//embed.typeform.com/next/embed.js" async></script>
       </Router>
     </ErrorBoundary>
   );

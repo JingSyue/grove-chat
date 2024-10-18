@@ -34,7 +34,7 @@ export interface PerplexityRequestPayload {
   presence_penalty: number;
   frequency_penalty: number;
   top_p: number;
-  max_tokens?: number;
+  //max_tokens?: number;
   return_citations?: boolean;
 }
 
@@ -68,22 +68,20 @@ export class PerplexityApi implements LLMApi {
   }
 
   async chat(options: ChatOptions) {
-    const messages: ChatOptions["messages"] = [];
-    console.log(messages);
+    const origin_messages: ChatOptions["messages"] = [];
 
-    messages.filter((message, index, arr) => {
+    const messages = origin_messages.filter((message, index, arr) => {
       // 檢查是否為第一個訊息，如果是則直接保留
       if (index === 0) return true;
       // 檢查當前訊息的角色是否與前一個訊息的角色不同
       return message.role !== arr[index - 1].role;
     });
 
-    console.log(messages);
-
     for (const v of options.messages) {
       const content = getMessageTextContent(v);
       messages.push({ role: v.role, content });
     }
+    console.log(messages);
 
     const modelConfig = {
       ...useAppConfig.getState().modelConfig,
