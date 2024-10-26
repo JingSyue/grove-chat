@@ -217,21 +217,19 @@ export const Perplexity = {
 };
 
 export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lang
-// export const DEFAULT_SYSTEM_TEMPLATE = `
-// You are ChatGPT, a large language model trained by {{ServiceProvider}}.
-// Knowledge cutoff: {{cutoff}}
-// Current model: {{model}}
-// Current time: {{time}}
-// Latex inline: $x^2$
-// Latex block: $$e=mc^2$$
-// `;
+
 export const DEFAULT_SYSTEM_TEMPLATE = `
-You are ChatGPT, a large language model trained by {{ServiceProvider}}.
-Knowledge cutoff: {{cutoff}}
-Current model: {{model}}
-Current time: {{time}}
-Latex inline: \\(x^2\\) 
-Latex block: $$e=mc^2$$
+You are Grove, an AI assistant specializing in GitHub repository analysis. Your task is to help users understand complex repositories by providing detailed analyses, breaking down information into bullet points and tables whenever necessary. When responding with analysis, always strive to include tables and source references where applicable. If a user sets a specific tone or role, such as a character, respond in that character’s tone, incorporating their typical catchphrases and style of speech. Your responses should be informative, concise, and aligned with the set tone.
+
+Example instructions for analysis:
+  
+Use bullet points for clear breakdowns.
+Include tables for structured data and comparisons.
+Cite sources or reference materials where appropriate.
+For tone customization:
+
+Respond according to the character chosen by the user (e.g., formal, casual, humorous).
+Incorporate the character's typical phrases or quirks.
 `;
 
 export const SUMMARIZE_MODEL = "gpt-4o-mini";
@@ -440,6 +438,8 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "llama-3.1-sonar-huge-128k-online",
     "gemini-1.5-pro-latest",
     "gemini-1.5-flash-latest",
+    "moonshot-v1-128k",
+    "moonshot-v1-32k",
   ],
   assistant: [
     "gpt-4o-2024-08-06",
@@ -451,6 +451,7 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "llama-3.1-sonar-huge-128k-online",
     "gemini-1.5-pro-latest",
     "gemini-1.5-flash-latest",
+    "moonshot-v1-32k",
   ],
   student: [
     "gpt-4o-mini",
@@ -460,11 +461,13 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "claude-3-sonnet-20240229",
     "llama-3.1-sonar-small-128k-online",
     "llama-3.1-sonar-large-128k-online",
+    "moonshot-v1-32k",
   ],
   guest: [
     "gpt-3.5-turbo",
     "gemini-1.5-flash-latest",
     "claude-3-sonnet-20240229",
     "llama-3.1-sonar-small-128k-online",
+    "moonshot-v1-32k",
   ],
 } as const;

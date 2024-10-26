@@ -49,6 +49,8 @@ import AlibabaIcon from "../icons/alibaba.svg";
 import GoogleIcon from "../icons/gemini.svg";
 import MoonshotIcon from "../icons/moonshot.svg";
 
+import Tesseract from "tesseract.js";
+
 import {
   ChatMessage,
   SubmitKey,
@@ -961,7 +963,28 @@ function _Chat() {
     }
   };
 
+  // using tesseract
+  async function performOcrOnImages(imageUrls: any) {
+    const ocrResults = [];
+
+    for (const imageUrl of imageUrls) {
+      try {
+        const {
+          data: { text },
+        } = await Tesseract.recognize(imageUrl, "chi_tra", {
+          logger: (info) => console.log(info),
+        });
+        ocrResults.push(text);
+      } catch (error) {
+        console.error(`Error processing image ${imageUrl}:`, error);
+      }
+    }
+
+    return ocrResults;
+  }
+
   const doSubmit = (userInput: string) => {
+    // if ocr 便async
     if (userInput.trim() === "") return;
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
@@ -971,8 +994,20 @@ function _Chat() {
       return;
     }
     setIsLoading(true);
+    console.log("attach", attachImages); // print
+
+    // let finalUserInput = userInput.trim();
+
+    // if (attachImages.length > 0) {
+    //   const ocrResults = await performOcrOnImages(attachImages);
+    //   console.log('OCR Results:', ocrResults);
+    //   finalUserInput += "\n\nOCR結果：\n" + ocrResults.join('\n\n');
+    // }
+
+    //console.log("Final user input:", finalUserInput);
+
     chatStore
-      .onUserInput(userInput, attachImages)
+      .onUserInput(userInput, attachImages) // 如果要用ocr 使用 userInput 改成finalUserInput
       .then(() => setIsLoading(false));
     setAttachImages([]);
     localStorage.setItem(LAST_INPUT_KEY, userInput);
