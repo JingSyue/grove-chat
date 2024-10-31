@@ -1405,11 +1405,13 @@ function _Chat() {
                   });
               })),
             );
-            const imagesLength = images.length;
 
-            if (imagesLength > 3) {
-              images.splice(3, imagesLength - 3);
-            }
+            // adjust the max image number
+            // const imagesLength = images.length;
+
+            // if (imagesLength > 3) {
+            //   images.splice(3, imagesLength - 3);
+            // }
             setAttachImages(images);
           }
         }
@@ -2087,7 +2089,7 @@ function _Chat() {
                           {file.name} {file.tokenCount}K
                         </div>
                       )}
-                      {attachImages.length == 3 && (
+                      {attachImages.length >= 3 && (
                         <div className={styles["attach-file-name-min"]}>
                           {file.name} {file.tokenCount}K
                         </div>
