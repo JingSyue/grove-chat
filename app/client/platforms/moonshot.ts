@@ -153,8 +153,8 @@ export class MoonshotApi implements LLMApi {
       presence_penalty: modelConfig.presence_penalty,
       frequency_penalty: modelConfig.frequency_penalty,
       top_p: modelConfig.top_p,
-      // max_tokens: Math.max(modelConfig.max_tokens, 1024),
-      // Please do not ask me why not send max_tokens, no reason, this param is just shit, I dont want to explain anymore.
+      max_tokens: Math.max(5000, 1024), // todo: max_token size is set to 5000 for image/file extraction, but it can be adjusted
+      // see https://platform.moonshot.cn/docs/guide/faq to estimate max_token size
     };
 
     console.log("[Request] moonshot payload: ", requestPayload);
@@ -175,7 +175,7 @@ export class MoonshotApi implements LLMApi {
       // make a fetch request
       const requestTimeoutId = setTimeout(
         () => controller.abort(),
-        REQUEST_TIMEOUT_MS,
+        REQUEST_TIMEOUT_MS * 5,
       );
 
       if (shouldStream) {
