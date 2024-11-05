@@ -9,6 +9,9 @@ import React, {
   Fragment,
   RefObject,
 } from "react";
+import { getClientApi } from "../client/api";
+import type { ClientApi } from "../client/api";
+
 import SendWhiteIcon from "../icons/send-white.svg";
 import BrainIcon from "../icons/brain.svg";
 import RenameIcon from "../icons/rename.svg";
@@ -50,8 +53,6 @@ import AlibabaIcon from "../icons/alibaba.svg";
 import GoogleIcon from "../icons/gemini.svg";
 import MoonshotIcon from "../icons/moonshot.svg";
 
-import Tesseract from "tesseract.js";
-
 import {
   ChatMessage,
   SubmitKey,
@@ -83,6 +84,7 @@ import { uploadImage as uploadImageRemote } from "@/app/utils/chat";
 
 import type { UploadFile } from "../client/api";
 import { uploadImage as uploadFileRemote } from "@/app/utils/chat";
+
 import { FileIcon, defaultStyles } from "react-file-icon";
 import type { DefaultExtensionType } from "react-file-icon";
 
@@ -112,6 +114,7 @@ import {
   REQUEST_TIMEOUT_MS,
   UNFINISHED_INPUT,
   ServiceProvider,
+  OpenaiPath,
 } from "../constant";
 import { Avatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
@@ -122,7 +125,7 @@ import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
 import { useAllModels } from "../utils/hooks";
 import { MultimodalContent } from "../client/api";
-import { OrganizationSwitcher, useUser, useOrganization } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { ROLE_ALLOWED_MODEL_NAMES } from "../constant";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
@@ -634,13 +637,6 @@ export function ChatActions(props: {
           icon={<BottomIcon />}
         />
       )}
-      {/* {props.hitBottom && (
-        <ChatAction
-          onClick={props.showPromptModal}
-          text={Locale.Chat.InputActions.Settings}
-          icon={<SettingsIcon />}
-        />
-      )} */}
 
       {showUploadImage && (
         <ChatAction
@@ -650,26 +646,10 @@ export function ChatActions(props: {
         />
       )}
 
-      <ChatAction
+      {/* <ChatAction
         onClick={props.uploadDocument}
         text={"Upload Plain Text File"}
         icon={props.uploading ? <LoadingButtonIcon /> : <UploadDocIcon />}
-      />
-
-      {/* <ChatAction
-        onClick={nextTheme}
-        text={Locale.Chat.InputActions.Theme[theme]}
-        icon={
-          <>
-            {theme === Theme.Auto ? (
-              <AutoIcon />
-            ) : theme === Theme.Light ? (
-              <LightIcon />
-            ) : theme === Theme.Dark ? (
-              <DarkIcon />
-            ) : null}
-          </>
-        }
       /> */}
 
       <ChatAction
@@ -677,29 +657,6 @@ export function ChatActions(props: {
         text={Locale.Chat.InputActions.Prompt}
         icon={<PromptIcon />}
       />
-
-      {/* <ChatAction
-        onClick={() => {
-          navigate(Path.Masks);
-        }}
-        text={Locale.Chat.InputActions.Masks}
-        icon={<MaskIcon />}
-      /> */}
-
-      {/* <ChatAction
-        text={Locale.Chat.InputActions.Clear}
-        icon={<BreakIcon />}
-        onClick={() => {
-          chatStore.updateCurrentSession((session) => {
-            if (session.clearContextIndex === session.messages.length) {
-              session.clearContextIndex = undefined;
-            } else {
-              session.clearContextIndex = session.messages.length;
-              session.memoryPrompt = ""; // will clear memory
-            }
-          });
-        }}
-      /> */}
 
       <ChatAction
         onClick={() => setShowModelSelector(true)}
@@ -776,34 +733,6 @@ export function ChatActions(props: {
           }}
         />
       )}
-
-      {/* <ChatAction
-        onClick={() => setShowPluginSelector(true)}
-        text={Locale.Plugin.Name}
-        icon={<PluginIcon />}
-      /> */}
-      {/* {showPluginSelector && (
-        <Selector
-          multiple
-          defaultSelectedValue={chatStore.currentSession().mask?.plugin}
-          items={[
-            {
-              title: Locale.Plugin.Artifacts,
-              value: Plugin.Artifacts,
-            },
-          ]}
-          onClose={() => setShowPluginSelector(false)}
-          onSelection={(s) => {
-            const plugin = s[0];
-            chatStore.updateCurrentSession((session) => {
-              session.mask.plugin = s;
-            });
-            if (plugin) {
-              showToast(plugin);
-            }
-          }}
-        />
-      )} */}
     </div>
   );
 }
@@ -980,28 +909,7 @@ function _Chat() {
     }
   };
 
-  // using tesseract
-  async function performOcrOnImages(imageUrls: any) {
-    const ocrResults = [];
-
-    for (const imageUrl of imageUrls) {
-      try {
-        const {
-          data: { text },
-        } = await Tesseract.recognize(imageUrl, "chi_tra", {
-          logger: (info) => console.log(info),
-        });
-        ocrResults.push(text);
-      } catch (error) {
-        console.error(`Error processing image ${imageUrl}:`, error);
-      }
-    }
-
-    return ocrResults;
-  }
-
   const doSubmit = (userInput: string) => {
-    // if ocr 便async
     if (userInput.trim() === "") return;
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
@@ -1011,20 +919,8 @@ function _Chat() {
       return;
     }
     setIsLoading(true);
-    console.log("attach", attachImages); // print
-
-    // let finalUserInput = userInput.trim();
-
-    // if (attachImages.length > 0) {
-    //   const ocrResults = await performOcrOnImages(attachImages);
-    //   console.log('OCR Results:', ocrResults);
-    //   finalUserInput += "\n\nOCR結果：\n" + ocrResults.join('\n\n');
-    // }
-
-    //console.log("Final user input:", finalUserInput);
-
     chatStore
-      .onUserInput(userInput, attachImages, attachFiles) // 如果要用ocr 使用 userInput 改成finalUserInput
+      .onUserInput(userInput, attachImages, attachFiles)
       .then(() => setIsLoading(false));
     setAttachImages([]);
     setAttachFiles([]);
@@ -1444,7 +1340,7 @@ function _Chat() {
                 fileData.tokenCount = tokenCount;
                 imagesData.push(fileData);
                 if (
-                  imagesData.length === 3 ||
+                  imagesData.length === 10 ||
                   imagesData.length === inputFiles.length
                 ) {
                   setUploading(false);
@@ -1462,8 +1358,8 @@ function _Chat() {
     );
 
     const filesLength = files.length;
-    if (filesLength > 3) {
-      files.splice(3, filesLength - 3);
+    if (filesLength > 10) {
+      files.splice(10, filesLength - 10);
     }
     setAttachFiles(files);
   }
@@ -1489,7 +1385,7 @@ function _Chat() {
               .then((dataUrl) => {
                 imagesData.push(dataUrl);
                 if (
-                  imagesData.length === 3 ||
+                  imagesData.length === 10 ||
                   imagesData.length === files.length
                 ) {
                   setUploading(false);
@@ -1507,8 +1403,8 @@ function _Chat() {
     );
 
     const imagesLength = images.length;
-    if (imagesLength > 3) {
-      images.splice(3, imagesLength - 3);
+    if (imagesLength > 10) {
+      images.splice(10, imagesLength - 10);
     }
     setAttachImages(images);
   }
