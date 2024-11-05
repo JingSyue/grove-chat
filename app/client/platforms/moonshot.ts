@@ -22,7 +22,7 @@ import {
   //SpeechOptions,
 } from "../api";
 import { getClientConfig } from "@/app/config/client";
-import { getMessageTextContent } from "@/app/utils";
+import { getMessageTextContent, isVisionModel } from "@/app/utils";
 import { RequestPayload } from "./openai";
 
 export class MoonshotApi implements LLMApi {
@@ -65,11 +65,77 @@ export class MoonshotApi implements LLMApi {
 
   async chat(options: ChatOptions) {
     const messages: ChatOptions["messages"] = [];
+    const imageProcessingTasks: Promise<any>[] = [];
+
     for (const v of options.messages) {
-      const content = getMessageTextContent(v);
-      messages.push({ role: v.role, content });
+      if (Array.isArray(v.content)) {
+        // 收集當前消息中的所有圖片處理任務
+        const currentMessageTasks = v.content
+          .filter((item) => item.type === "image_url" && item.image_url?.url)
+          .map(async (item) => {
+            try {
+              //console.log('[Moonshot] Processing image:', item.image_url!.url);
+
+              // 並行處理圖片獲取和 FormData 準備
+              const [imageResponse, formData] = await Promise.all([
+                fetch(item.image_url!.url),
+                Promise.resolve(new FormData()),
+              ]);
+
+              const blob = await imageResponse.blob();
+              formData.append("file", blob, "image.jpg");
+              formData.append("purpose", "file-extract");
+
+              // 上傳文件
+              const uploadResult = await this.uploadFile(formData);
+              // console.log('[Moonshot] Upload success:', uploadResult);
+
+              // 獲取文件內容
+              const contentResponse = await fetch(
+                this.path(`v1/files/${uploadResult.id}/content`),
+                {
+                  headers: getHeaders(),
+                },
+              );
+
+              if (!contentResponse.ok) {
+                throw new Error("Failed to get file content");
+              }
+
+              const fileContent = await contentResponse.text();
+              return {
+                role: "system",
+                content:
+                  "Please analyze the content of the provided document and output the complete text in a well-formatted way." +
+                  fileContent,
+              };
+            } catch (error) {
+              console.error("[Moonshot] Image processing error:", error);
+              return null;
+            }
+          });
+
+        imageProcessingTasks.push(...currentMessageTasks);
+
+        // 處理文字內容
+        const textContent = v.content
+          .filter((item) => item.type === "text")
+          .map((item) => item.text)
+          .join("\n");
+
+        if (textContent) {
+          messages.push({ role: v.role, content: textContent });
+        }
+      } else {
+        messages.push({ role: v.role, content: v.content });
+      }
     }
 
+    // 等待所有圖片處理完成
+    const imageResults = await Promise.all(imageProcessingTasks);
+    messages.push(...imageResults.filter(Boolean));
+
+    console.log("[Moonshot] Final messages:", messages);
     const modelConfig = {
       ...useAppConfig.getState().modelConfig,
       ...useChatStore.getState().currentSession().mask.modelConfig,
@@ -91,7 +157,7 @@ export class MoonshotApi implements LLMApi {
       // Please do not ask me why not send max_tokens, no reason, this param is just shit, I dont want to explain anymore.
     };
 
-    console.log("[Request] openai payload: ", requestPayload);
+    console.log("[Request] moonshot payload: ", requestPayload);
 
     const shouldStream = !!options.config.stream;
     const controller = new AbortController();
@@ -195,5 +261,31 @@ export class MoonshotApi implements LLMApi {
 
   async models(): Promise<LLMModel[]> {
     return [];
+  }
+
+  // 新增的 uploadFile 實作
+  async uploadFile(formData: FormData): Promise<any> {
+    try {
+      const uploadResponse = await fetch(this.path("v1/files"), {
+        method: "POST",
+        headers: getHeaders({ isFormData: true }),
+        body: formData,
+        // @ts-ignore
+        duplex: "half",
+      });
+
+      if (!uploadResponse.ok) {
+        const errorData = await uploadResponse.json();
+        console.error("[Moonshot] Upload failed:", errorData);
+        throw new Error(errorData.error?.message || "Upload failed");
+      }
+
+      const result = await uploadResponse.json();
+      // console.log('[Moonshot] File uploaded:', result);
+      return result;
+    } catch (error) {
+      // console.error('[Moonshot] File upload error:', error);
+      throw error;
+    }
   }
 }

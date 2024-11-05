@@ -325,6 +325,7 @@ export function isVisionModel(model: string) {
     "gemini-1.5-flash",
     "gpt-4o",
     "gpt-4o-mini",
+    "moonshot",
   ];
   const isGpt4Turbo =
     model.includes("gpt-4-turbo") && !model.includes("preview");
@@ -343,6 +344,9 @@ export function showPlugins(provider: ServiceProvider, model: string) {
     return true;
   }
   if (provider == ServiceProvider.Anthropic && !model.includes("claude-2")) {
+    return true;
+  }
+  if (provider == ServiceProvider.Google && !model.includes("vision")) {
     return true;
   }
   return false;

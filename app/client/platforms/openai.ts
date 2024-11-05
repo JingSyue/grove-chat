@@ -76,6 +76,9 @@ export interface DalleRequestPayload {
 }
 
 export class ChatGPTApi implements LLMApi {
+  uploadFile(formData: FormData): Promise<any> {
+    throw new Error("Method not implemented.");
+  }
   private disableListModels = true;
 
   path(path: string): string {
@@ -179,6 +182,8 @@ export class ChatGPTApi implements LLMApi {
         if (!(isO1 && v.role === "system"))
           messages.push({ role: v.role, content });
       }
+
+      console.log("[ChatGPTApi] messages", messages);
 
       // O1 not support image, tools (plugin in ChatGPTNextWeb) and system, stream, logprobs, temperature, top_p, n, presence_penalty, frequency_penalty yet.
       requestPayload = {

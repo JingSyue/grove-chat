@@ -39,6 +39,9 @@ export interface PerplexityRequestPayload {
 }
 
 export class PerplexityApi implements LLMApi {
+  uploadFile(formData: FormData): Promise<any> {
+    throw new Error("Method not implemented.");
+  }
   path(path: string): string {
     const accessStore = useAccessStore.getState();
     let baseUrl = accessStore.useCustomConfig ? accessStore.perplexityUrl : "";

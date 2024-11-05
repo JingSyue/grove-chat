@@ -98,6 +98,7 @@ export abstract class LLMApi {
   abstract chat(options: ChatOptions): Promise<void>;
   abstract usage(): Promise<LLMUsage>;
   abstract models(): Promise<LLMModel[]>;
+  abstract uploadFile(formData: FormData): Promise<any>; // add upload file
 }
 
 type ProviderName = "openai" | "azure" | "claude" | "palm";
@@ -211,13 +212,16 @@ export function validString(x: string): boolean {
   return x?.length > 0;
 }
 
-export function getHeaders() {
+export function getHeaders(options: { isFormData?: boolean } = {}) {
   const accessStore = useAccessStore.getState();
   const chatStore = useChatStore.getState();
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  };
+  const headers: Record<string, string> = {};
+
+  // 只在非 FormData 請求時添加這些 headers
+  if (!options.isFormData) {
+    headers["Content-Type"] = "application/json";
+    headers["Accept"] = "application/json";
+  }
 
   const clientConfig = getClientConfig();
 

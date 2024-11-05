@@ -47,6 +47,9 @@ interface RequestPayload {
 }
 
 export class DoubaoApi implements LLMApi {
+  uploadFile(formData: FormData): Promise<any> {
+    throw new Error("Method not implemented.");
+  }
   path(path: string): string {
     const accessStore = useAccessStore.getState();
 

@@ -1,18 +1,7 @@
-import { getServerSideConfig } from "@/app/config/server";
-import {
-  Moonshot,
-  MOONSHOT_BASE_URL,
-  ApiPath,
-  ModelProvider,
-  ServiceProvider,
-} from "@/app/constant";
-import { prettyObject } from "@/app/utils/format";
+// server/moonshot.ts
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/app/api/auth";
-import { isModelAvailableInServer } from "@/app/utils/model";
-import type { RequestPayload } from "@/app/client/platforms/openai";
-
-const serverConfig = getServerSideConfig();
+import { ModelProvider, MOONSHOT_BASE_URL } from "@/app/constant";
 
 export async function handle(
   req: NextRequest,
@@ -32,11 +21,61 @@ export async function handle(
   }
 
   try {
-    const response = await request(req);
-    return response;
+    let path = `${req.nextUrl.pathname}`.replace("/api/moonshot/", "");
+    const baseUrl = MOONSHOT_BASE_URL;
+    const fetchUrl = `${baseUrl}/${path}`;
+
+    console.log("[Moonshot Server] Target URL:", fetchUrl);
+
+    const contentType = req.headers.get("content-type") || "";
+    const isFormData = contentType.includes("multipart/form-data");
+
+    // 準備 fetchOptions
+    const fetchOptions: RequestInit = {
+      method: req.method,
+      headers: {
+        Authorization: req.headers.get("Authorization") ?? "",
+      },
+      // @ts-ignore
+      duplex: "half",
+    };
+
+    // 根據請求類型處理 body 和 headers
+    if (isFormData) {
+      try {
+        const formData = await req.formData();
+        fetchOptions.body = formData;
+      } catch (error) {
+        console.error("[Moonshot] FormData error:", error);
+        return NextResponse.json(
+          { error: "Invalid form data" },
+          { status: 400 },
+        );
+      }
+    } else {
+      fetchOptions.headers = {
+        ...fetchOptions.headers,
+        "Content-Type": "application/json",
+      };
+      fetchOptions.body = req.body;
+    }
+
+    // 發送請求
+    const response = await fetch(fetchUrl, fetchOptions);
+
+    // 處理響應
+    const newHeaders = new Headers(response.headers);
+    newHeaders.delete("www-authenticate");
+    newHeaders.set("X-Accel-Buffering", "no");
+
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: newHeaders,
+    });
   } catch (e) {
-    console.error("[Moonshot] ", e);
-    return NextResponse.json(prettyObject(e));
+    console.error("[Moonshot] Error:", e);
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
 
@@ -44,92 +83,3 @@ export const GET = handle;
 export const POST = handle;
 
 export const runtime = "edge";
-
-async function request(req: NextRequest) {
-  const controller = new AbortController();
-
-  // alibaba use base url or just remove the path
-  let path = `${req.nextUrl.pathname}`.replaceAll(ApiPath.Moonshot, "");
-
-  let baseUrl = serverConfig.moonshotUrl || MOONSHOT_BASE_URL;
-
-  if (!baseUrl.startsWith("http")) {
-    baseUrl = `https://${baseUrl}`;
-  }
-
-  if (baseUrl.endsWith("/")) {
-    baseUrl = baseUrl.slice(0, -1);
-  }
-
-  console.log("[Proxy] ", path);
-  console.log("[Base Url]", baseUrl);
-
-  const timeoutId = setTimeout(
-    () => {
-      controller.abort();
-    },
-    10 * 60 * 1000,
-  );
-
-  const fetchUrl = `${baseUrl}${path}`;
-  const fetchOptions: RequestInit = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: req.headers.get("Authorization") ?? "",
-    },
-    method: req.method,
-    body: req.body,
-    redirect: "manual",
-    // @ts-ignore
-    duplex: "half",
-    signal: controller.signal,
-  };
-
-  // #1815 try to refuse some request to some models
-  if (serverConfig.customModels && req.body) {
-    try {
-      const clonedBody = await req.text();
-      fetchOptions.body = clonedBody;
-
-      const jsonBody = JSON.parse(clonedBody) as { model?: string };
-
-      // not undefined and is false
-      if (
-        isModelAvailableInServer(
-          serverConfig.customModels,
-          jsonBody?.model as string,
-          ServiceProvider.Moonshot as string,
-        )
-      ) {
-        return NextResponse.json(
-          {
-            error: true,
-            message: `you are not allowed to use ${jsonBody?.model} model`,
-          },
-          {
-            status: 403,
-          },
-        );
-      }
-    } catch (e) {
-      console.error(`[Moonshot] filter`, e);
-    }
-  }
-  try {
-    const res = await fetch(fetchUrl, fetchOptions);
-
-    // to prevent browser prompt for credentials
-    const newHeaders = new Headers(res.headers);
-    newHeaders.delete("www-authenticate");
-    // to disable nginx buffering
-    newHeaders.set("X-Accel-Buffering", "no");
-
-    return new Response(res.body, {
-      status: res.status,
-      statusText: res.statusText,
-      headers: newHeaders,
-    });
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
