@@ -68,14 +68,12 @@ export interface ChatStat {
 export interface ChatSession {
   id: string;
   topic: string;
-
   memoryPrompt: string;
   messages: ChatMessage[];
   stat: ChatStat;
   lastUpdate: number;
   lastSummarizeIndex: number;
   clearContextIndex?: number;
-
   mask: Mask;
 }
 
@@ -456,6 +454,7 @@ export const useChatStore = createPersistStore(
         });
 
         const api: ClientApi = getClientApi(modelConfig.providerName);
+        // console.log("store chat", sendMessages);
         // make request
         api.llm.chat({
           messages: sendMessages,
@@ -690,7 +689,7 @@ export const useChatStore = createPersistStore(
 
         const historyMsgLength = countMessages(toBeSummarizedMsgs);
 
-        if (historyMsgLength > modelConfig?.max_tokens ?? 4000) {
+        if (historyMsgLength > modelConfig?.max_tokens || 4000) {
           const n = toBeSummarizedMsgs.length;
           toBeSummarizedMsgs = toBeSummarizedMsgs.slice(
             Math.max(0, n - modelConfig.historyMessageCount),
