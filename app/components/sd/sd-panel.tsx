@@ -173,6 +173,7 @@ export function ControlParam(props: {
                 required={item.required}
               >
                 <textarea
+                  data-private="lipsum"
                   rows={item.rows || 3}
                   style={{ maxWidth: "100%", width: "100%", padding: "10px" }}
                   placeholder={item.placeholder}

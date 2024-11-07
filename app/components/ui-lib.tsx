@@ -259,6 +259,7 @@ export type InputProps = React.HTMLProps<HTMLTextAreaElement> & {
 export function Input(props: InputProps) {
   return (
     <textarea
+      data-private="lipsum"
       {...props}
       className={`${styles["input"]} ${props.className}`}
     ></textarea>
@@ -369,6 +370,7 @@ function PromptInput(props: {
 
   return (
     <textarea
+      data-private="lipsum"
       className={styles["modal-input"]}
       autoFocus
       value={input}
