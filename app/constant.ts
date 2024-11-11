@@ -470,6 +470,7 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "gemini-1.5-pro-latest",
     "gemini-1.5-flash-latest",
     "moonshot-v1-32k",
+    "grok-beta",
   ],
   student: [
     "gpt-4o-mini",
@@ -480,6 +481,7 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "llama-3.1-sonar-small-128k-online",
     "llama-3.1-sonar-large-128k-online",
     "moonshot-v1-32k",
+    "grok-beta",
   ],
   guest: [
     "gpt-3.5-turbo",
@@ -487,6 +489,7 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "claude-3-sonnet-20240229",
     "llama-3.1-sonar-small-128k-online",
     "moonshot-v1-32k",
+    "grok-beta",
   ],
 } as const;
 
