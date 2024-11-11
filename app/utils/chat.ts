@@ -240,7 +240,6 @@ export function stream(
                 return e.toString();
               })
               .then((content) => ({
-                name: tool.function.name,
                 role: "tool",
                 content,
                 tool_call_id: tool.id,
