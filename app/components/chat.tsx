@@ -47,6 +47,7 @@ import UploadDocIcon from "../icons/upload-doc.svg";
 import OpenAIIcon from "../icons/openai.svg";
 import AnthropicIcon from "../icons/anthropic.svg";
 import PerplexityIcon from "../icons/perplexity.svg";
+import XAIIcon from "../icons/xai.svg";
 import BaiduIcon from "../icons/baidu.svg";
 import ByteDanceIcon from "../icons/bytedance.svg";
 import AlibabaIcon from "../icons/alibaba.svg";
@@ -617,6 +618,11 @@ export function ChatActions(props: {
     Perplexity: (
       <div className="no-dark">
         <PerplexityIcon />
+      </div>
+    ),
+    XAI: (
+      <div className="no-dark">
+        <XAIIcon />
       </div>
     ),
   };
@@ -1450,6 +1456,11 @@ function _Chat() {
     Perplexity: (
       <div className="no-dark">
         <PerplexityIcon />
+      </div>
+    ),
+    XAI: (
+      <div className="no-dark">
+        <XAIIcon />
       </div>
     ),
   };

@@ -30,6 +30,8 @@ export const MOONSHOT_BASE_URL = "https://api.moonshot.cn";
 // perplexity
 export const PERPLEXITY_BASE_URL = "https://api.perplexity.ai";
 
+export const XAI_BASE_URL = "https://api.x.ai/v1";
+
 export const CACHE_URL_PREFIX = "/api/cache";
 export const UPLOAD_URL = `${CACHE_URL_PREFIX}/upload`;
 
@@ -62,6 +64,7 @@ export enum ApiPath {
   Stability = "/api/stability",
   Perplexity = "/api/perplexity",
   Artifacts = "/api/artifacts",
+  XAI = "/api/xai",
 }
 
 export enum SlotID {
@@ -117,6 +120,7 @@ export enum ServiceProvider {
   Moonshot = "Moonshot",
   Stability = "Stability",
   Perplexity = "Perplexity",
+  XAI = "XAI",
 }
 
 // Google API safety settings, see https://ai.google.dev/gemini-api/docs/safety-settings
@@ -138,6 +142,7 @@ export enum ModelProvider {
   Qwen = "Qwen",
   Moonshot = "Moonshot",
   Perplexity = "Perplexity",
+  XAI = "XAI",
 }
 
 export const Stability = {
@@ -214,6 +219,11 @@ export const Moonshot = {
 
 export const Perplexity = {
   ExampleEndpoint: PERPLEXITY_BASE_URL,
+  ChatPath: "chat/completions",
+};
+
+export const XAI = {
+  ExampleEndpoint: XAI_BASE_URL,
   ChatPath: "chat/completions",
 };
 
@@ -327,6 +337,8 @@ const perplexityModels = [
   "llama-3.1-sonar-huge-128k-online",
 ];
 
+const xAIModels = ["grok-beta"];
+
 export const DEFAULT_MODELS = [
   ...openaiModels.map((name) => ({
     name,
@@ -400,6 +412,15 @@ export const DEFAULT_MODELS = [
       providerType: "perplexity",
     },
   })),
+  ...xAIModels.map((name) => ({
+    name,
+    available: true,
+    provider: {
+      id: "xai",
+      providerName: "XAI",
+      providerType: "xai",
+    },
+  })),
 ] as const;
 
 export const CHAT_PAGE_SIZE = 15;
@@ -436,6 +457,7 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "gemini-1.5-flash-latest",
     "moonshot-v1-128k",
     "moonshot-v1-32k",
+    "grok-beta",
   ],
   assistant: [
     "gpt-4o-2024-08-06",

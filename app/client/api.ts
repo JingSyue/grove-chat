@@ -20,6 +20,7 @@ import { DoubaoApi } from "./platforms/bytedance";
 import { QwenApi } from "./platforms/alibaba";
 import { MoonshotApi } from "./platforms/moonshot";
 import { PerplexityApi } from "./platforms/perplexity";
+import { XAIApi } from "./platforms/xai";
 
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
@@ -148,6 +149,9 @@ export class ClientApi {
       case ModelProvider.Perplexity:
         this.llm = new PerplexityApi();
         break;
+      case ModelProvider.XAI:
+        this.llm = new XAIApi();
+        break;
       default:
         this.llm = new ChatGPTApi();
     }
@@ -237,6 +241,7 @@ export function getHeaders(options: { isFormData?: boolean } = {}) {
     // perplexity
     const isPerplexity =
       modelConfig.providerName === ServiceProvider.Perplexity;
+    const isXAI = modelConfig.providerName === ServiceProvider.XAI;
 
     const isEnabledAccessControl = accessStore.enabledAccessControl();
     const apiKey = isGoogle
@@ -253,6 +258,8 @@ export function getHeaders(options: { isFormData?: boolean } = {}) {
       ? accessStore.moonshotApiKey
       : isPerplexity
       ? accessStore.perplexityApiKey
+      : isXAI
+      ? accessStore.xaiApiKey
       : accessStore.openaiApiKey;
     return {
       isGoogle,
@@ -263,6 +270,7 @@ export function getHeaders(options: { isFormData?: boolean } = {}) {
       isAlibaba,
       isMoonshot,
       isPerplexity,
+      isXAI,
       apiKey,
       isEnabledAccessControl,
     };
@@ -316,6 +324,8 @@ export function getClientApi(provider: ServiceProvider): ClientApi {
       return new ClientApi(ModelProvider.Moonshot);
     case ServiceProvider.Perplexity:
       return new ClientApi(ModelProvider.Perplexity);
+    case ServiceProvider.XAI:
+      return new ClientApi(ModelProvider.XAI);
     default:
       return new ClientApi(ModelProvider.GPT);
   }

@@ -1,4 +1,5 @@
 import { getClientConfig } from "../config/client";
+import { XAI } from "../constant";
 import { SubmitKey } from "../store/config";
 
 const isApp = !!getClientConfig()?.isApp;
@@ -467,6 +468,17 @@ const cn = {
           Title: "接口密钥",
           SubTitle: "使用自定义 Perplexity API Key",
           Placeholder: "Perplexity API Key",
+        },
+        Endpoint: {
+          Title: "接口地址",
+          SubTitle: "样例：",
+        },
+      },
+      XAI: {
+        ApiKey: {
+          Title: "接口密钥",
+          SubTitle: "使用自定义 XAI API Key",
+          Placeholder: "XAI API Key",
         },
         Endpoint: {
           Title: "接口地址",

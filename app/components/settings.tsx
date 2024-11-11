@@ -79,6 +79,7 @@ import {
   UPDATE_URL,
   Stability,
   Perplexity,
+  XAI,
   ROLE_ALLOWED_MODEL_NAMES,
 } from "../constant";
 import { Prompt, SearchService, usePromptStore } from "../store/prompt";
@@ -1064,6 +1065,26 @@ export function PasswordSettings() {
     </>
   );
 
+  const xaiConfigComponent = accessStore.provider === ServiceProvider.XAI && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.XAI.ApiKey.Title}
+        subTitle={Locale.Settings.Access.XAI.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.xaiApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.XAI.ApiKey.Placeholder}
+          onChange={(e) =>
+            accessStore.update(
+              (access) => (access.xaiApiKey = e.currentTarget.value),
+            )
+          }
+        />
+      </ListItem>
+    </>
+  );
+
   return (
     <List id={SlotID.CustomModel}>
       {accessCodeComponent}
@@ -1103,6 +1124,7 @@ export function PasswordSettings() {
               {moonshotConfigComponent}
               {stabilityConfigComponent}
               {perplexityConfigComponent}
+              {xaiConfigComponent}
             </>
           )}
         </>
@@ -1998,6 +2020,41 @@ function ProxySettings() {
     </>
   );
 
+  const xaiConfigComponent = accessStore.provider === ServiceProvider.XAI && (
+    <>
+      <ListItem
+        title={Locale.Settings.Access.XAI.Endpoint.Title}
+        subTitle={Locale.Settings.Access.XAI.Endpoint.SubTitle}
+      >
+        <input
+          type="text"
+          value={accessStore.xaiUrl}
+          placeholder={XAI.ExampleEndpoint}
+          onChange={(e) =>
+            accessStore.update(
+              (access) => (access.xaiUrl = e.currentTarget.value),
+            )
+          }
+        />
+      </ListItem>
+      <ListItem
+        title={Locale.Settings.Access.XAI.ApiKey.Title}
+        subTitle={Locale.Settings.Access.XAI.ApiKey.SubTitle}
+      >
+        <PasswordInput
+          value={accessStore.xaiApiKey}
+          type="text"
+          placeholder={Locale.Settings.Access.XAI.ApiKey.Placeholder}
+          onChange={(e) =>
+            accessStore.update(
+              (access) => (access.xaiApiKey = e.currentTarget.value),
+            )
+          }
+        />
+      </ListItem>
+    </>
+  );
+
   return (
     <List id={SlotID.CustomModel}>
       {!accessStore.hideUserApiKey && (
@@ -2037,6 +2094,7 @@ function ProxySettings() {
               {moonshotConfigComponent}
               {stabilityConfigComponent}
               {perplexityConfigComponent}
+              {xaiConfigComponent}
             </>
           )}
         </>

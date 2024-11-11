@@ -65,6 +65,9 @@ declare global {
       PERPLEXITY_URL?: string;
       PERPLEXITY_API_KEY?: string;
 
+      XAI_URL?: string;
+      XAI_API_KEY?: string;
+
       // custom template for preprocessing user input
       DEFAULT_INPUT_TEMPLATE?: string;
     }
@@ -130,6 +133,7 @@ export const getServerSideConfig = () => {
   const isAlibaba = !!process.env.ALIBABA_API_KEY;
   const isMoonshot = !!process.env.MOONSHOT_API_KEY;
   const isPerplexity = !!process.env.PERPLEXITY_API_KEY;
+  const isXAI = !!process.env.XAI_API_KEY;
   // const apiKeyEnvVar = process.env.OPENAI_API_KEY ?? "";
   // const apiKeys = apiKeyEnvVar.split(",").map((v) => v.trim());
   // const randomIndex = Math.floor(Math.random() * apiKeys.length);
@@ -185,6 +189,10 @@ export const getServerSideConfig = () => {
     isPerplexity,
     perplexityUrl: process.env.PERPLEXITY_URL,
     perplexityApiKey: getApiKey(process.env.PERPLEXITY_API_KEY),
+
+    isXAI,
+    xaiUrl: process.env.XAI_URL,
+    xaiApiKey: getApiKey(process.env.XAI_API_KEY),
 
     cloudflareAccountId: process.env.CLOUDFLARE_ACCOUNT_ID,
     cloudflareKVNamespaceId: process.env.CLOUDFLARE_KV_NAMESPACE_ID,

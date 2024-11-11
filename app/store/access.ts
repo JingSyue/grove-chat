@@ -52,6 +52,10 @@ const DEFAULT_PERPLEXITY_URL = isApp
   ? DEFAULT_API_HOST + "/api/proxy/perplexity"
   : ApiPath.Perplexity;
 
+const DEFAULT_XAI_URL = isApp
+  ? DEFAULT_API_HOST + "/api/proxy/xai"
+  : ApiPath.XAI;
+
 const DEFAULT_ACCESS_STATE = {
   accessCode: "",
   useCustomConfig: true,
@@ -111,6 +115,10 @@ const DEFAULT_ACCESS_STATE = {
   //perplexity
   perplexityUrl: DEFAULT_PERPLEXITY_URL,
   perplexityApiKey: "",
+
+  //xai
+  xaiUrl: DEFAULT_XAI_URL,
+  xaiApiKey: "",
 };
 
 export const useAccessStore = createPersistStore(
@@ -159,6 +167,10 @@ export const useAccessStore = createPersistStore(
       return ensure(get(), ["perplexityApiKey"]);
     },
 
+    isValidXAI() {
+      return ensure(get(), ["xaiApiKey"]);
+    },
+
     isAuthorized() {
       this.fetch();
       // has token or has code or disabled access control
@@ -172,6 +184,7 @@ export const useAccessStore = createPersistStore(
         this.isValidAlibaba() ||
         this.isValidMoonshot() ||
         this.isValidPerplexity() ||
+        this.isValidXAI() ||
         !this.enabledAccessControl() ||
         (this.enabledAccessControl() && ensure(get(), ["accessCode"]))
       );
