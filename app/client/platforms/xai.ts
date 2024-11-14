@@ -186,8 +186,11 @@ export class XAIApi implements LLMApi {
             const text = msg.data;
 
             try {
+              if (msg.data === "[DONE]" || finished) {
+                return finish();
+              }
               const json = JSON.parse(text);
-              console.log("[XAI] response:", json);
+              //console.log("[XAI] response:", json);
 
               const choices = json.choices as Array<{
                 delta: { content: string };
@@ -213,7 +216,7 @@ export class XAIApi implements LLMApi {
         });
       } else {
         const res = await fetch(chatPath, chatPayload);
-        console.log("[XAI] response:", res);
+        //console.log("[XAI] response:", res);
 
         clearTimeout(requestTimeoutId);
 
@@ -222,7 +225,7 @@ export class XAIApi implements LLMApi {
         options.onFinish(message);
       }
     } catch (e) {
-      console.log("[Request] failed to make a chat request", e);
+      //console.log("[Request] failed to make a chat request", e);
       options.onError?.(e as Error);
     }
   }

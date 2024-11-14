@@ -30,7 +30,7 @@ export const MOONSHOT_BASE_URL = "https://api.moonshot.cn";
 // perplexity
 export const PERPLEXITY_BASE_URL = "https://api.perplexity.ai";
 
-export const XAI_BASE_URL = "https://api.x.ai/v1";
+export const XAI_BASE_URL = "https://api.x.ai";
 
 export const CACHE_URL_PREFIX = "/api/cache";
 export const UPLOAD_URL = `${CACHE_URL_PREFIX}/upload`;
@@ -224,7 +224,7 @@ export const Perplexity = {
 
 export const XAI = {
   ExampleEndpoint: XAI_BASE_URL,
-  ChatPath: "chat/completions",
+  ChatPath: "v1/chat/completions",
 };
 
 export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lang
