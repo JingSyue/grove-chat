@@ -337,7 +337,7 @@ export function isVisionModel(model: string) {
 
 export function showPlugins(provider: ServiceProvider, model: string) {
   if (
-    provider == ServiceProvider.OpenAI ||
+    (provider == ServiceProvider.OpenAI && !model.includes("o1")) ||
     provider == ServiceProvider.Azure ||
     provider == ServiceProvider.Moonshot
   ) {
