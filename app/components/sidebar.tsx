@@ -17,7 +17,6 @@ import Locale from "../locales";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 import { useAppConfig, useChatStore } from "../store";
-import { OrganizationSwitcher } from "@clerk/nextjs";
 import {
   DEFAULT_SIDEBAR_WIDTH,
   MAX_SIDEBAR_WIDTH,
@@ -25,11 +24,8 @@ import {
   NARROW_SIDEBAR_WIDTH,
   Path,
   PLUGINS,
-  REPO_URL,
-  GROVE_WEB_URL,
   CUSTOMTITLE,
   CUSTOMSUBTITLE,
-  FORM_URL,
 } from "../constant";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -284,23 +280,7 @@ export function SideBar(props: { className?: string }) {
               }}
               shadow
             />
-            {/* <IconButton
-            icon={<DiscoveryIcon />}
-            text={shouldNarrow ? undefined : Locale.Discovery.Name}
-            className={styles["sidebar-bar-button"]}
-            onClick={() => setShowPluginSelector(true)}
-            shadow
-          /> */}
             <IconButton userButton={true} />
-            {/* <IconButton
-                icon={<DiscoveryIcon />}
-                text={shouldNarrow ? undefined : Locale.Discovery.Name}
-                className={styles["sidebar-bar-button"]}
-                onClick={() =>
-                  navigate(Path.Classroom, { state: { fromHome: true } })
-                }
-                shadow
-              /> */}
           </div>
         </SignedIn>
 
@@ -344,18 +324,6 @@ export function SideBar(props: { className?: string }) {
                 <IconButton icon={<SettingsIcon />} shadow />
               </Link>
             </div>
-
-            <div className={styles["sidebar-action"]}>
-              <a href={FORM_URL} target="_blank" rel="noopener noreferrer">
-                <IconButton icon={<FORMICON />} shadow />
-              </a>
-            </div>
-
-            {/* <div className={styles["sidebar-action"]}>
-              <a href={GROVE_WEB_URL} target="_blank" rel="noopener noreferrer">
-                <IconButton icon={<RobotIcon />} shadow />
-              </a>
-            </div> */}
           </>
         }
         secondaryAction={
