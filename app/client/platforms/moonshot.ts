@@ -22,7 +22,6 @@ import {
   //SpeechOptions,
 } from "../api";
 import { getClientConfig } from "@/app/config/client";
-import { getMessageTextContent, isVisionModel } from "@/app/utils";
 import { RequestPayload } from "./openai";
 
 export class MoonshotApi implements LLMApi {
@@ -266,7 +265,7 @@ export class MoonshotApi implements LLMApi {
   // 新增的 uploadFile 實作
   async uploadFile(formData: FormData): Promise<any> {
     try {
-      const uploadResponse = await fetch(this.path("v1/files"), {
+      const uploadResponse = await fetch(this.path(Moonshot.FilePath), {
         method: "POST",
         headers: getHeaders({ isFormData: true }),
         body: formData,
