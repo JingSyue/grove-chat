@@ -21,8 +21,9 @@ import {
 } from "@fortaine/fetch-event-source";
 import { prettyObject } from "@/app/utils/format";
 import { getClientConfig } from "@/app/config/client";
-import { getMessageTextContent } from "@/app/utils";
+import { getMessageTextContent, isVisionModel } from "@/app/utils";
 import { RequestPayload } from "./openai";
+import { preProcessImageContent } from "@/app/utils/chat";
 
 export class XAIApi implements LLMApi {
   uploadFile(formData: FormData): Promise<any> {
@@ -50,14 +51,16 @@ export class XAIApi implements LLMApi {
   }
 
   extractMessage(res: any) {
-    return res.choices?.at(0)?.message?.content ?? "";
+    return res.choices?.at(0)?.message?.content ?? res;
   }
 
   async chat(options: ChatOptions) {
+    const visionModel = isVisionModel(options.config.model);
     const messages: ChatOptions["messages"] = [];
-
     for (const v of options.messages) {
-      const content = getMessageTextContent(v);
+      const content = visionModel
+        ? await preProcessImageContent(v.content)
+        : getMessageTextContent(v);
       messages.push({ role: v.role, content });
     }
     console.log(messages);

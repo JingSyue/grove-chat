@@ -341,7 +341,7 @@ const perplexityModels = [
   "llama-3.1-sonar-huge-128k-online",
 ];
 
-const xAIModels = ["grok-beta"];
+const xAIModels = ["grok-beta", "grok-vision-beta"];
 
 export const DEFAULT_MODELS = [
   ...openaiModels.map((name) => ({
@@ -464,6 +464,7 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "moonshot-v1-128k",
     "moonshot-v1-32k",
     "grok-beta",
+    "grok-vision-beta",
   ],
   assistant: [
     "gpt-4o-2024-08-06",
@@ -477,6 +478,7 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "gemini-1.5-flash-latest",
     "moonshot-v1-32k",
     "grok-beta",
+    "grok-vision-beta",
   ],
   student: [
     "gpt-4o-mini",
@@ -488,6 +490,7 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "llama-3.1-sonar-large-128k-online",
     "moonshot-v1-32k",
     "grok-beta",
+    "grok-vision-beta",
   ],
   guest: [
     "gpt-3.5-turbo",

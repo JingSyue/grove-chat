@@ -326,6 +326,7 @@ export function isVisionModel(model: string) {
     "gpt-4o",
     "gpt-4o-mini",
     "moonshot",
+    "grok-vision-beta",
   ];
   const isGpt4Turbo =
     model.includes("gpt-4-turbo") && !model.includes("preview");
