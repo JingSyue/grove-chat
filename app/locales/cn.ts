@@ -133,6 +133,10 @@ const cn = {
       showShortcutKey: "显示快捷方式",
     },
   },
+  SignIn: {
+    Title: "登录",
+    Name: "登录",
+  },
   Export: {
     Title: "分享聊天记录",
     Copy: "全部复制",
@@ -793,10 +797,6 @@ const cn = {
         Title: "分享此助理",
         SubTitle: "生成此助理的直达链接",
         Action: "复制链接",
-      },
-      Artifacts: {
-        Title: "Enable Artifacts",
-        SubTitle: "Can render HTML page when enable artifacts.",
       },
     },
   },

@@ -660,5 +660,6 @@ export const DEFAULT_PLUGINS = [
   "arxivsearch",
   "dalle3",
 ] as const;
+export const DEFAULT_GA_ID = "";
 export const SAAS_CHAT_URL = `https://grove-chat.vercel.app/`;
 export const SAAS_CHAT_UTM_URL = `https://grove-chat.vercel.app/`;

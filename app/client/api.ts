@@ -99,7 +99,7 @@ export interface LLMModel {
   displayName?: string;
   available: boolean;
   provider: LLMModelProvider;
-  sorted: number;
+  sorted?: number;
 }
 
 export interface LLMModelProvider {

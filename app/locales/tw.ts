@@ -124,14 +124,6 @@ const tw = {
   SignIn: {
     Title: "登入",
     Name: "登入",
-    Username: {
-      Title: "信箱",
-      SubTitle: "輸入信箱",
-    },
-    Password: {
-      Title: "密碼",
-      SubTitle: "輸入密碼",
-    },
   },
   Export: {
     Title: "將聊天記錄匯出為 Markdown",

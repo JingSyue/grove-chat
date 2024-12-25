@@ -69,7 +69,8 @@ export function collectModelTable(
     // using <modelName>@<providerId> as fullName
     modelTable[`${m.name}@${m?.provider?.id}`] = {
       ...m,
-      displayName: m.name, // 'provider' is copied over if it exists
+      displayName: m.name,
+      sorted: m.sorted || 0, // 'provider' is copied over if it exists
     };
   });
 

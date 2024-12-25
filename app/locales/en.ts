@@ -128,6 +128,10 @@ const en: LocaleType = {
       showShortcutKey: "Show Shortcuts",
     },
   },
+  SignIn: {
+    Title: "Sign in",
+    Name: "Sigin in",
+  },
   Export: {
     Title: "Export Messages",
     Copy: "Copy All",
