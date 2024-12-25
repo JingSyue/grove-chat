@@ -6,14 +6,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 import { requestOpenai } from "./common";
 
-const ALLOWD_PATH = new Set(Object.values(OpenaiPath));
+const ALLOWED_PATH = new Set(Object.values(OpenaiPath));
 
 function getModels(remoteModelRes: OpenAIListModelResponse) {
   const config = getServerSideConfig();
 
   if (config.disableGPT4) {
     remoteModelRes.data = remoteModelRes.data.filter(
-      (m) => !m.id.startsWith("gpt-4"),
+      (m) =>
+        !(
+          m.id.startsWith("gpt-4") ||
+          m.id.startsWith("chatgpt-4o") ||
+          m.id.startsWith("o1")
+        ) || m.id.startsWith("gpt-4o-mini"),
     );
   }
 
@@ -32,7 +37,7 @@ export async function handle(
 
   const subpath = params.path.join("/");
 
-  if (!ALLOWD_PATH.has(subpath)) {
+  if (!ALLOWED_PATH.has(subpath)) {
     console.log("[OpenAI Route] forbidden path ", subpath);
     return NextResponse.json(
       {
@@ -70,8 +75,3 @@ export async function handle(
     return NextResponse.json(prettyObject(e));
   }
 }
-
-export const GET = handle;
-export const POST = handle;
-
-export const runtime = "edge";

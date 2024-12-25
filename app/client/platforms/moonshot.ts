@@ -19,10 +19,12 @@ import {
   getHeaders,
   LLMApi,
   LLMModel,
-  //SpeechOptions,
+  SpeechOptions,
 } from "../api";
 import { getClientConfig } from "@/app/config/client";
 import { RequestPayload } from "./openai";
+import { getMessageTextContent } from "@/app/utils";
+import { fetch } from "@/app/utils/stream";
 
 export class MoonshotApi implements LLMApi {
   private disableListModels = true;
@@ -58,9 +60,9 @@ export class MoonshotApi implements LLMApi {
     return res.choices?.at(0)?.message?.content ?? "";
   }
 
-  // speech(options: SpeechOptions): Promise<ArrayBuffer> {
-  //   throw new Error("Method not implemented.");
-  // }
+  speech(options: SpeechOptions): Promise<ArrayBuffer> {
+    throw new Error("Method not implemented.");
+  }
 
   async chat(options: ChatOptions) {
     const messages: ChatOptions["messages"] = [];
@@ -244,7 +246,7 @@ export class MoonshotApi implements LLMApi {
 
         const resJson = await res.json();
         const message = this.extractMessage(resJson);
-        options.onFinish(message);
+        options.onFinish(message, res);
       }
     } catch (e) {
       console.log("[Request] failed to make a chat request", e);
@@ -267,16 +269,22 @@ export class MoonshotApi implements LLMApi {
     try {
       const uploadResponse = await fetch(this.path(Moonshot.FilePath), {
         method: "POST",
-        headers: getHeaders({ isFormData: true }),
+        headers: getHeaders(true),
         body: formData,
         // @ts-ignore
         duplex: "half",
       });
 
       if (!uploadResponse.ok) {
-        const errorData = await uploadResponse.json();
-        console.error("[Moonshot] Upload failed:", errorData);
-        throw new Error(errorData.error?.message || "Upload failed");
+        let errorMessage = "Upload failed";
+        try {
+          const errorData = await uploadResponse.json();
+          errorMessage = errorData.error?.message || errorMessage;
+        } catch {
+          errorMessage = `Upload failed with status ${uploadResponse.status}`;
+        }
+        console.error("[Moonshot] Upload failed:", errorMessage);
+        throw new Error(errorMessage);
       }
 
       const result = await uploadResponse.json();

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { showToast } from "./components/ui-lib";
 import Locale from "./locales";
-import { ServiceProvider, REQUEST_TIMEOUT_MS } from "./constant";
-import isObject from "lodash-es/isObject";
-import { fetch as tauriFetch, Body, ResponseType } from "@tauri-apps/api/http";
-
+import { ServiceProvider } from "./constant";
+import { fetch as tauriStreamFetch } from "./utils/stream";
 import { RequestMessage, UploadFile } from "./client/api";
 
 export const readFileContent = async (file: UploadFile): Promise<string> => {
@@ -262,6 +260,7 @@ export function autoGrowTextArea(dom: HTMLTextAreaElement) {
   measureDom.style.width = width + "px";
   measureDom.innerText = dom.value !== "" ? dom.value : "1";
   measureDom.style.fontSize = dom.style.fontSize;
+  measureDom.style.fontFamily = dom.style.fontFamily;
   const endWithEmptyLine = dom.value.endsWith("\n");
   const height = parseFloat(window.getComputedStyle(measureDom).height);
   const singleLineHeight = parseFloat(
@@ -318,21 +317,28 @@ export function getMessageImages(message: RequestMessage): string[] {
 export function isVisionModel(model: string) {
   // Note: This is a better way using the TypeScript feature instead of `&&` or `||` (ts v5.5.0-dev.20240314 I've been using)
 
+  const excludeKeywords = ["claude-3-5-haiku-20241022"];
   const visionKeywords = [
     "vision",
-    "claude-3",
-    "gemini-1.5-pro",
-    "gemini-1.5-flash",
     "gpt-4o",
     "gpt-4o-mini",
     "moonshot",
     "grok-vision-beta",
+    "claude-3",
+    "gemini-1.5",
+    "gemini-exp",
+    "learnlm",
+    "qwen-vl",
+    "qwen2-vl",
   ];
   const isGpt4Turbo =
     model.includes("gpt-4-turbo") && !model.includes("preview");
 
   return (
-    visionKeywords.some((keyword) => model.includes(keyword)) || isGpt4Turbo
+    !excludeKeywords.some((keyword) => model.includes(keyword)) &&
+    (visionKeywords.some((keyword) => model.includes(keyword)) ||
+      isGpt4Turbo ||
+      isDalle3(model))
   );
 }
 
@@ -350,7 +356,9 @@ export function showPlugins(provider: ServiceProvider, model: string) {
   if (provider == ServiceProvider.Google && !model.includes("vision")) {
     return true;
   }
-  return false;
+  if (provider == ServiceProvider.XAI && !model.includes("vision")) {
+    return true;
+  }
 }
 
 export function isDalle3(model: string) {
@@ -362,28 +370,127 @@ export function fetch(
   options?: Record<string, unknown>,
 ): Promise<any> {
   if (window.__TAURI__) {
-    const payload = options?.body || options?.data;
-    return tauriFetch(url, {
-      ...options,
-      body:
-        payload &&
-        ({
-          type: "Text",
-          payload,
-        } as any),
-      timeout: ((options?.timeout as number) || REQUEST_TIMEOUT_MS) / 1000,
-      responseType:
-        options?.responseType == "text" ? ResponseType.Text : ResponseType.JSON,
-    } as any);
+    return tauriStreamFetch(url, options);
   }
   return window.fetch(url, options);
 }
 
 export function adapter(config: Record<string, unknown>) {
-  const { baseURL, url, params, ...rest } = config;
+  const { baseURL, url, params, data: body, ...rest } = config;
   const path = baseURL ? `${baseURL}${url}` : url;
   const fetchUrl = params
     ? `${path}?${new URLSearchParams(params as any).toString()}`
     : path;
-  return fetch(fetchUrl as string, { ...rest, responseType: "text" });
+  return fetch(fetchUrl as string, { ...rest, body }).then((res) => {
+    const { status, headers, statusText } = res;
+    return res
+      .text()
+      .then((data: string) => ({ status, statusText, headers, data }));
+  });
+}
+
+export function safeLocalStorage(): {
+  getItem: (key: string) => string | null;
+  setItem: (key: string, value: string) => void;
+  removeItem: (key: string) => void;
+  clear: () => void;
+} {
+  let storage: Storage | null;
+
+  try {
+    if (typeof window !== "undefined" && window.localStorage) {
+      storage = window.localStorage;
+    } else {
+      storage = null;
+    }
+  } catch (e) {
+    console.error("localStorage is not available:", e);
+    storage = null;
+  }
+
+  return {
+    getItem(key: string): string | null {
+      if (storage) {
+        return storage.getItem(key);
+      } else {
+        console.warn(
+          `Attempted to get item "${key}" from localStorage, but localStorage is not available.`,
+        );
+        return null;
+      }
+    },
+    setItem(key: string, value: string): void {
+      if (storage) {
+        storage.setItem(key, value);
+      } else {
+        console.warn(
+          `Attempted to set item "${key}" in localStorage, but localStorage is not available.`,
+        );
+      }
+    },
+    removeItem(key: string): void {
+      if (storage) {
+        storage.removeItem(key);
+      } else {
+        console.warn(
+          `Attempted to remove item "${key}" from localStorage, but localStorage is not available.`,
+        );
+      }
+    },
+    clear(): void {
+      if (storage) {
+        storage.clear();
+      } else {
+        console.warn(
+          "Attempted to clear localStorage, but localStorage is not available.",
+        );
+      }
+    },
+  };
+}
+
+export function getOperationId(operation: {
+  operationId?: string;
+  method: string;
+  path: string;
+}) {
+  // pattern '^[a-zA-Z0-9_-]+$'
+  return (
+    operation?.operationId ||
+    `${operation.method.toUpperCase()}${operation.path.replaceAll("/", "_")}`
+  );
+}
+
+export function clientUpdate() {
+  // this a wild for updating client app
+  return window.__TAURI__?.updater
+    .checkUpdate()
+    .then((updateResult) => {
+      if (updateResult.shouldUpdate) {
+        window.__TAURI__?.updater
+          .installUpdate()
+          .then((result) => {
+            showToast(Locale.Settings.Update.Success);
+          })
+          .catch((e) => {
+            console.error("[Install Update Error]", e);
+            showToast(Locale.Settings.Update.Failed);
+          });
+      }
+    })
+    .catch((e) => {
+      console.error("[Check Update Error]", e);
+      showToast(Locale.Settings.Update.Failed);
+    });
+}
+
+// https://gist.github.com/iwill/a83038623ba4fef6abb9efca87ae9ccb
+export function semverCompare(a: string, b: string) {
+  if (a.startsWith(b + "-")) return -1;
+  if (b.startsWith(a + "-")) return 1;
+  return a.localeCompare(b, undefined, {
+    numeric: true,
+    sensitivity: "case",
+    caseFirst: "upper",
+  });
 }

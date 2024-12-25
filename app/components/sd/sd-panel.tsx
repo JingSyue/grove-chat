@@ -4,6 +4,7 @@ import { Select } from "@/app/components/ui-lib";
 import { IconButton } from "@/app/components/button";
 import Locale from "@/app/locales";
 import { useSdStore } from "@/app/store/sd";
+import clsx from "clsx";
 
 export const params = [
   {
@@ -136,7 +137,7 @@ export function ControlParamItem(props: {
   className?: string;
 }) {
   return (
-    <div className={styles["ctrl-param-item"] + ` ${props.className || ""}`}>
+    <div className={clsx(styles["ctrl-param-item"], props.className)}>
       <div className={styles["ctrl-param-item-header"]}>
         <div className={styles["ctrl-param-item-title"]}>
           <div>
@@ -193,6 +194,7 @@ export function ControlParam(props: {
                 required={item.required}
               >
                 <Select
+                  aria-label={item.name}
                   value={props.data[item.value]}
                   onChange={(e) => {
                     props.onChange(item.value, e.currentTarget.value);
@@ -217,6 +219,7 @@ export function ControlParam(props: {
                 required={item.required}
               >
                 <input
+                  aria-label={item.name}
                   type="number"
                   min={item.min}
                   max={item.max}
@@ -236,6 +239,7 @@ export function ControlParam(props: {
                 required={item.required}
               >
                 <input
+                  aria-label={item.name}
                   type="text"
                   value={props.data[item.value]}
                   style={{ maxWidth: "100%", width: "100%" }}

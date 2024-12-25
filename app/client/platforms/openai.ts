@@ -33,6 +33,7 @@ import {
   LLMModel,
   LLMUsage,
   MultimodalContent,
+  SpeechOptions,
 } from "../api";
 import Locale from "../../locales";
 import { getClientConfig } from "@/app/config/client";
@@ -41,6 +42,7 @@ import {
   isVisionModel,
   isDalle3 as _isDalle3,
 } from "@/app/utils";
+import { fetch } from "@/app/utils/stream";
 
 export interface OpenAIListModelResponse {
   object: string;
@@ -63,6 +65,17 @@ export interface RequestPayload {
   frequency_penalty: number;
   top_p: number;
   max_tokens?: number;
+  max_completion_tokens?: number;
+}
+
+export interface DalleRequestPayload {
+  model: string;
+  prompt: string;
+  response_format: "url" | "b64_json";
+  n: number;
+  size: DalleSize;
+  quality: DalleQuality;
+  style: DalleStyle;
 }
 
 export interface DalleRequestPayload {
@@ -144,6 +157,44 @@ export class ChatGPTApi implements LLMApi {
     return res.choices?.at(0)?.message?.content ?? res;
   }
 
+  async speech(options: SpeechOptions): Promise<ArrayBuffer> {
+    const requestPayload = {
+      model: options.model,
+      input: options.input,
+      voice: options.voice,
+      response_format: options.response_format,
+      speed: options.speed,
+    };
+
+    console.log("[Request] openai speech payload: ", requestPayload);
+
+    const controller = new AbortController();
+    options.onController?.(controller);
+
+    try {
+      const speechPath = this.path(OpenaiPath.SpeechPath);
+      const speechPayload = {
+        method: "POST",
+        body: JSON.stringify(requestPayload),
+        signal: controller.signal,
+        headers: getHeaders(),
+      };
+
+      // make a fetch request
+      const requestTimeoutId = setTimeout(
+        () => controller.abort(),
+        REQUEST_TIMEOUT_MS,
+      );
+
+      const res = await fetch(speechPath, speechPayload);
+      clearTimeout(requestTimeoutId);
+      return await res.arrayBuffer();
+    } catch (e) {
+      console.log("[Request] failed to make a speech request", e);
+      throw e;
+    }
+  }
+
   async chat(options: ChatOptions) {
     const modelConfig = {
       ...useAppConfig.getState().modelConfig,
@@ -183,9 +234,7 @@ export class ChatGPTApi implements LLMApi {
           messages.push({ role: v.role, content });
       }
 
-      console.log("[ChatGPTApi] messages", messages);
-
-      // O1 not support image, tools (plugin in ChatGPTNextWeb) and system, logprobs, temperature, top_p, n, presence_penalty, frequency_penalty yet.
+      // O1 not support image, tools (plugin in ChatGPTNextWeb) and system, stream, logprobs, temperature, top_p, n, presence_penalty, frequency_penalty yet.
       requestPayload = {
         messages,
         stream: options.config.stream,
@@ -197,6 +246,11 @@ export class ChatGPTApi implements LLMApi {
         // max_tokens: Math.max(modelConfig.max_tokens, 1024),
         // Please do not ask me why not send max_tokens, no reason, this param is just shit, I dont want to explain anymore.
       };
+
+      // O1 使用 max_completion_tokens 控制token数 (https://platform.openai.com/docs/guides/reasoning#controlling-costs)
+      if (isO1) {
+        requestPayload["max_completion_tokens"] = modelConfig.max_tokens;
+      }
 
       // add max_tokens to vision model
       if (visionModel) {
@@ -326,7 +380,7 @@ export class ChatGPTApi implements LLMApi {
 
         const resJson = await res.json();
         const message = await this.extractMessage(resJson);
-        options.onFinish(message);
+        options.onFinish(message, res);
       }
     } catch (e) {
       console.log("[Request] failed to make a chat request", e);

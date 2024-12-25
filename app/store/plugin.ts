@@ -1,13 +1,13 @@
 import OpenAPIClientAxios from "openapi-client-axios";
 import { StoreKey } from "../constant";
 import { nanoid } from "nanoid";
-import { getClientConfig } from "../config/client";
 import { createPersistStore } from "../utils/store";
+import { getClientConfig } from "../config/client";
 import yaml from "js-yaml";
-import { adapter } from "../utils";
+import { adapter, getOperationId } from "../utils";
 import { useAccessStore } from "./access";
 
-const isApp = getClientConfig()?.isApp;
+const isApp = getClientConfig()?.isApp !== false;
 
 export type Plugin = {
   id: string;
@@ -20,7 +20,6 @@ export type Plugin = {
   authLocation?: string;
   authHeader?: string;
   authToken?: string;
-  usingProxy?: boolean;
 };
 
 export type FunctionToolItem = {
@@ -50,8 +49,8 @@ export const FunctionToolService = {
       plugin?.authType == "basic"
         ? `Basic ${plugin?.authToken}`
         : plugin?.authType == "bearer"
-        ? ` Bearer ${plugin?.authToken}`
-        : plugin?.authToken;
+          ? `Bearer ${plugin?.authToken}`
+          : plugin?.authToken;
     const authLocation = plugin?.authLocation || "header";
     const definition = yaml.load(plugin.content) as any;
     const serverURL = definition?.servers?.[0]?.url;
@@ -117,7 +116,7 @@ export const FunctionToolService = {
         return {
           type: "function",
           function: {
-            name: o.operationId,
+            name: getOperationId(o),
             description: o.description || o.summary,
             parameters: parameters,
           },
@@ -125,7 +124,7 @@ export const FunctionToolService = {
       }),
       funcs: operations.reduce((s, o) => {
         // @ts-ignore
-        s[o.operationId] = function (args) {
+        s[getOperationId(o)] = function (args) {
           const parameters: Record<string, any> = {};
           if (o.parameters instanceof Array) {
             o.parameters.forEach((p) => {
@@ -140,8 +139,8 @@ export const FunctionToolService = {
           } else if (authLocation == "body") {
             args[headerName] = tokenValue;
           }
-          // @ts-ignore
-          return api.client[o.operationId](
+          // @ts-ignore if o.operationId is null, then using o.path and o.method
+          return api.client.paths[o.path][o.method](
             parameters,
             args,
             api.axiosConfigDefaults,
@@ -209,7 +208,7 @@ export const usePluginStore = createPersistStore(
 
     getAsTools(ids: string[]) {
       const plugins = get().plugins;
-      const selected = ids
+      const selected = (ids || [])
         .map((id) => plugins[id])
         .filter((i) => i)
         .map((p) => FunctionToolService.add(p));
@@ -258,6 +257,7 @@ export const usePluginStore = createPersistStore(
               .filter((item: any) => item?.content)
               .forEach((item: any) => {
                 const plugin = state.create(item);
+                console.log("store/plugin.ts", plugin);
                 state.updatePlugin(plugin.id, (plugin) => {
                   const tool = FunctionToolService.add(plugin, true);
                   plugin.title = tool.api.definition.info.title;

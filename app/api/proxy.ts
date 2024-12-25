@@ -33,9 +33,15 @@ export async function handle(
       return true;
     }),
   );
-
-  // if dalle3 using openai api key
-  if (req.headers.get("x-base-url")?.includes("openai")) {
+  // if dalle3 use openai api key
+  const baseUrl = req.headers.get("x-base-url");
+  if (baseUrl?.includes("api.openai.com")) {
+    if (!serverConfig.apiKey) {
+      return NextResponse.json(
+        { error: "OpenAI API key not configured" },
+        { status: 500 },
+      );
+    }
     headers.set("Authorization", `Bearer ${serverConfig.apiKey}`);
   }
 
