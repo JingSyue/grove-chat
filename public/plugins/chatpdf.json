@@ -1,9 +1,8 @@
 {
     "openapi": "3.1.0",
     "info": {
+      "title": "🔗PDF Reader",
       "description": "A GPT that allows the user to read data from a link.",
-      "title": "Chat PDF GPT",
-      "version": "v1"
     },
     "servers": [
       {
