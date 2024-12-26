@@ -18,6 +18,19 @@
 
 </div>
 
+## 目錄
+
+-   [企業版](#企業版)
+-   [功能特點](#功能特點)
+-   [開始使用](#開始使用)
+-   [配置頁面訪問密碼](#配置頁面訪問密碼)
+-   [環境變量](#環境變量)
+-   [用戶模型設置](#用戶模型設置)
+-   [本地開發](#開發)
+-   [截圖](#截圖)
+-   [相關項目](#相關項目)
+-   [開源協議](#開源協議)
+
 ## 企業版
 
 滿足您公司私有化部署和定制需求
@@ -30,9 +43,23 @@
 -   **私有部署**：企業級私有部署，支持各類主流私有雲部署，確保數據安全和隱私保護
 -   **持續更新**：提供多模態、智能體等前沿能力持續更新升級服務，常用常新、持續先進
 
-企業版諮詢: \*\*\*\*
+企業版諮詢:**空的**
 
 <img width="300" src="">
+
+## 功能特點
+
+-   在 Vercel 上一鍵免費部署，僅需不到 1 分鐘
+-   精簡的客戶端（約 5MB），適用於 Linux/Windows/MacOS，立即下載
+-   完全兼容自部署的 LLM，建議搭配 RWKV-Runner 或 LocalAI 使用
+-   隱私優先，所有數據均存儲在本地瀏覽器中
+-   支持 Markdown：LaTex、mermaid、代碼高亮等
+-   響應式設計，支持深色模式和 PWA
+-   首屏加載速度快（約 100kb），支持流式響應
+-   v2 新功能：使用提示模板（mask）創建、分享和調試你的聊天工具
+-   由 awesome-chatgpt-prompts-zh 和 awesome-chatgpt-prompts 提供支援的精彩提示
+-   自動壓縮聊天記錄，以支持長對話，同時節省你的 token
+-   多語言支持：英語、简体中文、繁體中文、日語、法語、西班牙語、意大利語、土耳其語、德語、越南語、俄語、捷克語、韓語、印尼語
 
 ## 開始使用
 
@@ -44,28 +71,17 @@
 
 <div align="center">
    
-![主界面](./docs/images/cover.png)
+![主界面](./docs/images/mask.png)
 
 </div>
 
-## 保持更新
-
-如果你按照上述步驟一鍵部署了自己的項目，可能會發現總是提示“存在更新”的問題，這是由於 Vercel 會默認為你創建一個新項目而不是 fork 本項目，這會導致無法正確地檢測更新。  
-推薦你按照下列步驟重新部署：
-
--   刪掉原先的倉庫；
--   使用頁面右上角的 fork 按鈕，fork 本項目；
--   在 Vercel 重新選擇並部署，[請查看詳細教程](./docs/vercel-cn.md#如何新建項目)。
-
-### 手動更新代碼
-
-如果你想讓手動立即更新，可以查看[GitHub 的文檔](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)了解如何讓 fork 的項目與上游代碼同步。
-
-你可以 star/watch 本項目或者 follow 作者來及時獲得新功能更新通知。
-
 ## 配置頁面訪問密碼
 
-> 本項目已棄用原專案NextChat的CODE環境變數，並使用Clerk管理頁面訪問密碼，教程：[如何配置Clerk](./docs/vercel-cn.md)。
+> 本項目已棄用原專案NextChat的CODE環境變數，並使用Clerk管理頁面訪問密碼。教程：[如何配置Clerk](./docs)。
+
+<img src="./docs/images/login.png" alt="用戶登入" style="width: 400px;"/>
+
+<img src="./docs/images/clerkorg.png" alt="權限管理" style="width: 400px;"/>
 
 ## 環境變量
 
@@ -125,7 +141,7 @@ Google Gemini Pro Api 網址。
 
 ### `ANTHROPIC_API_KEY`(可選)
 
-人類克勞德 Api 密鑰。
+Anthropic Claude Api Key。
 
 ### `ANTHROPIC_API_VERSION`(可選)
 
@@ -181,7 +197,7 @@ ChatGLM Api 金鑰。
 
 ### `CHATGLM_URL`(可選)
 
-ChatGLM Api 網址。
+ChatGLM Api Url。
 
 ### `XAI_API_KEY`(可選)
 
@@ -263,33 +279,96 @@ Stability API 密鑰。
 
 自定義的 Stability API 請求地址。
 
+## 用戶模型設置
+
+登入
+
+> 可根據用戶最高權限使用系統設置的API Key。
+
+未登入
+
+> 如果未登入可在代理設定中填入自己的API Key使用guest模型。
+
+登入後用戶角色
+
+> 客人
+
+可在Clerk dashboard中更改角色權限
+
+> [Clerk配置教學](https://github.com/robbiedood/grove-chat/tree/main/docs)
+
+### 新增模型
+
+[程式碼文件 app/constant.ts](https://github.com/robbiedood/grove-chat/blob/pbooks/app/constant.ts)
+
+找到模型供應商添加新模型
+
+    const openaiModels = [
+      "gpt-3.5-turbo",
+      "gpt-3.5-turbo-1106",
+      "gpt-3.5-turbo-0125",
+      "gpt-4",
+      "gpt-4-0613",
+      "gpt-4-32k",
+      "gpt-4-32k-0613",
+      "gpt-4-turbo",
+      "gpt-4-turbo-preview",
+      "gpt-4o",
+      "gpt-4o-2024-05-13",
+      "gpt-4o-2024-08-06",
+      "gpt-4o-2024-11-20",
+      "chatgpt-4o-latest",
+      "gpt-4o-mini",
+      "gpt-4o-mini-2024-07-18",
+      "gpt-4-vision-preview",
+      "gpt-4-turbo-2024-04-09",
+      "gpt-4-1106-preview",
+      "dall-e-3",
+      "o1-mini",
+      "o1-preview",
+    ];
+
+管理存取權限(須在模型供應商的模型列表中)
+
+      teacher: [
+        "o1-mini",
+        "o1-preview",
+        "gpt-4o-2024-08-06",
+        "gpt-4o-mini",
+        "claude-3-sonnet-20240229",
+        "claude-3-5-sonnet-20240620",
+        "llama-3.1-sonar-small-128k-online",
+        "llama-3.1-sonar-large-128k-online",
+        "llama-3.1-sonar-huge-128k-online",
+        "gemini-1.5-pro-latest",
+        "gemini-1.5-flash-latest",
+        "moonshot-v1-128k",
+        "moonshot-v1-32k",
+        "grok-2-1212",
+        "grok-2-vision-1212",
+      ],
+
 ## 開發
 
-二次開發：
+# 中國大陸用戶，可以使用本項目自帶的代理進行開發，你也可以自由選擇其他代理地址
 
-在開始寫代碼之前，需要在項目根目錄新建一個`.env.local`文件，裡面填入環境變量：
+BASE_URL=<https://b.nextweb.fun/api/proxy>
+
+### 本地開發
+
+1.  在項目根目錄新建一個`.env.local`文件，裡面填入環境變量：
+
 
     OPENAI_API_KEY=<your key here>
     CLERK_SECRET_KEY=<your key here>
     CLERK_WEBHOOK_SECRET=<your key here>
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your key here>
 
-    # 中國大陸用戶，可以使用本項目自帶的代理進行開發，你也可以自由選擇其他代理地址
-    BASE_URL=https://b.nextweb.fun/api/proxy
+2.  安裝 Node.js 18 和 Yarn，具體細節請詢問 ChatGPT；
+3.  執行`yarn install && yarn dev`即可。⚠️ 注意：此命令僅用於本地開發，不要用於部署！
+4.  如果你想本地部署，請使用`yarn install && yarn build && yarn start`命令，你可以配合 pm2 來守護進程，防止被殺死，詳情詢問 ChatGPT。
 
-### 本地開發
-
-1.  安裝 Node.js 18 和 Yarn，具體細節請詢問 ChatGPT；
-2.  執行`yarn install && yarn dev`即可。⚠️ 注意：此命令僅用於本地開發，不要用於部署！
-3.  如果你想本地部署，請使用`yarn install && yarn build && yarn start`命令，你可以配合 pm2 來守護進程，防止被殺死，詳情詢問 ChatGPT。
-
-## 部署
-
-### 寶塔面板部署
-
-> [簡體中文 > 如何通過寶塔一鍵部署](./docs/bt-cn.md)
-
-### 容器部署 （推薦）
+### 容器部署
 
 > Docker 版本需要在 20 及其以上，否則會提示找不到鏡像。
 
@@ -332,10 +411,18 @@ docker run -d -p 3000:3000 \
 在控制台運行下方命令：
 
 ```shell
-bash <(curl -s https://raw.githubusercontent.com/Yidadaa/ChatGPT-Next-Web/main/scripts/setup.sh)
+bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scripts/setup.sh)
 ```
 
 ⚠️ 注意：如果你安裝過程中遇到了問題，請使用 Docker 部署。
+
+## 截圖
+
+![Settings](./docs/images/settings.png)
+
+![Plugin](./docs/images/plugin.png)
+
+![Model](./docs/images/model.png)
 
 ### 相關項目
 
@@ -349,7 +436,3 @@ bash <(curl -s https://raw.githubusercontent.com/Yidadaa/ChatGPT-Next-Web/main/s
 ## 開源協議
 
 [和](https://opensource.org/license/mit/)
-
-* * *
-
-如果需要進一步的修改或其他內容，請告訴我！
