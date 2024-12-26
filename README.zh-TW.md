@@ -51,7 +51,7 @@
 -   響應式設計，支持深色模式和 PWA
 -   首屏加載速度快（約 100kb），支持流式響應
 -   v2 新功能：使用提示模板（mask）創建、分享和調試你的聊天工具
--   由 awesome-chatgpt-prompts-zh 和 awesome-chatgpt-prompts 提供支援的精彩提示
+-   由 awesome-chatgpt-prompts-zh 和 awesome-chatgpt-prompts 提供支持的精彩提示
 -   自動壓縮聊天記錄，以支持長對話，同時節省你的 token
 -   多語言支持：英語、简体中文、繁體中文、日語、法語、西班牙語、意大利語、土耳其語、德語、越南語、俄語、捷克語、韓語、印尼語
 
@@ -73,9 +73,9 @@
 
 > 本項目已棄用原專案NextChat的CODE環境變數，並使用Clerk管理頁面訪問密碼。教程：[如何配置Clerk](./docs)。
 
-<img src="./docs/images/login.png" alt="用戶登入" style="width: 400px;"/>
+<img src="./docs/images/login.png" alt="用戶登入" style="width: 800px;"/>
 
-<img src="./docs/images/clerkorg.png" alt="權限管理" style="width: 400px;"/>
+<img src="./docs/images/clerkorg.png" alt="權限管理" style="width: 800px;"/>
 
 ## 環境變量
 
@@ -187,7 +187,7 @@ Anthropic Claude Api 版本。
 
 ### `CHATGLM_API_KEY`(可選)
 
-ChatGLM Api 金鑰。
+ChatGLM Api Key。
 
 ### `CHATGLM_URL`(可選)
 
@@ -244,7 +244,7 @@ MOONSHOT API 網址
 ### `CUSTOM_MODELS`（可選）
 
 > 範例：`+qwen-7b-chat,+glm-6b,-gpt-3.5-turbo,gpt-4-1106-preview=gpt-4-turbo`表示增加`qwen-7b-chat`和`glm-6b`到模型列表，而從列表中刪除`gpt-3.5-turbo`，並將`gpt-4-1106-preview`模型名字展示為`gpt-4-turbo`。  
-> 如果你想先禁用所有模型，再啟用指定模型，可以使用`-all,+gpt-3.5-turbo`，則表示僅啟用`gpt-3.5-turbo`。
+> 如果你想先禁用所有模型，再啟用指定模型，可以使用`-all,+gpt-3.5-turbo`，則表示僅啟用 `gpt-3.5-turbo`。
 
 用來控制模型列表，使用`+`增加一個模型，使用`-`來隱藏一個模型，使用`模型名=展示名`來自定義模型的展示名，用英文逗號隔開。
 
@@ -358,7 +358,7 @@ BASE_URL=<https://b.nextweb.fun/api/proxy>
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your key here>
 
 2.  安裝 Node.js 18 和 Yarn，具體細節請詢問 ChatGPT；
-3.  執行`yarn install && yarn dev` 即可。⚠️ 注意：此命令僅用於本地開發，不要用於部署！
+3.  執行`yarn install && yarn dev`即可。⚠️ 注意：此命令僅用於本地開發，不要用於部署！
 4.  如果你想本地部署，請使用`yarn install && yarn build && yarn start`命令，你可以配合 pm2 來守護進程，防止被殺死，詳情詢問 ChatGPT。
 
 ### 容器部署
@@ -413,11 +413,6 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 <div style="display: flex; gap: 20px;">
   <img src="./docs/images/settings.png" alt="設定" style="width: 800px;"/>
-</div>
-
-<div style="display: flex; gap: 20px;">
-  <img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
-  <img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
 </div>
 
 ### 相關項目
