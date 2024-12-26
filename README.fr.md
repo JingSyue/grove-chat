@@ -18,6 +18,19 @@ Déployez gratuitement votre application Web privée ChatGPT en un seul clic, pr
 
 </div>
 
+## Table des matières
+
+-   [Édition Entreprise](#企業版)
+-   [Caractéristiques](#功能特點)
+-   [Commencer](#開始使用)
+-   [Configurer le mot de passe d'accès à la page](#配置頁面訪問密碼)
+-   [variables d'environnement](#環境變量)
+-   [Paramètres du modèle utilisateur](#用戶模型設置)
+-   [développement local](#開發)
+-   [capture d'écran](#截圖)
+-   [Projets associés](#相關項目)
+-   [Accord open source](#開源協議)
+
 ## Édition Entreprise
 
 Répondez aux besoins de déploiement et de personnalisation privés de votre entreprise
@@ -30,9 +43,23 @@ Répondez aux besoins de déploiement et de personnalisation privés de votre en
 -   **déploiement privé**: Déploiement privé au niveau de l'entreprise, prenant en charge divers déploiements de cloud privé grand public pour garantir la sécurité des données et la protection de la confidentialité
 -   **Mises à jour continues**: Fournir des services de mise à jour et de mise à niveau continues pour des fonctionnalités de pointe telles que la multimodalité et l'intelligence, qui sont fréquemment utilisées et constamment avancées.
 
-Consultation version entreprise : \*\*\*\*
+Consultation version entreprise :**vide**
 
 <img width="300" src="">
+
+## Caractéristiques
+
+-   Déployez sur Vercel gratuitement en un clic et prend moins d'1 minute
+-   Client simplifié (~ 5 Mo) pour Linux/Windows/MacOS, téléchargez-le maintenant
+-   Entièrement compatible avec LLM auto-déployé, recommandé pour une utilisation avec RWKV-Runner ou LocalAI
+-   La confidentialité avant tout, toutes les données sont stockées localement dans le navigateur
+-   Support Markdown : LaTex, sirène, surbrillance de code, etc.
+-   Conception réactive, prend en charge le mode sombre et PWA
+-   Le premier écran se charge rapidement (environ 100 Ko) et prend en charge la réponse en streaming
+-   Nouveau dans la v2 : utilisez des modèles d'invite (masque) pour créer, partager et déboguer vos outils de discussion
+-   Conseils géniaux propulsés par Awesome-chatgpt-prompts-zh et Awesome-chatgpt-prompts
+-   Compressez automatiquement l'historique des discussions pour prendre en charge les longues conversations tout en enregistrant vos jetons
+-   Prise en charge multilingue : anglais, chinois simplifié, chinois traditionnel, japonais, français, espagnol, italien, turc, allemand, vietnamien, russe, tchèque, coréen, indonésien
 
 ## Commencer
 
@@ -44,28 +71,17 @@ Consultation version entreprise : \*\*\*\*
 
 <div align="center">
    
-![主界面](./docs/images/cover.png)
+![主界面](./docs/images/mask.png)
 
 </div>
 
-## tenir à jour
-
-Si vous suivez les étapes ci-dessus pour déployer votre propre projet en un seul clic, vous constaterez peut-être qu'il vous demande toujours « Il y a une mise à jour ». En effet, Vercel créera un nouveau projet pour vous par défaut au lieu de bifurquer ce projet, ce qui le fera. entraîner l’incapacité de vérifier correctement les mises à jour.  
-Il est recommandé de suivre ces étapes pour redéployer :
-
--   Supprimez l'entrepôt d'origine ;
--   Utilisez le bouton fork dans le coin supérieur droit de la page pour créer ce projet ;
--   Resélectionner et déployer dans Vercel,[Veuillez consulter le didacticiel détaillé](./docs/vercel-cn.md#如何新建項目)。
-
-### Mettre à jour le code manuellement
-
-Si vous souhaitez mettre à jour manuellement immédiatement, vous pouvez vérifier[Documentation pour GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork)Découvrez comment synchroniser un projet forké avec du code en amont.
-
-Vous pouvez suivre/regarder ce projet ou suivre l'auteur pour recevoir des notifications en temps opportun des nouvelles mises à jour de fonctionnalités.
-
 ## Configurer le mot de passe d'accès à la page
 
-> Ce projet a abandonné la variable d'environnement CODE du projet original NextChat, et utilise la page de gestion des Clerks pour accéder au Tutorial :[Comment configurer le commis](./docs/vercel-cn.md)。
+> Ce projet a abandonné la variable d'environnement CODE du projet original NextChat et utilise le mot de passe d'accès à la page de gestion des commis. Tutoriel :[Comment configurer le commis](./docs)。
+
+<img src="./docs/images/login.png" alt="用戶登入" style="width: 400px;"/>
+
+<img src="./docs/images/clerkorg.png" alt="權限管理" style="width: 400px;"/>
 
 ## variables d'environnement
 
@@ -238,7 +254,7 @@ Si vous souhaitez ajouter les adresses de service WebDAV auxquelles l'accès est
 
 Pour contrôler la liste des modèles, utilisez`+`Pour ajouter un modèle, utilisez`-`Pour masquer un modèle, utilisez`模型名=展示名`Afficher les noms pour personnaliser le modèle, séparés par des virgules.
 
-En mode Azure, il est possible d'utiliser`modelName@Azure=deploymentName`Configurez le nom du modèle et le nom du déploiement (nom du déploiement).
+En mode Azure, il est possible d'utiliser`modelName@Azure=deploymentName` 的方式配置模型名稱和部署名稱（deploy-name）。
 
 > Exemple:`+gpt-3.5-turbo@Azure=gpt35`Cette configuration affichera un`gpt35(Azure)`choix.  
 > Si vous ne pouvez utiliser que le mode Azure, définissez`-all,+gpt-3.5-turbo@Azure=gpt35`Vous pouvez faire l'utilisation par défaut de la conversation`gpt35(Azure)`。
@@ -263,33 +279,96 @@ Clé API de stabilité.
 
 Adresse de demande d'API de stabilité personnalisée.
 
+## Paramètres du modèle utilisateur
+
+se connecter
+
+> La clé API définie par le système peut être utilisée selon la plus haute autorité de l'utilisateur.
+
+Non connecté
+
+> Si vous n'êtes pas connecté, vous pouvez remplir votre propre clé API dans les paramètres du proxy pour utiliser le modèle invité.
+
+Rôle utilisateur après la connexion
+
+> invité
+
+Les autorisations de rôle peuvent être modifiées dans le tableau de bord du commis
+
+> [Tutoriel de configuration du commis](https://github.com/robbiedood/grove-chat/tree/main/docs)
+
+### Ajouter un nouveau modèle
+
+[Fichier de code app/constant.ts](https://github.com/robbiedood/grove-chat/blob/pbooks/app/constant.ts)
+
+Rechercher un fournisseur de modèles pour ajouter un nouveau modèle
+
+    const openaiModels = [
+      "gpt-3.5-turbo",
+      "gpt-3.5-turbo-1106",
+      "gpt-3.5-turbo-0125",
+      "gpt-4",
+      "gpt-4-0613",
+      "gpt-4-32k",
+      "gpt-4-32k-0613",
+      "gpt-4-turbo",
+      "gpt-4-turbo-preview",
+      "gpt-4o",
+      "gpt-4o-2024-05-13",
+      "gpt-4o-2024-08-06",
+      "gpt-4o-2024-11-20",
+      "chatgpt-4o-latest",
+      "gpt-4o-mini",
+      "gpt-4o-mini-2024-07-18",
+      "gpt-4-vision-preview",
+      "gpt-4-turbo-2024-04-09",
+      "gpt-4-1106-preview",
+      "dall-e-3",
+      "o1-mini",
+      "o1-preview",
+    ];
+
+Gérer les droits d'accès (doit figurer dans la liste des modèles du fournisseur de modèles)
+
+      teacher: [
+        "o1-mini",
+        "o1-preview",
+        "gpt-4o-2024-08-06",
+        "gpt-4o-mini",
+        "claude-3-sonnet-20240229",
+        "claude-3-5-sonnet-20240620",
+        "llama-3.1-sonar-small-128k-online",
+        "llama-3.1-sonar-large-128k-online",
+        "llama-3.1-sonar-huge-128k-online",
+        "gemini-1.5-pro-latest",
+        "gemini-1.5-flash-latest",
+        "moonshot-v1-128k",
+        "moonshot-v1-32k",
+        "grok-2-1212",
+        "grok-2-vision-1212",
+      ],
+
 ## développer
 
-Développement secondaire :
+# Les utilisateurs de Chine continentale peuvent utiliser l'agent fourni avec ce projet pour le développement. Vous pouvez également choisir librement d'autres adresses d'agent.
 
-Avant de commencer à écrire du code, vous devez en créer un nouveau dans le répertoire racine du projet`.env.local`fichier, remplissez les variables d'environnement :
+BASE_URL=<https://b.nextweb.fun/api/proxy>
+
+### développement local
+
+1.  Créez-en un nouveau dans le répertoire racine du projet`.env.local`fichier, remplissez les variables d'environnement :
+
 
     OPENAI_API_KEY=<your key here>
     CLERK_SECRET_KEY=<your key here>
     CLERK_WEBHOOK_SECRET=<your key here>
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your key here>
 
-    # 中國大陸用戶，可以使用本項目自帶的代理進行開發，你也可以自由選擇其他代理地址
-    BASE_URL=https://b.nextweb.fun/api/proxy
+2.  Installez Node.js 18 et Yarn, veuillez demander à ChatGPT pour plus de détails ;
+3.  mettre en œuvre`yarn install && yarn dev`C'est ça. ⚠️ Remarque : Cette commande est uniquement destinée au développement local, ne l'utilisez pas pour le déploiement !
+4.  Si vous souhaitez déployer localement, utilisez`yarn install && yarn build && yarn start`commande, vous pouvez utiliser pm2 pour démoniser le processus afin d'éviter qu'il ne soit tué. Demandez à ChatGPT pour plus de détails.
 
-### développement local
-
-1.  Installez Node.js 18 et Yarn, veuillez demander à ChatGPT pour plus de détails ;
-2.  mettre en œuvre`yarn install && yarn dev`C'est ça. ⚠️ Remarque : Cette commande est uniquement destinée au développement local, ne l'utilisez pas pour le déploiement !
-3.  Si vous souhaitez déployer localement, utilisez`yarn install && yarn build && yarn start`commande, vous pouvez utiliser pm2 pour démoniser le processus afin d'éviter qu'il ne soit tué. Demandez à ChatGPT pour plus de détails.
-
-## déployer
-
-### Déploiement du panneau Pagode
-
-> [Chinois simplifié > Comment déployer en un clic via Pagoda](./docs/bt-cn.md)
-
-### Déploiement de conteneurs (recommandé)
+### Déploiement de conteneurs
 
 > La version de Docker doit être 20 ou supérieure, sinon l'image sera introuvable.
 
@@ -332,10 +411,18 @@ Si vous devez spécifier d'autres variables d'environnement, veuillez les ajoute
 Exécutez la commande suivante sur la console :
 
 ```shell
-bash <(curl -s https://raw.githubusercontent.com/Yidadaa/ChatGPT-Next-Web/main/scripts/setup.sh)
+bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scripts/setup.sh)
 ```
 
 ⚠️ Remarque : Si vous rencontrez des problèmes lors de l'installation, veuillez utiliser le déploiement Docker.
+
+## capture d'écran
+
+![Settings](./docs/images/settings.png)
+
+![Plugin](./docs/images/plugin.png)
+
+![Model](./docs/images/model.png)
 
 ### Projets associés
 
@@ -349,7 +436,3 @@ bash <(curl -s https://raw.githubusercontent.com/Yidadaa/ChatGPT-Next-Web/main/s
 ## Accord open source
 
 [AVEC](https://opensource.org/license/mit/)
-
-* * *
-
-Si d'autres modifications ou quoi que ce soit d'autre sont nécessaires, faites-le moi savoir !
