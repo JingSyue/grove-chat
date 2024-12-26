@@ -1,16 +1,10 @@
-<div align="center">
-
-<a href='#企業版'>
-  <img src="./docs/images/ent.svg" alt="icon"/>
-</a>
-
 <h1 align="center">GroveChat</h1>
 
 <a href='#企業版'>
   <img src="./docs/images/ent.svg" alt="icon"/>
 </a>
 
-انشر تطبيق الويب الخاص بك ChatGPT مجانًا بنقرة واحدة، ويدعم نماذج GPT3 وGPT4 وGemini Pro.
+انشر تطبيق الويب ChatGPT الخاص بك مجانًا بنقرة واحدة، ويدعم نماذج GPT3 وGPT4 وGemini Pro.
 
 [جروفشات](https://grove-chat.vercel.app)/[إصدار المؤسسة](https://grove-chat.vercel.app)/[تجريبي](https://grove-chat.vercel.app)/[قضايا ردود الفعل](https://github.com/robbiedood/grove-chat/issues)
 
@@ -41,7 +35,7 @@
 -   **الوصول إلى المعرفة**: يعد الجمع بين قاعدة المعرفة الداخلية للمؤسسة وقدرات الذكاء الاصطناعي أقرب إلى احتياجات الأعمال الخاصة بالمؤسسة من الذكاء الاصطناعي العام.
 -   **التدقيق الأمني**: اعتراض الأسئلة الحساسة تلقائيًا ودعم تتبع جميع سجلات المحادثات التاريخية، مما يسمح للذكاء الاصطناعي بالامتثال أيضًا للوائح أمن معلومات الشركة
 -   **النشر الخاص**: النشر الخاص على مستوى المؤسسة، ودعم العديد من عمليات نشر السحابة الخاصة السائدة لضمان أمان البيانات وحماية الخصوصية
--   **تحديثات مستمرة**: توفير خدمات التحديث والارتقاء المستمر للقدرات المتطورة مثل الوسائط المتعددة والذكاء، والتي يتم استخدامها بشكل متكرر والمتقدمة باستمرار.
+-   **تحديثات مستمرة**: توفير خدمات التحديث والترقية المستمرة للإمكانيات المتطورة مثل الوكلاء متعددي الوسائط والذكيين، والتي يتم استخدامها بشكل متكرر والمتقدمة باستمرار.
 
 استشارة بشأن إصدار المؤسسة:**فارغ**
 
@@ -67,7 +61,7 @@
 2.  استخدام Clerk كإدارة أذونات المستخدم[الموقع الرسمي للكاتب](https://clerk.com/)[ملف التكوين](https://github.com/robbiedood/grove-chat/tree/main/docs)
 3.  انقر فوق الزر الموجود على اليمين لبدء النشر:[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)، ما عليك سوى تسجيل الدخول مباشرة باستخدام حساب GitHub الخاص بك، وتذكر ملء مفتاح API و[إدارة حقوق المستخدم](#配置訪問權限Clerk)موظف؛
 4.  بعد اكتمال النشر، يمكنك البدء في استخدامه؛
-5.  (خياري)[ربط اسم المجال المخصص](https://vercel.com/docs/concepts/projects/domains/add-a-domain): اسم المجال DNS المخصص بواسطة Vercel ملوث في بعض المناطق. قم بربط اسم مجال مخصص للاتصال مباشرة.
+5.  (خياري)[ربط اسم المجال المخصص](https://vercel.com/docs/concepts/projects/domains/add-a-domain): اسم المجال DNS المخصص بواسطة Vercel ملوث في بعض المناطق. قم بربط اسم المجال المخصص للاتصال مباشرة.
 
 <div align="center">
    
@@ -173,7 +167,7 @@ ByteDance API URL.
 
 ### `ALIBABA_API_KEY`(خياري)
 
-مفتاح واجهة برمجة تطبيقات Alibaba Cloud (Qianwen).
+阿里雲（千問）Api Key。
 
 ### `ALIBABA_URL`(خياري)
 
@@ -250,7 +244,7 @@ MOONSHOT API URL
 ### `CUSTOM_MODELS`(خياري)
 
 > مثال:`+qwen-7b-chat,+glm-6b,-gpt-3.5-turbo,gpt-4-1106-preview=gpt-4-turbo`يعني زيادة`qwen-7b-chat`و`glm-6b`إلى قائمة النماذج وإزالتها من القائمة`gpt-3.5-turbo`، وسوف`gpt-4-1106-preview`يتم عرض اسم النموذج كـ`gpt-4-turbo`。  
-> إذا كنت تريد تعطيل كافة النماذج أولاً ثم تمكين نماذج معينة، فيمكنك استخدامها`-all,+gpt-3.5-turbo`، وهو ما يعني التمكين فقط`gpt-3.5-turbo`。
+> إذا كنت تريد تعطيل جميع الطرز أولاً ثم تمكين نماذج معينة، فيمكنك استخدامها`-all,+gpt-3.5-turbo`، وهو ما يعني التمكين فقط`gpt-3.5-turbo`。
 
 للتحكم في قائمة النماذج، استخدم`+`لإضافة نموذج، استخدم`-`لإخفاء نموذج، استخدم`模型名=展示名`عرض الأسماء لتخصيص النموذج، مفصولة بفواصل.
 
@@ -350,8 +344,7 @@ MOONSHOT API URL
 
 ## يطور
 
-# يمكن للمستخدمين في البر الرئيسي للصين استخدام الوكيل الذي يأتي مع هذا المشروع للتطوير. ويمكنك أيضًا اختيار عناوين الوكلاء الأخرى بحرية.
-
+يمكن للمستخدمين في البر الرئيسي للصين استخدام الوكيل الذي يأتي مع هذا المشروع للتطوير، ويمكنك أيضًا اختيار عناوين الوكلاء الأخرى بحرية.
 BASE_URL=<https://b.nextweb.fun/api/proxy>
 
 ### التنمية المحلية
@@ -366,7 +359,7 @@ BASE_URL=<https://b.nextweb.fun/api/proxy>
 
 2.  قم بتثبيت Node.js 18 وYarn، برجاء سؤال ChatGPT للحصول على التفاصيل؛
 3.  ينفذ`yarn install && yarn dev`هذا كل شيء. ⚠️ ملحوظة: هذا الأمر مخصص للتطوير المحلي فقط، لا تستخدمه للنشر!
-4.  إذا كنت تريد النشر محليًا، فاستخدم`yarn install && yarn build && yarn start`يمكنك استخدام الأمرpm2 لإضفاء الطابع الشيطاني على العملية لمنعها من القتل، اسأل ChatGPT للحصول على التفاصيل.
+4.  إذا كنت تريد النشر محليًا، فاستخدم`yarn install && yarn build && yarn start`الأمر، يمكنك استخدام PM2 لإضفاء الطابع الشيطاني على العملية لمنعها من القتل، اسأل ChatGPT للحصول على التفاصيل.
 
 ### نشر الحاويات
 
@@ -385,7 +378,7 @@ docker run -d -p 3000:3000 \
    robbiedood/grove-chat
 ```
 
-يمكنك أيضًا تحديد وكيل:
+يمكنك أيضًا تحديد الوكيل:
 
 ```shell
 docker run -d -p 3000:3000 \
@@ -418,11 +411,14 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 ## لقطة شاشة
 
-<img src="./docs/images/settings.png" alt="設定" style="width: 400px;"/>
+<div style="display: flex; gap: 20px;">
+  <img src="./docs/images/settings.png" alt="設定" style="width: 800px;"/>
+</div>
 
-<img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
-
-<img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
+<div style="display: flex; gap: 20px;">
+  <img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
+  <img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
+</div>
 
 ### المشاريع ذات الصلة
 
