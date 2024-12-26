@@ -127,7 +127,7 @@ Adresse de déploiement Azure.
 
 Clé Azure.
 
-### `AZURE_API_VERSION`(facultatif)
+### `AZURE_API_VERSION` （可選）
 
 Version de l'API Azure que vous pouvez trouver ici :[Documentation Azure](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#chat-completions)。
 
@@ -254,7 +254,7 @@ Si vous souhaitez ajouter les adresses de service WebDAV auxquelles l'accès est
 
 Pour contrôler la liste des modèles, utilisez`+`Pour ajouter un modèle, utilisez`-`Pour masquer un modèle, utilisez`模型名=展示名`Afficher les noms pour personnaliser le modèle, séparés par des virgules.
 
-En mode Azure, il est possible d'utiliser`modelName@Azure=deploymentName` 的方式配置模型名稱和部署名稱（deploy-name）。
+En mode Azure, il est possible d'utiliser`modelName@Azure=deploymentName`Configurez le nom du modèle et le nom du déploiement (nom du déploiement).
 
 > Exemple:`+gpt-3.5-turbo@Azure=gpt35`Cette configuration affichera un`gpt35(Azure)`choix.  
 > Si vous ne pouvez utiliser que le mode Azure, définissez`-all,+gpt-3.5-turbo@Azure=gpt35`Vous pouvez faire l'utilisation par défaut de la conversation`gpt35(Azure)`。
@@ -418,11 +418,11 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 ## capture d'écran
 
-![Settings](./docs/images/settings.png)
+<img src="./docs/images/settings.png" alt="設定" style="width: 400px;"/>
 
-![Plugin](./docs/images/plugin.png)
+<img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
 
-![Model](./docs/images/model.png)
+<img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
 
 ### Projets associés
 
