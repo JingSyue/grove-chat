@@ -1,9 +1,3 @@
-<div align="center">
-
-<a href='#企業版'>
-  <img src="./docs/images/ent.svg" alt="icon"/>
-</a>
-
 <h1 align="center">GroveChat</h1>
 
 <a href='#企業版'>
@@ -350,8 +344,7 @@ Stability API 密鑰。
 
 ## 開發
 
-# 中國大陸用戶，可以使用本項目自帶的代理進行開發，你也可以自由選擇其他代理地址
-
+中國大陸用戶，可以使用本項目自帶的代理進行開發，你也可以自由選擇其他代理地址
 BASE_URL=<https://b.nextweb.fun/api/proxy>
 
 ### 本地開發
@@ -365,7 +358,7 @@ BASE_URL=<https://b.nextweb.fun/api/proxy>
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your key here>
 
 2.  安裝 Node.js 18 和 Yarn，具體細節請詢問 ChatGPT；
-3.  執行`yarn install && yarn dev`即可。⚠️ 注意：此命令僅用於本地開發，不要用於部署！
+3.  執行`yarn install && yarn dev` 即可。⚠️ 注意：此命令僅用於本地開發，不要用於部署！
 4.  如果你想本地部署，請使用`yarn install && yarn build && yarn start`命令，你可以配合 pm2 來守護進程，防止被殺死，詳情詢問 ChatGPT。
 
 ### 容器部署
@@ -418,11 +411,14 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 ## 截圖
 
-<img src="./docs/images/settings.png" alt="設定" style="width: 400px;"/>
+<div style="display: flex; gap: 20px;">
+  <img src="./docs/images/settings.png" alt="設定" style="width: 800px;"/>
+</div>
 
-<img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
-
-<img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
+<div style="display: flex; gap: 20px;">
+  <img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
+  <img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
+</div>
 
 ### 相關項目
 
