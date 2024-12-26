@@ -1,9 +1,3 @@
-<div align="center">
-
-<a href='#企業版'>
-  <img src="./docs/images/ent.svg" alt="icon"/>
-</a>
-
 <h1 align="center">GroveChat</h1>
 
 <a href='#企業版'>
@@ -35,13 +29,13 @@ Déployez gratuitement votre application Web privée ChatGPT en un seul clic, pr
 
 Répondez aux besoins de déploiement et de personnalisation privés de votre entreprise
 
--   **Personnalisation de la marque**: VI/UI adapté à l'entreprise, correspondant parfaitement à l'image de marque de l'entreprise
+-   **Personnalisation de la marque**：企業量身定制 VI/UI，與企業品牌形象無縫契合
 -   **Intégration des ressources**: Des dizaines de ressources d'IA sont configurées et gérées de manière uniforme par les responsables de l'entreprise, et les membres de l'équipe peuvent les utiliser immédiatement.
 -   **Gestion des autorisations**: Les autorisations des membres, les autorisations des ressources et les autorisations de la base de connaissances sont clairement hiérarchiques et unifiées contrôlées par le panneau d'administration au niveau de l'entreprise.
 -   **accès aux connaissances**: La combinaison de la base de connaissances interne d'une entreprise et des capacités d'IA est plus proche des besoins commerciaux de l'entreprise que l'IA générale.
 -   **audit de sécurité**: interceptez automatiquement les questions sensibles et prenez en charge le traçage de tous les enregistrements historiques des conversations, permettant à l'IA de se conformer également aux réglementations en matière de sécurité des informations de l'entreprise
 -   **déploiement privé**: Déploiement privé au niveau de l'entreprise, prenant en charge divers déploiements de cloud privé grand public pour garantir la sécurité des données et la protection de la confidentialité
--   **Mises à jour continues**: Fournir des services de mise à jour et de mise à niveau continues pour des fonctionnalités de pointe telles que la multimodalité et l'intelligence, qui sont fréquemment utilisées et constamment avancées.
+-   **Mises à jour continues**: Fournir des services de mise à jour et de mise à niveau continues pour des fonctionnalités de pointe telles que des agents multimodaux et intelligents, fréquemment utilisés et constamment perfectionnés.
 
 Consultation version entreprise :**vide**
 
@@ -64,7 +58,7 @@ Consultation version entreprise :**vide**
 ## Commencer
 
 1.  prépare le tien[Clé API OpenAI](https://platform.openai.com/account/api-keys);
-2.  Utilisation de Clerk comme gestion des autorisations des utilisateurs[Site officiel du greffier](https://clerk.com/)[Fichier de configuration](https://github.com/robbiedood/grove-chat/tree/main/docs)
+2.  Utiliser Clerk comme gestion des autorisations utilisateur[Site officiel du greffier](https://clerk.com/)[Fichier de configuration](https://github.com/robbiedood/grove-chat/tree/main/docs)
 3.  Cliquez sur le bouton à droite pour démarrer le déploiement :[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat), connectez-vous simplement directement avec votre compte GitHub. N'oubliez pas de renseigner la clé API et.[Gestion des droits des utilisateurs](#配置訪問權限Clerk)Greffier;
 4.  Une fois le déploiement terminé, vous pouvez commencer à l'utiliser ;
 5.  (facultatif)[Lier un nom de domaine personnalisé](https://vercel.com/docs/concepts/projects/domains/add-a-domain): Le nom de domaine DNS attribué par Vercel est contaminé dans certaines zones. Liez un nom de domaine personnalisé pour vous connecter directement.
@@ -127,7 +121,7 @@ Adresse de déploiement Azure.
 
 Clé Azure.
 
-### `AZURE_API_VERSION` （可選）
+### `AZURE_API_VERSION`(facultatif)
 
 Version de l'API Azure que vous pouvez trouver ici :[Documentation Azure](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#chat-completions)。
 
@@ -350,8 +344,7 @@ Gérer les droits d'accès (doit figurer dans la liste des modèles du fournisse
 
 ## développer
 
-# Les utilisateurs de Chine continentale peuvent utiliser l'agent fourni avec ce projet pour le développement. Vous pouvez également choisir librement d'autres adresses d'agent.
-
+Les utilisateurs de Chine continentale peuvent utiliser l'agent fourni avec ce projet pour le développement. Vous pouvez également choisir librement d'autres adresses d'agent.
 BASE_URL=<https://b.nextweb.fun/api/proxy>
 
 ### développement local
@@ -372,7 +365,7 @@ BASE_URL=<https://b.nextweb.fun/api/proxy>
 
 > La version de Docker doit être 20 ou supérieure, sinon l'image sera introuvable.
 
-> ⚠️ Remarque : La plupart du temps, la version Docker sera en retard de 1 à 2 jours par rapport à la dernière version, donc l'invite « la mise à jour existe » continuera à apparaître après le déploiement, ce qui est normal.
+> ⚠️ Remarque : la plupart du temps, la version Docker sera en retard de 1 à 2 jours par rapport à la dernière version, donc l'invite « la mise à jour existe » continuera à apparaître après le déploiement, ce qui est normal.
 
 ```shell
 docker pull robbiedood/grove-chat
@@ -418,11 +411,14 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 ## capture d'écran
 
-<img src="./docs/images/settings.png" alt="設定" style="width: 400px;"/>
+<div style="display: flex; gap: 20px;">
+  <img src="./docs/images/settings.png" alt="設定" style="width: 800px;"/>
+</div>
 
-<img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
-
-<img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
+<div style="display: flex; gap: 20px;">
+  <img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
+  <img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
+</div>
 
 ### Projets associés
 
