@@ -74,9 +74,9 @@
 ## 配置頁面訪問密碼
 > 本項目已棄用原專案NextChat的CODE環境變數，並使用Clerk管理頁面訪問密碼。教程：[如何配置Clerk](./docs)。
 
-<img src="./docs/images/login.png" alt="用戶登入" style="width: 400px;"/>
+<img src="./docs/images/login.png" alt="用戶登入" style="width: 800px;"/>
 
-<img src="./docs/images/clerkorg.png" alt="權限管理" style="width: 400px;"/>
+<img src="./docs/images/clerkorg.png" alt="權限管理" style="width: 800px;"/>
 
 
 ## 環境變量
@@ -408,11 +408,6 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 <div style="display: flex; gap: 20px;">
   <img src="./docs/images/settings.png" alt="設定" style="width: 800px;"/>
-</div>
-
-<div style="display: flex; gap: 20px;">
-  <img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
-  <img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
 </div>
 
 ### 相關項目
