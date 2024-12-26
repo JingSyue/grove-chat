@@ -141,7 +141,7 @@ Google Gemini Pro Api 網址。
 
 ### `ANTHROPIC_API_KEY`(可選)
 
-Anthropic Claude Api Key。
+人類克勞德 Api 密鑰。
 
 ### `ANTHROPIC_API_VERSION`(可選)
 
@@ -197,7 +197,7 @@ ChatGLM Api 金鑰。
 
 ### `CHATGLM_URL`(可選)
 
-ChatGLM Api Url。
+ChatGLM Api 網址。
 
 ### `XAI_API_KEY`(可選)
 
@@ -418,11 +418,11 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 ## 截圖
 
-![Settings](./docs/images/settings.png)
+<img src="./docs/images/settings.png" alt="設定" style="width: 400px;"/>
 
-![Plugin](./docs/images/plugin.png)
+<img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
 
-![Model](./docs/images/model.png)
+<img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
 
 ### 相關項目
 
