@@ -22,18 +22,18 @@ Déployez gratuitement votre application Web privée ChatGPT en un seul clic, pr
 -   [Paramètres du modèle utilisateur](#用戶模型設置)
 -   [développement local](#開發)
 -   [capture d'écran](#截圖)
--   [Projets associés](#相關項目)
+-   [Projets connexes](#相關項目)
 -   [Accord open source](#開源協議)
 
 ## Édition Entreprise
 
 Répondez aux besoins de déploiement et de personnalisation privés de votre entreprise
 
--   **Personnalisation de la marque**：企業量身定制 VI/UI，與企業品牌形象無縫契合
+-   **Personnalisation de la marque**: VI/UI adapté à l'entreprise, correspondant parfaitement à l'image de marque de l'entreprise
 -   **Intégration des ressources**: Des dizaines de ressources d'IA sont configurées et gérées de manière uniforme par les responsables de l'entreprise, et les membres de l'équipe peuvent les utiliser immédiatement.
--   **Gestion des autorisations**: Les autorisations des membres, les autorisations des ressources et les autorisations de la base de connaissances sont clairement hiérarchiques et unifiées contrôlées par le panneau d'administration au niveau de l'entreprise.
+-   **Gestion des autorisations**：成員權限、資源權限、知識庫權限層級分明，企業級 Admin Panel 統一控制
 -   **accès aux connaissances**: La combinaison de la base de connaissances interne d'une entreprise et des capacités d'IA est plus proche des besoins commerciaux de l'entreprise que l'IA générale.
--   **audit de sécurité**: interceptez automatiquement les questions sensibles et prenez en charge le traçage de tous les enregistrements historiques des conversations, permettant à l'IA de se conformer également aux réglementations en matière de sécurité des informations de l'entreprise
+-   **audit de sécurité**: interceptez automatiquement les questions sensibles et prenez en charge le traçage de tous les enregistrements de conversations historiques, permettant à l'IA de se conformer également aux réglementations de sécurité des informations de l'entreprise.
 -   **déploiement privé**: Déploiement privé au niveau de l'entreprise, prenant en charge divers déploiements de cloud privé grand public pour garantir la sécurité des données et la protection de la confidentialité
 -   **Mises à jour continues**: Fournir des services de mise à jour et de mise à niveau continues pour des fonctionnalités de pointe telles que des agents multimodaux et intelligents, fréquemment utilisés et constamment perfectionnés.
 
@@ -45,7 +45,7 @@ Consultation version entreprise :**vide**
 
 -   Déployez sur Vercel gratuitement en un clic et prend moins d'1 minute
 -   Client simplifié (~ 5 Mo) pour Linux/Windows/MacOS, téléchargez-le maintenant
--   Entièrement compatible avec LLM auto-déployé, recommandé pour une utilisation avec RWKV-Runner ou LocalAI
+-   Entièrement compatible avec LLM auto-déployé, il est recommandé de l'utiliser avec RWKV-Runner ou LocalAI
 -   La confidentialité avant tout, toutes les données sont stockées localement dans le navigateur
 -   Support Markdown : LaTex, sirène, surbrillance de code, etc.
 -   Conception réactive, prend en charge le mode sombre et PWA
@@ -73,9 +73,9 @@ Consultation version entreprise :**vide**
 
 > Ce projet a abandonné la variable d'environnement CODE du projet original NextChat et utilise le mot de passe d'accès à la page de gestion des commis. Tutoriel :[Comment configurer le commis](./docs)。
 
-<img src="./docs/images/login.png" alt="用戶登入" style="width: 400px;"/>
+<img src="./docs/images/login.png" alt="用戶登入" style="width: 800px;"/>
 
-<img src="./docs/images/clerkorg.png" alt="權限管理" style="width: 400px;"/>
+<img src="./docs/images/clerkorg.png" alt="權限管理" style="width: 800px;"/>
 
 ## variables d'environnement
 
@@ -250,12 +250,12 @@ Pour contrôler la liste des modèles, utilisez`+`Pour ajouter un modèle, utili
 
 En mode Azure, il est possible d'utiliser`modelName@Azure=deploymentName`Configurez le nom du modèle et le nom du déploiement (nom du déploiement).
 
-> Exemple:`+gpt-3.5-turbo@Azure=gpt35`Cette configuration affichera un`gpt35(Azure)`choix.  
+> Exemple:`+gpt-3.5-turbo@Azure=gpt35`Cette configuration affichera un`gpt35(Azure)`possibilités.  
 > Si vous ne pouvez utiliser que le mode Azure, définissez`-all,+gpt-3.5-turbo@Azure=gpt35`Vous pouvez faire l'utilisation par défaut de la conversation`gpt35(Azure)`。
 
 En mode ByteDance, prend en charge l'utilisation de`modelName@bytedance=deploymentName`Configurez le nom du modèle et le nom du déploiement (nom du déploiement).
 
-> Exemple:`+Doubao-lite-4k@bytedance=ep-xxxxx-xxx`Cette configuration affichera un`Doubao-lite-4k(ByteDance)`choix.
+> Exemple:`+Doubao-lite-4k@bytedance=ep-xxxxx-xxx`Cette configuration affichera un`Doubao-lite-4k(ByteDance)`possibilités.
 
 ### `DEFAULT_MODEL`(facultatif)
 
@@ -415,15 +415,10 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
   <img src="./docs/images/settings.png" alt="設定" style="width: 800px;"/>
 </div>
 
-<div style="display: flex; gap: 20px;">
-  <img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
-  <img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
-</div>
-
-### Projets associés
+### Projets connexes
 
 -   [ChatGPT-Next-Web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web):
-    Une plate-forme unique de grands modèles qui prend en charge tous les principaux modèles de langages de grande taille du marché.
+    Une plate-forme unique de grands modèles qui prend en charge tous les principaux modèles linguistiques de grande taille du marché.
 
 -   [une API](https://github.com/songquanpeng/one-api): Une plate-forme unique de gestion des quotas de grands modèles qui prend en charge tous les grands modèles linguistiques courants du marché.
 
