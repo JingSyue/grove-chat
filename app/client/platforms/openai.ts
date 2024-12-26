@@ -234,7 +234,9 @@ export class ChatGPTApi implements LLMApi {
           messages.push({ role: v.role, content });
       }
 
-      // O1 not support image, tools (plugin in ChatGPTNextWeb) and system, stream, logprobs, temperature, top_p, n, presence_penalty, frequency_penalty yet.
+      console.log("[ChatGPTApi] messages", messages);
+
+      // O1 not support image, tools (plugin in ChatGPTNextWeb) and system, logprobs, temperature, top_p, n, presence_penalty, frequency_penalty yet.
       requestPayload = {
         messages,
         stream: options.config.stream,
@@ -380,7 +382,7 @@ export class ChatGPTApi implements LLMApi {
 
         const resJson = await res.json();
         const message = await this.extractMessage(resJson);
-        options.onFinish(message, res);
+        options.onFinish(message);
       }
     } catch (e) {
       console.log("[Request] failed to make a chat request", e);

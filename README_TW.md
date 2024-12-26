@@ -4,17 +4,13 @@
   <img src="./docs/images/ent.svg" alt="icon"/>
 </a>
 
-<h1 align="center">GroveChat</h1>
-
-<a href='#企業版'>
-  <img src="./docs/images/ent.svg" alt="icon"/>
-</a>
+<h1 align="center">NextChat</h1>
 
 一鍵免費部署你的私人 ChatGPT 網頁應用，支持 GPT3、GPT4 和 Gemini Pro 模型。
 
-[GroveChat](https://grove-chat.vercel.app) / [企業版](https://grove-chat.vercel.app) / [演示 Demo](https://grove-chat.vercel.app) / [反饋 Issues](https://github.com/robbiedood/grove-chat/issues)
+[GroveChat](https://nextchat.dev/chat?utm_source=readme) / [企業版](#%E4%BC%81%E4%B8%9A%E7%89%88) / [演示 Demo](https://chat-gpt-next-web.vercel.app/) / [反饋 Issues](https://github.com/Yidadaa/ChatGPT-Next-Web/issues) / [加入 Discord](https://discord.gg/zrhvHCr79N)
 
-[<img src="https://vercel.com/button" alt="Deploy on vercel" height="30">](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat) 
+[<img src="https://vercel.com/button" alt="Deploy on Zeabur" height="30">](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FChatGPTNextWeb%2FChatGPT-Next-Web&env=OPENAI_API_KEY&env=CODE&project-name=nextchat&repository-name=NextChat) [<img src="https://zeabur.com/button.svg" alt="Deploy on Zeabur" height="30">](https://zeabur.com/templates/ZBUEFA) [<img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod" height="30">](https://gitpod.io/#https://github.com/Yidadaa/ChatGPT-Next-Web)
 
 </div>
 
@@ -30,18 +26,17 @@
 - **私有部署**：企業級私有部署，支持各類主流私有雲部署，確保數據安全和隱私保護
 - **持續更新**：提供多模態、智能體等前沿能力持續更新升級服務，常用常新、持續先進
 
-企業版諮詢: ****
+企業版諮詢: **business@nextchat.dev**
 
-<img width="300" src="">
+<img width="300" src="https://github.com/user-attachments/assets/3daeb7b6-ab63-4542-9141-2e4a12c80601">
 
 ## 開始使用
 
 1. 準備好你的 [OpenAI API Key](https://platform.openai.com/account/api-keys);
-2. 使用Clerk作為用戶權限管理 [Clerk官網](https://clerk.com/)[配置文件](https://github.com/robbiedood/grove-chat/tree/main/docs)
-3. 點擊右側按鈕開始部署：
-   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)，直接使用 GitHub 賬號登錄即可，記得在環境變量頁填入 API Key 和[用戶權限管理](#配置訪問權限Clerk) Clerk；
-4. 部署完畢後，即可開始使用；
-5. （可選）[綁定自定義域名](https://vercel.com/docs/concepts/projects/domains/add-a-domain)：Vercel 分配的域名 DNS 在某些區域被污染了，綁定自定義域名即可直連。
+2. 點擊右側按鈕開始部署：
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FYidadaa%2FChatGPT-Next-Web&env=OPENAI_API_KEY&env=CODE&env=GOOGLE_API_KEY&project-name=chatgpt-next-web&repository-name=ChatGPT-Next-Web)，直接使用 GitHub 賬號登錄即可，記得在環境變量頁填入 API Key 和[頁面訪問密碼](#配置頁面訪問密碼) CODE；
+3. 部署完畢後，即可開始使用；
+4. （可選）[綁定自定義域名](https://vercel.com/docs/concepts/projects/domains/add-a-domain)：Vercel 分配的域名 DNS 在某些區域被污染了，綁定自定義域名即可直連。
 
 <div align="center">
    
@@ -58,6 +53,16 @@
 - 使用頁面右上角的 fork 按鈕，fork 本項目；
 - 在 Vercel 重新選擇並部署，[請查看詳細教程](./docs/vercel-cn.md#如何新建項目)。
 
+### 打開自動更新
+
+> 如果你遇到了 Upstream Sync 執行錯誤，請[手動 Sync Fork 一次](./README_CN.md#手動更新代碼)！
+
+當你 fork 項目之後，由於 GitHub 的限制，需要手動去你 fork 後的項目的 Actions 頁面啟用 Workflows，並啟用 Upstream Sync Action，啟用之後即可開啟每小時定時自動更新：
+
+![自動更新](./docs/images/enable-actions.jpg)
+
+![啟用自動更新](./docs/images/enable-actions-sync.jpg)
+
 ### 手動更新代碼
 
 如果你想讓手動立即更新，可以查看 [GitHub 的文檔](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) 了解如何讓 fork 的項目與上游代碼同步。
@@ -65,7 +70,18 @@
 你可以 star/watch 本項目或者 follow 作者來及時獲得新功能更新通知。
 
 ## 配置頁面訪問密碼
-> 本項目已棄用原專案NextChat的CODE環境變數，並使用Clerk管理頁面訪問密碼，教程：[如何配置Clerk](./docs/vercel-cn.md)。
+
+> 配置密碼後，用戶需要在設置頁手動填寫訪問碼才可以正常聊天，否則會通過消息提示未授權狀態。
+
+> **警告**：請務必將密碼的位數設置得足夠長，最好 7 位以上，否則[會被爆破](https://github.com/Yidadaa/ChatGPT-Next-Web/issues/518)。
+
+本項目提供有限的權限控制功能，請在 Vercel 項目控制面板的環境變量頁增加名為 `CODE` 的環境變量，值為用英文逗號分隔的自定義密碼：
+
+```
+code1,code2,code3
+```
+
+增加或修改該環境變量後，請**重新部署**項目使改動生效。
 
 ## 環境變量
 
@@ -75,14 +91,11 @@
 
 OpenAI 密鑰，你在 openai 賬戶頁面申請的 api key，使用英文逗號隔開多個 key，這樣可以隨機輪詢這些 key。
 
-### `CLERK_SECRET_KEY`（必填項）
-Clerk 用戶管理
+### `CODE` （可選）
 
-### `CLERK_WEBHOOK_SECRET`（必填項）
-Clerk 用戶管理
+訪問密碼，可選，可以使用逗號隔開多個密碼。
 
-### `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`（必填項）
-Clerk 用戶管理
+**警告**：如果不填寫此項，則任何人都可以直接使用你部署後的網站，可能會導致你的 token 被急速消耗完畢，建議填寫此選項。
 
 ### `BASE_URL` （可選）
 
@@ -180,29 +193,6 @@ ChatGLM Api Key。
 
 ChatGLM Api Url。
 
-### `XAI_API_KEY` (可選)
-
-XAI Api Key。
-
-### `XAI_URL` (可選)
-
-XAI Api Url。
-
-### `PERPLEXITY_API_KEY` (可選)
-
-PERPLEXITY Api Key。
-
-### `PERPLEXITY_URL` (可選)
-
-PERPLEXITY Api Url。
-
-### `MOONSHOT_API_KEY` (可選)
-MOONSHOT Api Key。
-
-### `MOONSHOT_URL` (可選)
-
-MOONSHOT Api Url
-
 ### `HIDE_USER_API_KEY` （可選）
 
 如果你不想讓用戶自行填入 API Key，將此環境變量設置為 1 即可。
@@ -261,15 +251,14 @@ Stability API 密鑰。
 
 ## 開發
 
-二次開發：
+點擊下方按鈕，開始二次開發：
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Yidadaa/ChatGPT-Next-Web)
 
 在開始寫代碼之前，需要在項目根目錄新建一個 `.env.local` 文件，裡面填入環境變量：
 
 ```
-OPENAI_API_KEY=<your key here>
-CLERK_SECRET_KEY=<your key here>
-CLERK_WEBHOOK_SECRET=<your key here>
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your key here>
+OPENAI_API_KEY=<your api key here>
 
 # 中國大陸用戶，可以使用本項目自帶的代理進行開發，你也可以自由選擇其他代理地址
 BASE_URL=https://b.nextweb.fun/api/proxy
@@ -294,14 +283,12 @@ BASE_URL=https://b.nextweb.fun/api/proxy
 > ⚠️ 注意：Docker 版本在大多數時間都會落後最新的版本 1 到 2 天，所以部署後會持續出現“存在更新”的提示，屬於正常現象。
 
 ```shell
-docker pull robbiedood/grove-chat
+docker pull yidadaa/chatgpt-next-web
 
 docker run -d -p 3000:3000 \
    -e OPENAI_API_KEY=sk-xxxx \
-   -e CLERK_SECRET_KEY=<your key here> \
-   -e CLERK_WEBHOOK_SECRET=<your key here> \
-   -e NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your key here> \
-   robbiedood/grove-chat
+   -e CODE=頁面訪問密碼 \
+   yidadaa/chatgpt-next-web
 ```
 
 你也可以指定 proxy：
@@ -309,12 +296,10 @@ docker run -d -p 3000:3000 \
 ```shell
 docker run -d -p 3000:3000 \
    -e OPENAI_API_KEY=sk-xxxx \
-   -e CLERK_SECRET_KEY=<your key here> \
-   -e CLERK_WEBHOOK_SECRET=<your key here> \
-   -e NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your key here> \
+   -e CODE=頁面訪問密碼 \
    --net=host \
    -e PROXY_URL=http://127.0.0.1:7890 \
-   robbiedood/grove-chat
+   yidadaa/chatgpt-next-web
 ```
 
 如果你的本地代理需要帳號密碼，可以使用：
@@ -335,15 +320,18 @@ bash <(curl -s https://raw.githubusercontent.com/Yidadaa/ChatGPT-Next-Web/main/s
 
 ⚠️ 注意：如果你安裝過程中遇到了問題，請使用 Docker 部署。
 
+## 鳴謝
+
+### 捐贈者
+
+### 貢獻者
+
+[見項目貢獻者列表](https://github.com/Yidadaa/ChatGPT-Next-Web/graphs/contributors)
 
 ### 相關項目
 
-- [ChatGPT-Next-Web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web):
-一站式大模型平台，支持市面上所有主流大語言模型。
-
 - [one-api](https://github.com/songquanpeng/one-api): 一站式大模型額度管理平台，支持市面上所有主流大語言模型。
 
-- [Mr.-Ranedeer-AI-Tutor](https://github.com/JushBJJ/Mr.-Ranedeer-AI-Tutor):AI-Tutor
 
 ## 開源協議
 

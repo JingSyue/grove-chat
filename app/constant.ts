@@ -656,7 +656,6 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
 
 export const DEFAULT_PLUGINS = [
   "duckduckgolite",
-  "chatpdf",
   "arxivsearch",
   "dalle3",
 ] as const;
