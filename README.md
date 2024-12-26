@@ -1,9 +1,3 @@
-<div align="center">
-
-<a href='#企業版'>
-  <img src="./docs/images/ent.svg" alt="icon"/>
-</a>
-
 <h1 align="center">GroveChat</h1>
 
 <a href='#企業版'>
@@ -345,7 +339,7 @@ const openaiModels = [
 
 ## 開發
 
-# 中國大陸用戶，可以使用本項目自帶的代理進行開發，你也可以自由選擇其他代理地址
+中國大陸用戶，可以使用本項目自帶的代理進行開發，你也可以自由選擇其他代理地址
 BASE_URL=https://b.nextweb.fun/api/proxy
 
 ### 本地開發
@@ -412,12 +406,14 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 ## 截圖
 
-<img src="./docs/images/settings.png" alt="設定" style="width: 400px;"/>
+<div style="display: flex; gap: 20px;">
+  <img src="./docs/images/settings.png" alt="設定" style="width: 800px;"/>
+</div>
 
-<img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
-
-<img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
-
+<div style="display: flex; gap: 20px;">
+  <img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
+  <img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
+</div>
 
 ### 相關項目
 
