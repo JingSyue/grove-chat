@@ -1,9 +1,3 @@
-<div align="center">
-
-<a href='#企業版'>
-  <img src="./docs/images/ent.svg" alt="icon"/>
-</a>
-
 <h1 align="center">GroveChat</h1>
 
 <a href='#企業版'>
@@ -22,7 +16,7 @@
 
 -   [企业版](#企業版)
 -   [功能特点](#功能特點)
--   [开始使用](#開始使用)
+-   [開始使用](#開始使用)
 -   [配置页面访问密码](#配置頁面訪問密碼)
 -   [环境变量](#環境變量)
 -   [用户模型设置](#用戶模型設置)
@@ -350,8 +344,7 @@ Stability API 密钥。
 
 ## 开发
 
-# 中国大陆用户，可以使用本项目自带的代理进行开发，你也可以自由选择其他代理地址
-
+中国大陆用户，可以使用本项目自带的代理进行开发，你也可以自由选择其他代理地址
 BASE_URL=<https://b.nextweb.fun/api/proxy>
 
 ### 本地开发
@@ -418,11 +411,14 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 ## 截图
 
-<img src="./docs/images/settings.png" alt="設定" style="width: 400px;"/>
+<div style="display: flex; gap: 20px;">
+  <img src="./docs/images/settings.png" alt="設定" style="width: 800px;"/>
+</div>
 
-<img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
-
-<img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
+<div style="display: flex; gap: 20px;">
+  <img src="./docs/images/plugin.png" alt="插件" style="width: 400px;"/>
+  <img src="./docs/images/model.png" alt="模型" style="width: 400px;"/>
+</div>
 
 ### 相关项目
 
