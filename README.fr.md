@@ -45,9 +45,9 @@ Répondez aux besoins de déploiement et de personnalisation privés de votre en
 -   **Intégration des ressources**: Des dizaines de ressources d'IA sont configurées et gérées de manière uniforme par les responsables de l'entreprise, et les membres de l'équipe peuvent les utiliser immédiatement.
 -   **Gestion des autorisations**: Les autorisations des membres, les autorisations des ressources et les autorisations de la base de connaissances sont clairement hiérarchiques et unifiées contrôlées par le panneau d'administration au niveau de l'entreprise.
 -   **accès aux connaissances**: La combinaison de la base de connaissances interne d'une entreprise et des capacités d'IA est plus proche des besoins commerciaux de l'entreprise que l'IA générale.
--   **audit de sécurité**: interceptez automatiquement les questions sensibles et prenez en charge le traçage de tous les enregistrements de conversations historiques, permettant à l'IA de se conformer également aux réglementations de sécurité des informations de l'entreprise.
+-   **audit de sécurité**: interceptez automatiquement les questions sensibles et prenez en charge le traçage de tous les enregistrements historiques des conversations, permettant à l'IA de se conformer également aux réglementations en matière de sécurité des informations de l'entreprise
 -   **déploiement privé**: Déploiement privé au niveau de l'entreprise, prenant en charge divers déploiements de cloud privé grand public pour garantir la sécurité des données et la protection de la confidentialité
--   **Mises à jour continues**: Fournir des services de mise à jour et de mise à niveau continues pour des fonctionnalités de pointe telles que la multimodalité et l'intelligence, qui sont fréquemment utilisées et constamment avancées.
+-   **Mises à jour continues**: Fournir des services de mise à jour et de mise à niveau continues pour des fonctionnalités de pointe telles que des agents multimodaux et intelligents, fréquemment utilisés et constamment perfectionnés.
 
 Consultation version entreprise :**vide**
 
@@ -69,7 +69,7 @@ Consultation version entreprise :**vide**
 ## Commencer
 
 1.  prépare le tien[Clé API OpenAI](https://platform.openai.com/account/api-keys);
-2.  Utiliser Clerk comme gestion des autorisations utilisateur[Site officiel du greffier](https://clerk.com/)[Fichier de configuration](#配置頁面訪問密碼)
+2.  Utilisation de Clerk comme gestion des autorisations des utilisateurs[Site officiel du greffier](https://clerk.com/)[Fichier de configuration](#配置頁面訪問密碼)
 3.  Cliquez sur le bouton à droite pour démarrer le déploiement :[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat), connectez-vous simplement directement avec votre compte GitHub. N'oubliez pas de renseigner la clé API et.[Gestion des droits des utilisateurs](#配置訪問權限Clerk)Greffier;
 4.  Une fois le déploiement terminé, vous pouvez commencer à l'utiliser ;
 5.  (facultatif)[Lier un nom de domaine personnalisé](https://vercel.com/docs/concepts/projects/domains/add-a-domain): Le nom de domaine DNS attribué par Vercel est contaminé dans certaines zones. Liez un nom de domaine personnalisé pour vous connecter directement.
@@ -90,7 +90,7 @@ Consultation version entreprise :**vide**
 
 <img src="./docs/images/clerk/clerk1.png" alt="create application" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Étape 2 : Sélectionnez une option de connexion
+### Étape 2 : Choisissez une option de connexion
 
 activer**E-mail**(obligatoire) et**Google**(facultatif), comme indiqué ci-dessous.
 
@@ -127,7 +127,7 @@ Aller à**Configurer > Paramètres**(Configuration > Paramètres) et définissez
 
 ### Étape 7 : configurer les webhooks
 
-Définissez le point de terminaison du webhook sur votre URL d’écoute. Cliquez**Secret de signature**(clé de signature) Affichez votre`CLERK_WEBHOOK_SECRET`, et ajoutez-le à`.env`Dans les archives :
+Définissez le point de terminaison du webhook sur votre URL d'écoute. Cliquez**Secret de signature**(clé de signature) Affichez votre`CLERK_WEBHOOK_SECRET`, et ajoutez-le à`.env`Dans les archives :
 
 ```env
 CLERK_WEBHOOK_SECRET=你的webhook密鑰
@@ -141,7 +141,7 @@ Créez des comptes d'utilisateurs selon vos besoins.
 
 <img src="./docs/images/clerk/clerk8.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Étape 9 : Construire une organisation
+### Étape 9 : Créer une organisation
 
 Créez une organisation et ajoutez l'adresse e-mail du développeur. Définissez leur rôle sur**Professeur**(professeur).<img src="./docs/images/clerk/clerk9.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
@@ -336,14 +336,14 @@ Si vous souhaitez ajouter les adresses de service WebDAV auxquelles l'accès est
 
 Pour contrôler la liste des modèles, utilisez`+`Pour ajouter un modèle, utilisez`-`Pour masquer un modèle, utilisez`模型名=展示名`Afficher les noms pour personnaliser le modèle, séparés par des virgules.
 
-En mode Azure, il est possible d'utiliser`modelName@Azure=deploymentName`Configurez le nom du modèle et le nom du déploiement (nom du déploiement).
+En mode Azure, prise en charge de l'utilisation`modelName@Azure=deploymentName`Configurez le nom du modèle et le nom du déploiement (nom du déploiement).
 
-> Exemple:`+gpt-3.5-turbo@Azure=gpt35`Cette configuration affichera un`gpt35(Azure)`possibilités.  
+> Exemple:`+gpt-3.5-turbo@Azure=gpt35`Cette configuration affichera un`gpt35(Azure)`choix.  
 > Si vous ne pouvez utiliser que le mode Azure, définissez`-all,+gpt-3.5-turbo@Azure=gpt35`Vous pouvez faire l'utilisation par défaut de la conversation`gpt35(Azure)`。
 
 En mode ByteDance, prend en charge l'utilisation de`modelName@bytedance=deploymentName`Configurez le nom du modèle et le nom du déploiement (nom du déploiement).
 
-> Exemple:`+Doubao-lite-4k@bytedance=ep-xxxxx-xxx`Cette configuration affichera un`Doubao-lite-4k(ByteDance)`possibilités.
+> Exemple:`+Doubao-lite-4k@bytedance=ep-xxxxx-xxx`Cette configuration affichera un`Doubao-lite-4k(ByteDance)`choix.
 
 ### `DEFAULT_MODEL`(facultatif)
 
@@ -455,7 +455,7 @@ BASE_URL=<https://b.nextweb.fun/api/proxy>
 
 > La version de Docker doit être 20 ou supérieure, sinon l'image sera introuvable.
 
-> ⚠️ Remarque : La plupart du temps, la version Docker sera en retard de 1 à 2 jours par rapport à la dernière version, donc l'invite « la mise à jour existe » continuera à apparaître après le déploiement, ce qui est normal.
+> ⚠️ Remarque : la plupart du temps, la version Docker sera en retard de 1 à 2 jours par rapport à la dernière version, donc l'invite « la mise à jour existe » continuera à apparaître après le déploiement, ce qui est normal.
 
 ```shell
 docker pull robbiedood/grove-chat
@@ -487,7 +487,7 @@ Si votre agent local nécessite un compte et un mot de passe, vous pouvez utilis
 -e PROXY_URL="http://127.0.0.1:7890 user password"
 ```
 
-Si vous devez spécifier d'autres variables d'environnement, veuillez les ajouter vous-même à la commande ci-dessus.`-e 環境變量=環境變量值`à préciser.
+Si vous devez spécifier d'autres variables d'environnement, veuillez les ajouter vous-même à la commande ci-dessus`-e 環境變量=環境變量值`à préciser.
 
 ### déploiement local
 
