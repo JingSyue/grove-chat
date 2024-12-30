@@ -35,6 +35,7 @@
 -   [screenshot](#截圖)
 -   [Related projects](#相關項目)
 -   [Open source agreement](#開源協議)
+-   [Change description](./CHANGELOG.md)
 
 ## Enterprise Edition
 
@@ -68,7 +69,7 @@ Enterprise version consultation:**empty**
 ## Get started
 
 1.  get yours ready[OpenAI API Key](https://platform.openai.com/account/api-keys);
-2.  Using Clerk as User Permission Management[Clerk official website](https://clerk.com/)[Configuration file](https://github.com/robbiedood/grove-chat/tree/main/docs)
+2.  Using Clerk as User Permission Management[Clerk official website](https://clerk.com/)[Configuration file](#配置頁面訪問密碼)
 3.  Click the button on the right to start deployment:[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat), just log in directly with your GitHub account. Remember to fill in the API Key and[User rights management](#配置訪問權限Clerk)Clerk；
 4.  After deployment is completed, you can start using it;
 5.  (optional)[Bind a custom domain name](https://vercel.com/docs/concepts/projects/domains/add-a-domain): The domain name DNS assigned by Vercel is contaminated in some areas. Bind a custom domain name to connect directly.
@@ -376,7 +377,9 @@ User role after login
 
 Role permissions can be changed in the Clerk dashboard
 
-> [Clerk configuration tutorial](https://github.com/robbiedood/grove-chat/tree/main/docs)
+> [Clerk configuration tutorial](#配置頁面訪問密碼)
+
+After configuring Clerk, teachers with teacher authority can directly manage the organization on the settings page in Grove Chat and invite members to further control the accessible models.
 
 ### Add new model
 
