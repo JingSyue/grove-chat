@@ -35,6 +35,7 @@
 -   [لقطة شاشة](#截圖)
 -   [المشاريع ذات الصلة](#相關項目)
 -   [اتفاقية مفتوحة المصدر](#開源協議)
+-   [تغيير الوصف](./CHANGELOG.md)
 
 ## إصدار المؤسسة
 
@@ -61,14 +62,14 @@
 -   دعم تخفيض السعر: LaTex، حورية البحر، تسليط الضوء على التعليمات البرمجية، إلخ.
 -   تصميم سريع الاستجابة، يدعم الوضع المظلم وPWA
 -   يتم تحميل الشاشة الأولى بسرعة (حوالي 100 كيلو بايت) وتدعم استجابة البث
--   الجديد في الإصدار الثاني: استخدم قوالب المطالبة (القناع) لإنشاء أدوات الدردشة الخاصة بك ومشاركتها وتصحيح أخطائها
+-   v2 新功能：使用提示模板（mask）創建、分享和調試你的聊天工具
 -   ضغط سجل الدردشة تلقائيًا لدعم المحادثات الطويلة مع حفظ الرموز المميزة الخاصة بك
 -   دعم متعدد اللغات: الإنجليزية والصينية المبسطة والصينية التقليدية واليابانية والفرنسية والإسبانية والإيطالية والتركية والألمانية والفيتنامية والروسية والتشيكية والكورية والإندونيسية
 
 ## ابدأ
 
 1.  احصل على استعداد لك[مفتاح واجهة برمجة تطبيقات OpenAI](https://platform.openai.com/account/api-keys);
-2.  استخدام Clerk كإدارة أذونات المستخدم[الموقع الرسمي للكاتب](https://clerk.com/)[ملف التكوين](https://github.com/robbiedood/grove-chat/tree/main/docs)
+2.  استخدام Clerk كإدارة أذونات المستخدم[الموقع الرسمي للكاتب](https://clerk.com/)[ملف التكوين](#配置頁面訪問密碼)
 3.  انقر فوق الزر الموجود على اليمين لبدء النشر:[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)، ما عليك سوى تسجيل الدخول مباشرة باستخدام حساب GitHub الخاص بك، وتذكر ملء مفتاح API و[إدارة حقوق المستخدم](#配置訪問權限Clerk)موظف؛
 4.  بعد اكتمال النشر، يمكنك البدء في استخدامه؛
 5.  (خياري)[ربط اسم المجال المخصص](https://vercel.com/docs/concepts/projects/domains/add-a-domain): اسم المجال DNS المخصص بواسطة Vercel ملوث في بعض المناطق. قم بربط اسم المجال المخصص للاتصال مباشرة.
@@ -85,7 +86,7 @@
 >
 > ### الخطوة 1: قم بالتسجيل للحصول على حساب كاتب
 >
-> اذهب الى[الموقع الرسمي للكاتب](https://clerk.com/)، قم بتسجيل حساب وتسجيل الدخول. بعد تسجيل الدخول اضغط**إنشاء التطبيق**(بناء التطبيق).
+> اذهب الى[الموقع الرسمي للكاتب](https://clerk.com/)، قم بتسجيل حساب وتسجيل الدخول. بعد تسجيل الدخول اضغط**إنشاء التطبيق**（建立應用程式）。
 
 <img src="./docs/images/clerk/clerk1.png" alt="create application" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
@@ -126,7 +127,7 @@ CLERK_SECRET_KEY=你的密鑰
 
 ### الخطوة 7: تكوين Webhooks
 
-قم بتعيين نقطة نهاية webhook على عنوان URL الخاص بالاستماع. انقر**سر التوقيع**(مفتاح التوقيع) عرض الخاص بك`CLERK_WEBHOOK_SECRET`، وإضافته إلى`.env`في الأرشيف:
+قم بتعيين نقطة نهاية webhook على عنوان URL الخاص بالاستماع. انقر**سر التوقيع**（簽名密鑰）查看你的 `CLERK_WEBHOOK_SECRET`، وإضافته إلى`.env`في الأرشيف:
 
 ```env
 CLERK_WEBHOOK_SECRET=你的webhook密鑰
@@ -134,7 +135,7 @@ CLERK_WEBHOOK_SECRET=你的webhook密鑰
 
 <img src="./docs/images/clerk/clerk7.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### الخطوة 8: إنشاء المستخدمين
+### 步驟 8：建立使用者
 
 إنشاء حسابات المستخدمين حسب الحاجة.
 
@@ -178,7 +179,7 @@ CLERK_WEBHOOK_SECRET=你的webhook密鑰
 
 ### `CLERK_WEBHOOK_SECRET`(مطلوب)
 
-Clerk 用戶管理
+إدارة مستخدم كاتب
 
 ### `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`(مطلوب)
 
@@ -194,7 +195,7 @@ Clerk 用戶管理
 
 > إذا كان لديك مشاكل مع شهادة SSL، يرجى استبدالها`BASE_URL`تم ضبط البروتوكول على http.
 
-### `OPENAI_ORG_ID`(خياري)
+### `OPENAI_ORG_ID` （可選）
 
 حدد معرف المؤسسة في OpenAI.
 
@@ -218,7 +219,7 @@ Clerk 用戶管理
 
 ### `GOOGLE_URL`(خياري)
 
-Google Gemini Pro Api Url。
+Google Gemini Pro Api URL.
 
 ### `ANTHROPIC_API_KEY`(خياري)
 
@@ -306,7 +307,7 @@ MOONSHOT API URL
 
 ### `HIDE_USER_API_KEY`(خياري)
 
-如果你不想讓用戶自行填入 API Key，將此環境變量設置為 1 即可。
+إذا كنت لا تريد أن يقوم المستخدمون بملء مفتاح API بأنفسهم، فما عليك سوى تعيين متغير البيئة هذا على 1.
 
 ### `DISABLE_GPT4`(خياري)
 
@@ -337,7 +338,7 @@ MOONSHOT API URL
 
 في وضع Azure، يتم دعمه للاستخدام`modelName@Azure=deploymentName`قم بتكوين اسم النموذج واسم النشر (اسم النشر).
 
-> مثال:`+gpt-3.5-turbo@Azure=gpt35`سيعرض هذا التكوين أ`gpt35(Azure)`خيارات.  
+> 示例：`+gpt-3.5-turbo@Azure=gpt35`سيعرض هذا التكوين أ`gpt35(Azure)`خيارات.  
 > إذا كان بإمكانك استخدام وضع Azure فقط، فقم بتعيينه`-all,+gpt-3.5-turbo@Azure=gpt35`يمكنك جعل الاستخدام الافتراضي للمحادثة`gpt35(Azure)`。
 
 في وضع ByteDance، دعم استخدام`modelName@bytedance=deploymentName`قم بتكوين اسم النموذج واسم النشر (اسم النشر).
@@ -376,7 +377,9 @@ MOONSHOT API URL
 
 يمكن تغيير أذونات الدور في لوحة معلومات Clerk
 
-> [البرنامج التعليمي لتكوين كاتب](https://github.com/robbiedood/grove-chat/tree/main/docs)
+> [البرنامج التعليمي لتكوين كاتب](#配置頁面訪問密碼)
+
+بعد تكوين Clerk، يمكن للمعلمين الذين يتمتعون بسلطة المعلم إدارة المؤسسة مباشرة على صفحة الإعدادات في Grove Chat ودعوة الأعضاء لمزيد من التحكم في النماذج التي يمكن الوصول إليها.
 
 ### إضافة نموذج جديد
 
