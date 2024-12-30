@@ -35,6 +35,7 @@
 -   [截图](#截圖)
 -   [相关项目](#相關項目)
 -   [开源协议](#開源協議)
+-   [变更说明](./CHANGELOG.md)
 
 ## 企业版
 
@@ -68,7 +69,7 @@
 ## 开始使用
 
 1.  准备好你的[OpenAI API 密钥](https://platform.openai.com/account/api-keys);
-2.  使用Clerk作为用户权限管理[Clerk官网](https://clerk.com/)[配置文件](https://github.com/robbiedood/grove-chat/tree/main/docs)
+2.  使用Clerk作为用户权限管理[Clerk官网](https://clerk.com/)[配置文件](#配置頁面訪問密碼)
 3.  点击右侧按钮开始部署：[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)，直接使用 GitHub 账号登录即可，记得在环境变量页填入 API Key 和[用户权限管理](#配置訪問權限Clerk)文员；
 4.  部署完毕后，即可开始使用；
 5.  （可选）[绑定自定义域名](https://vercel.com/docs/concepts/projects/domains/add-a-domain)：Vercel 分配的域名 DNS 在某些区域被污染了，绑定自定义域名即可直连。
@@ -376,7 +377,9 @@ Stability API 密钥。
 
 可在Clerk dashboard中更改角色权限
 
-> [Clerk配置教学](https://github.com/robbiedood/grove-chat/tree/main/docs)
+> [Clerk配置教学](#配置頁面訪問密碼)
+
+配置Clerk后，teacher权限者可在Grove Chat中 settings页面可直接管理组织并邀请成员进一步管控可存取的模型
 
 ### 新增模型
 
