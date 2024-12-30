@@ -1,15 +1,26 @@
-<h1 align="center">GroveChat</h1>
+<div align="center">
 
-<a href='#企業版'>
-  <img src="./docs/images/ent.svg" alt="icon"/>
-</a>
+[إنجليزي](./README.en.md)\|[الصينية المبسطة](./README.zh-CN.md)\|[العربية](./README.ar.md)\|[فرنسي](./README.fr.md)\|[اليابانية](./README.ja.md)
 
-انشر تطبيق الويب الخاص بك ChatGPT مجانًا بنقرة واحدة، ويدعم نماذج GPT3 وGPT4 وGemini Pro.
+</div>
+<div align="center">
+  <h1>GroveChat</h1>
+  <a href='#企業版'>
+    <img src="./docs/images/ent.svg" alt="icon" style="margin: 20px 0;"/>
+  </a>
 
-[جروفشات](https://grove-chat.vercel.app)/[إصدار المؤسسة](https://grove-chat.vercel.app)/[تجريبي](https://grove-chat.vercel.app)/[قضايا ردود الفعل](https://github.com/robbiedood/grove-chat/issues)
+  <p>一鍵免費部署你的私人 ChatGPT 網頁應用，支持 GPT3、GPT4 和 Gemini Pro 模型。</p>
 
-[<img src="https://vercel.com/button" alt="Deploy on vercel" height="30">](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)
+  <p>
+    <a href="https://grove-chat.vercel.app">GroveChat</a> / 
+    <a href="https://grove-chat.vercel.app">企業版</a> / 
+    <a href="https://grove-chat.vercel.app">演示 Demo</a> / 
+    <a href="https://github.com/robbiedood/grove-chat/issues">反饋 Issues</a>
+  </p>
 
+  <a href="https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat">
+    <img src="https://vercel.com/button" alt="Deploy on vercel" height="30" style="margin: 20px 0;"/>
+  </a>
 </div>
 
 ## جدول المحتويات
@@ -35,23 +46,22 @@
 -   **الوصول إلى المعرفة**: يعد الجمع بين قاعدة المعرفة الداخلية للمؤسسة وقدرات الذكاء الاصطناعي أقرب إلى احتياجات الأعمال الخاصة بالمؤسسة من الذكاء الاصطناعي العام.
 -   **التدقيق الأمني**: اعتراض الأسئلة الحساسة تلقائيًا ودعم تتبع جميع سجلات المحادثات التاريخية، مما يسمح للذكاء الاصطناعي بالامتثال أيضًا للوائح أمن معلومات الشركة.
 -   **النشر الخاص**: النشر الخاص على مستوى المؤسسة، ودعم العديد من عمليات نشر السحابة الخاصة السائدة لضمان أمان البيانات وحماية الخصوصية
--   **تحديثات مستمرة**: توفير خدمات التحديث والترقية المستمرة للإمكانيات المتطورة مثل الوكلاء متعددي الوسائط والذكيين، والتي يتم استخدامها بشكل متكرر والمتقدمة باستمرار.
+-   **تحديثات مستمرة**: توفير خدمات التحديث والارتقاء المستمر للقدرات المتطورة مثل الوسائط المتعددة والذكاء، والتي يتم استخدامها بشكل متكرر والمتقدمة باستمرار.
 
-استشارة بشأن إصدار المؤسسة:**فارغ**
+استشارة حول إصدار المؤسسة:**فارغ**
 
 <img width="300" src="">
 
 ## سمات
 
 -   يمكنك النشر على Vercel مجانًا بنقرة واحدة ويستغرق أقل من دقيقة واحدة
--   عميل مبسط (حوالي 5 ميجابايت) لنظام التشغيل Linux/Windows/MacOS، قم بالتنزيل الآن
--   متوافق تمامًا مع LLM ذاتية النشر، يوصى باستخدامه مع RWKV-Runner أو LocalAI
+-   عميل مبسط (~5 ميجابايت) لنظام التشغيل Linux/Windows/MacOS، قم بالتنزيل الآن
+-   متوافق تمامًا مع LLM ذاتية النشر، ويوصى باستخدامه مع RWKV-Runner أو LocalAI
 -   الخصوصية أولاً، يتم تخزين جميع البيانات محليًا في المتصفح
 -   دعم تخفيض السعر: LaTex، حورية البحر، تسليط الضوء على التعليمات البرمجية، إلخ.
 -   تصميم سريع الاستجابة، يدعم الوضع المظلم وPWA
 -   يتم تحميل الشاشة الأولى بسرعة (حوالي 100 كيلو بايت) وتدعم استجابة البث
 -   الجديد في الإصدار الثاني: استخدم قوالب المطالبة (القناع) لإنشاء أدوات الدردشة الخاصة بك ومشاركتها وتصحيح أخطائها
--   نصائح رائعة مدعومة بواسطة Awesome-chatgpt-prompts-zh و Awesome-chatgpt-prompts
 -   ضغط سجل الدردشة تلقائيًا لدعم المحادثات الطويلة مع حفظ الرموز المميزة الخاصة بك
 -   دعم متعدد اللغات: الإنجليزية والصينية المبسطة والصينية التقليدية واليابانية والفرنسية والإسبانية والإيطالية والتركية والألمانية والفيتنامية والروسية والتشيكية والكورية والإندونيسية
 
@@ -71,7 +81,84 @@
 
 ## تكوين كلمة مرور الوصول إلى الصفحة
 
-> لقد تخلى هذا المشروع عن متغير البيئة CODE الخاص بالمشروع الأصلي NextChat ويستخدم كلمة مرور الوصول إلى صفحة إدارة Clerk. درس تعليمي:[كيفية تكوين كاتب](./docs)。
+> لقد تخلى هذا المشروع عن متغير البيئة CODE الخاص بالمشروع الأصلي NextChat ويستخدم كلمة مرور الوصول إلى صفحة إدارة Clerk.
+>
+> ### الخطوة 1: قم بالتسجيل للحصول على حساب كاتب
+>
+> اذهب الى[الموقع الرسمي للكاتب](https://clerk.com/)، قم بتسجيل حساب وتسجيل الدخول. بعد تسجيل الدخول اضغط**إنشاء التطبيق**(بناء التطبيق).
+
+<img src="./docs/images/clerk/clerk1.png" alt="create application" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### الخطوة 2: حدد خيار تسجيل الدخول
+
+يُمكَِن**بريد إلكتروني**(مطلوب) و**جوجل**(اختياري) كما هو موضح أدناه.
+
+<img src="./docs/images/clerk/clerk2.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### الخطوة 3: الحصول على مفتاح API
+
+العثور على الخاص بك`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`و`CLERK_SECRET_KEY`. أضفهم إلى`.env`الملف كما هو موضح أدناه:
+
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=你的公開金鑰
+CLERK_SECRET_KEY=你的密鑰
+```
+
+<img src="./docs/images/clerk/clerk3.png" alt="key" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### الخطوة 4: تكوين البريد الإلكتروني وكلمة المرور
+
+اذهب الى**تكوين > البريد الإلكتروني، الهاتف، اسم المستخدم**(التكوين > البريد الإلكتروني، الهاتف، اسم المستخدم)، تأكد من تمكينه**بريد إلكتروني**(بريد إلكتروني)،**كلمة المرور**(كلمة المرور) و**رمز التحقق من البريد الإلكتروني**(رمز التحقق من البريد الإلكتروني).
+
+<img src="./docs/images/clerk/clerk4.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### الخطوة 5: تكوين الأدوار والأذونات
+
+قم بتعيين الأدوار والأذونات كما هو موضح في الشكل أدناه:
+
+<img src="./docs/images/clerk/clerk5.png" alt="roles" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### الخطوة 6: الإعدادات العامة
+
+اذهب الى**تكوين > الإعدادات**(التكوين > الإعدادات) وقم بضبط الخيارات كما هو موضح أدناه:
+
+<img src="./docs/images/clerk/clerk6.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### الخطوة 7: تكوين Webhooks
+
+قم بتعيين نقطة نهاية webhook على عنوان URL الخاص بالاستماع. انقر**سر التوقيع**(مفتاح التوقيع) عرض الخاص بك`CLERK_WEBHOOK_SECRET`، وإضافته إلى`.env`في الأرشيف:
+
+```env
+CLERK_WEBHOOK_SECRET=你的webhook密鑰
+```
+
+<img src="./docs/images/clerk/clerk7.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### الخطوة 8: إنشاء المستخدمين
+
+إنشاء حسابات المستخدمين حسب الحاجة.
+
+<img src="./docs/images/clerk/clerk8.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### الخطوة 9: بناء منظمة
+
+قم بإعداد مؤسسة وأضف عنوان البريد الإلكتروني للمطور. حدد دورهم ل**مدرس**(مدرس).<img src="./docs/images/clerk/clerk9.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+## إدارة تطبيقات Grove متعددة المسؤولين
+
+### الخطوة 1: بناء منظمة
+
+انقر على الزاوية اليسرى العليا**إنشاء منظمة**(بناء منظمة).<img src="./docs/images/clerk/clerk10.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### الخطوة 2: نقل الملكية
+
+اذهب الى**تكوين > الإعدادات**(التكوين > الإعدادات)، انقر فوق**نقل الملكية**(نقل الملكية). قم بتعيين المالك الجديد للمؤسسة التي أنشأتها للتو.
+
+<img src="./docs/images/clerk/clerk11.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### الخطوة 3: إضافة مستخدمين إضافيين
+
+انقر على الزاوية اليسرى العليا**يدير**(المسؤول) لإضافة مستخدمين إضافيين ومنحهم حق الوصول الإداري.<img src="./docs/images/clerk/clerk12.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/><img src="./docs/images/clerk/clerk13.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
 <img src="./docs/images/login.png" alt="用戶登入" style="width: 800px;"/>
 
@@ -91,7 +178,7 @@
 
 ### `CLERK_WEBHOOK_SECRET`(مطلوب)
 
-إدارة مستخدم كاتب
+Clerk 用戶管理
 
 ### `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`(مطلوب)
 
@@ -131,7 +218,7 @@
 
 ### `GOOGLE_URL`(خياري)
 
-Google Gemini Pro Api URL.
+Google Gemini Pro Api Url。
 
 ### `ANTHROPIC_API_KEY`(خياري)
 
@@ -219,7 +306,7 @@ MOONSHOT API URL
 
 ### `HIDE_USER_API_KEY`(خياري)
 
-إذا كنت لا تريد أن يقوم المستخدمون بملء مفتاح API بأنفسهم، فما عليك سوى تعيين متغير البيئة هذا على 1.
+如果你不想讓用戶自行填入 API Key，將此環境變量設置為 1 即可。
 
 ### `DISABLE_GPT4`(خياري)
 
@@ -244,7 +331,7 @@ MOONSHOT API URL
 ### `CUSTOM_MODELS`(خياري)
 
 > مثال:`+qwen-7b-chat,+glm-6b,-gpt-3.5-turbo,gpt-4-1106-preview=gpt-4-turbo`يعني زيادة`qwen-7b-chat`و`glm-6b`إلى قائمة النماذج وإزالتها من القائمة`gpt-3.5-turbo`، وسوف`gpt-4-1106-preview`يتم عرض اسم النموذج كـ`gpt-4-turbo`。  
-> إذا كنت تريد تعطيل جميع الطرز أولاً ثم تمكين نماذج معينة، فيمكنك استخدامها`-all,+gpt-3.5-turbo`، وهو ما يعني التمكين فقط`gpt-3.5-turbo`。
+> إذا كنت تريد تعطيل كافة النماذج أولاً ثم تمكين نماذج معينة، فيمكنك استخدامها`-all,+gpt-3.5-turbo`، وهو ما يعني التمكين فقط`gpt-3.5-turbo`。
 
 للتحكم في قائمة النماذج، استخدم`+`لإضافة نموذج، استخدم`-`لإخفاء نموذج، استخدم`模型名=展示名`عرض الأسماء لتخصيص النموذج، مفصولة بفواصل.
 
@@ -293,7 +380,7 @@ MOONSHOT API URL
 
 ### إضافة نموذج جديد
 
-[تطبيق ملف التعليمات البرمجية/constant.ts](https://github.com/robbiedood/grove-chat/blob/pbooks/app/constant.ts)
+[ملف التعليمات البرمجية](./app/constant.ts)
 
 ابحث عن مورد النموذج لإضافة نموذج جديد
 
@@ -397,7 +484,7 @@ docker run -d -p 3000:3000 \
 -e PROXY_URL="http://127.0.0.1:7890 user password"
 ```
 
-إذا كنت بحاجة إلى تحديد متغيرات بيئة أخرى، فيرجى إضافتها إلى الأمر أعلاه بنفسك`-e 環境變量=環境變量值`لتحديد.
+إذا كنت بحاجة إلى تحديد متغيرات بيئة أخرى، فيرجى إضافتها إلى الأمر أعلاه بنفسك.`-e 環境變量=環境變量值`لتحديد.
 
 ### النشر المحلي
 
