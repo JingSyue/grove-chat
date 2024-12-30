@@ -35,6 +35,7 @@
 -   [capture d'écran](#截圖)
 -   [Projets connexes](#相關項目)
 -   [Accord open source](#開源協議)
+-   [Modifier la description](./CHANGELOG.md)
 
 ## Édition Entreprise
 
@@ -68,7 +69,7 @@ Consultation version entreprise :**vide**
 ## Commencer
 
 1.  prépare le tien[Clé API OpenAI](https://platform.openai.com/account/api-keys);
-2.  Utiliser Clerk comme gestion des autorisations utilisateur[Site officiel du greffier](https://clerk.com/)[Fichier de configuration](https://github.com/robbiedood/grove-chat/tree/main/docs)
+2.  Utiliser Clerk comme gestion des autorisations utilisateur[Site officiel du greffier](https://clerk.com/)[Fichier de configuration](#配置頁面訪問密碼)
 3.  Cliquez sur le bouton à droite pour démarrer le déploiement :[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat), connectez-vous simplement directement avec votre compte GitHub. N'oubliez pas de renseigner la clé API et.[Gestion des droits des utilisateurs](#配置訪問權限Clerk)Greffier;
 4.  Une fois le déploiement terminé, vous pouvez commencer à l'utiliser ;
 5.  (facultatif)[Lier un nom de domaine personnalisé](https://vercel.com/docs/concepts/projects/domains/add-a-domain): Le nom de domaine DNS attribué par Vercel est contaminé dans certaines zones. Liez un nom de domaine personnalisé pour vous connecter directement.
@@ -376,7 +377,9 @@ Rôle utilisateur après la connexion
 
 Les autorisations de rôle peuvent être modifiées dans le tableau de bord du commis
 
-> [Tutoriel de configuration du commis](https://github.com/robbiedood/grove-chat/tree/main/docs)
+> [Tutoriel de configuration du commis](#配置頁面訪問密碼)
+
+Après avoir configuré Clerk, les enseignants disposant de l'autorité d'enseignant peuvent gérer directement l'organisation sur la page des paramètres de Grove Chat et inviter les membres à contrôler davantage les modèles accessibles.
 
 ### Ajouter un nouveau modèle
 
