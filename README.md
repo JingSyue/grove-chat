@@ -1,15 +1,26 @@
-<h1 align="center">GroveChat</h1>
+<div align="center">
 
-<a href='#企業版'>
-  <img src="./docs/images/ent.svg" alt="icon"/>
-</a>
+[English](./README.en.md) | [简体中文](./README.zh-CN.md) | [العربية](./README.ar.md) | [Français](./README.fr.md) | [日本語](./README.ja.md)
 
-一鍵免費部署你的私人 ChatGPT 網頁應用，支持 GPT3、GPT4 和 Gemini Pro 模型。
+</div>
+<div align="center">
+  <h1>GroveChat</h1>
+  <a href='#企業版'>
+    <img src="./docs/images/ent.svg" alt="icon" style="margin: 20px 0;"/>
+  </a>
 
-[GroveChat](https://grove-chat.vercel.app) / [企業版](https://grove-chat.vercel.app) / [演示 Demo](https://grove-chat.vercel.app) / [反饋 Issues](https://github.com/robbiedood/grove-chat/issues)
+  <p>一鍵免費部署你的私人 ChatGPT 網頁應用，支持 GPT3、GPT4 和 Gemini Pro 模型。</p>
 
-[<img src="https://vercel.com/button" alt="Deploy on vercel" height="30">](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat) 
+  <p>
+    <a href="https://grove-chat.vercel.app">GroveChat</a> / 
+    <a href="https://grove-chat.vercel.app">企業版</a> / 
+    <a href="https://grove-chat.vercel.app">演示 Demo</a> / 
+    <a href="https://github.com/robbiedood/grove-chat/issues">反饋 Issues</a>
+  </p>
 
+  <a href="https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat">
+    <img src="https://vercel.com/button" alt="Deploy on vercel" height="30" style="margin: 20px 0;"/>
+  </a>
 </div>
 
 ## 目錄
@@ -51,7 +62,6 @@
 - 響應式設計，支持深色模式和 PWA
 - 首屏加載速度快（約 100kb），支持流式響應
 - v2 新功能：使用提示模板（mask）創建、分享和調試你的聊天工具
-- 由 awesome-chatgpt-prompts-zh 和 awesome-chatgpt-prompts 提供支持的精彩提示
 - 自動壓縮聊天記錄，以支持長對話，同時節省你的 token
 - 多語言支持：英語、简体中文、繁體中文、日語、法語、西班牙語、意大利語、土耳其語、德語、越南語、俄語、捷克語、韓語、印尼語
 
@@ -72,7 +82,74 @@
 </div>
 
 ## 配置頁面訪問密碼
-> 本項目已棄用原專案NextChat的CODE環境變數，並使用Clerk管理頁面訪問密碼。教程：[如何配置Clerk](./docs)。
+> 本項目已棄用原專案NextChat的CODE環境變數，並使用Clerk管理頁面訪問密碼。
+### 步驟 1：註冊 Clerk 帳號
+前往 [Clerk 官網](https://clerk.com/)，註冊帳號並登入。登入後，點擊 **Create Application**（建立應用程式）。
+
+<img src="./docs/images/clerk/clerk1.png" alt="create application" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步驟 2：選擇登入選項
+啟用 **Email**（必要）和 **Google**（選用）選項，如下圖所示。
+
+<img src="./docs/images/clerk/clerk2.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步驟 3：取得 API 金鑰
+找到你的 `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` 和 `CLERK_SECRET_KEY`。將它們添加到 `.env` 檔案中，如下所示：
+
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=你的公開金鑰
+CLERK_SECRET_KEY=你的密鑰
+```
+
+<img src="./docs/images/clerk/clerk3.png" alt="key" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步驟 4：配置電子郵件和密碼
+前往 **Configure > Email, phone, username**（配置 > 電子郵件、電話、使用者名稱），確保啟用了 **Email**（電子郵件）、**Password**（密碼）和 **Email verification code**（電子郵件驗證碼）。
+
+<img src="./docs/images/clerk/clerk4.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步驟 5：配置角色和權限
+按照下圖所示設置角色和權限：
+
+<img src="./docs/images/clerk/clerk5.png" alt="roles" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步驟 6：一般設定
+前往 **Configure > Settings**（配置 > 設定），並按照下圖所示設置選項：
+
+<img src="./docs/images/clerk/clerk6.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步驟 7：配置 Webhook
+將 webhook 端點設置為你的監聽 URL。點擊 **Signing Secret**（簽名密鑰）查看你的 `CLERK_WEBHOOK_SECRET`，並將其添加到 `.env` 檔案中：
+
+```env
+CLERK_WEBHOOK_SECRET=你的webhook密鑰
+```
+
+<img src="./docs/images/clerk/clerk7.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步驟 8：建立使用者
+根據需要建立使用者帳號。
+
+<img src="./docs/images/clerk/clerk8.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步驟 9：建立組織
+建立組織並添加開發人員的電子郵件地址。將他們的角色設置為 **Teacher**（教師）。
+<img src="./docs/images/clerk/clerk9.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+## 管理多管理員的 Grove 應用程式
+### 步驟 1：建立組織
+點擊左上角的 **Create Organization**（建立組織）。
+<img src="./docs/images/clerk/clerk10.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步驟 2：轉移所有權
+前往 **Configure > Settings**（配置 > 設定），點擊 **Transfer Ownership**（轉移所有權）。將新擁有者設置為你剛剛建立的組織。
+
+<img src="./docs/images/clerk/clerk11.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步驟 3：新增其他使用者
+點擊左上角的 **Manage**（管理）來新增其他使用者並授予他們管理存取權限。
+<img src="./docs/images/clerk/clerk12.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+<img src="./docs/images/clerk/clerk13.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
 <img src="./docs/images/login.png" alt="用戶登入" style="width: 800px;"/>
 
@@ -286,7 +363,7 @@ Stability API 密鑰。
 
 ### 新增模型
 
-[程式碼文件 app/constant.ts](https://github.com/robbiedood/grove-chat/blob/pbooks/app/constant.ts)
+[程式碼文件](./app/constant.ts)
 
 找到模型供應商添加新模型
 ```

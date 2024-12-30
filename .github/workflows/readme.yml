@@ -20,14 +20,10 @@ jobs:
         uses: dephraiim/translate-readme@main
         with:
           LANG: zh-CN
-      - name: Adding README - Chinese Traditional
+      - name: Adding README - English
         uses: dephraiim/translate-readme@main
         with:
-          LANG: zh-TW
-      - name: Adding README - Hindi
-        uses: dephraiim/translate-readme@main
-        with:
-          LANG: hi
+          LANG: en
       - name: Adding README - Arabic
         uses: dephraiim/translate-readme@main
         with:
@@ -36,3 +32,7 @@ jobs:
         uses: dephraiim/translate-readme@main
         with:
           LANG: fr
+      - name: Adding README - Japanese
+        uses: dephraiim/translate-readme@main
+        with:
+          LANG: ja
