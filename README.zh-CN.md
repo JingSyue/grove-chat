@@ -1,15 +1,26 @@
-<h1 align="center">GroveChat</h1>
+<div align="center">
 
-<a href='#企業版'>
-  <img src="./docs/images/ent.svg" alt="icon"/>
-</a>
+[英语](./README.en.md)\|[简体中文](./README.zh-CN.md)\|[阿拉伯](./README.ar.md)\|[法语](./README.fr.md)\|[日本人](./README.ja.md)
 
-一键免费部署你的私人 ChatGPT 网页应用，支持 GPT3、GPT4 和 Gemini Pro 模型。
+</div>
+<div align="center">
+  <h1>GroveChat</h1>
+  <a href='#企業版'>
+    <img src="./docs/images/ent.svg" alt="icon" style="margin: 20px 0;"/>
+  </a>
 
-[格罗夫聊天](https://grove-chat.vercel.app)/[企业版](https://grove-chat.vercel.app)/[演示 Demo](https://grove-chat.vercel.app)/[反馈 Issues](https://github.com/robbiedood/grove-chat/issues)
+  <p>一鍵免費部署你的私人 ChatGPT 網頁應用，支持 GPT3、GPT4 和 Gemini Pro 模型。</p>
 
-[<img src="https://vercel.com/button" alt="Deploy on vercel" height="30">](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)
+  <p>
+    <a href="https://grove-chat.vercel.app">GroveChat</a> / 
+    <a href="https://grove-chat.vercel.app">企業版</a> / 
+    <a href="https://grove-chat.vercel.app">演示 Demo</a> / 
+    <a href="https://github.com/robbiedood/grove-chat/issues">反饋 Issues</a>
+  </p>
 
+  <a href="https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat">
+    <img src="https://vercel.com/button" alt="Deploy on vercel" height="30" style="margin: 20px 0;"/>
+  </a>
 </div>
 
 ## 目录
@@ -25,7 +36,7 @@
 -   [相关项目](#相關項目)
 -   [开源协议](#開源協議)
 
-## 企業版
+## 企业版
 
 满足您公司私有化部署和定制需求
 
@@ -51,7 +62,6 @@
 -   响应式设计，支持深色模式和 PWA
 -   首屏加载速度快（约 100kb），支持流式响应
 -   v2 新功能：使用提示模板（mask）创建、分享和调试你的聊天工具
--   由 awesome-chatgpt-prompts-zh 和 awesome-chatgpt-prompts 提供支持的精彩提示
 -   自动压缩聊天记录，以支持长对话，同时节省你的 token
 -   多语言支持：英语、简体中文、繁体中文、日语、法语、西班牙语、意大利语、土耳其语、德语、越南语、俄语、捷克语、韩语、印尼语
 
@@ -59,7 +69,7 @@
 
 1.  准备好你的[OpenAI API 密钥](https://platform.openai.com/account/api-keys);
 2.  使用Clerk作为用户权限管理[Clerk官网](https://clerk.com/)[配置文件](https://github.com/robbiedood/grove-chat/tree/main/docs)
-3.  点击右侧按钮开始部署：[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)，直接使用 GitHub 账号登录即可，记得在环境变量页填入 API Key 和[用户权限管理](#配置訪問權限Clerk) Clerk；
+3.  点击右侧按钮开始部署：[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)，直接使用 GitHub 账号登录即可，记得在环境变量页填入 API Key 和[用户权限管理](#配置訪問權限Clerk)文员；
 4.  部署完毕后，即可开始使用；
 5.  （可选）[绑定自定义域名](https://vercel.com/docs/concepts/projects/domains/add-a-domain)：Vercel 分配的域名 DNS 在某些区域被污染了，绑定自定义域名即可直连。
 
@@ -71,7 +81,84 @@
 
 ## 配置页面访问密码
 
-> 本项目已弃用原专案NextChat的CODE环境变数，并使用Clerk管理页面访问密码。教程：[如何配置Clerk](./docs)。
+> 本项目已弃用原专案NextChat的CODE环境变数，并使用Clerk管理页面访问密码。
+>
+> ### 步骤 1：注册 Clerk 帐号
+>
+> 前往[Clerk 官网](https://clerk.com/)，注册帐号并登入。登入后，点击**创建应用程序**（建立应用程式）。
+
+<img src="./docs/images/clerk/clerk1.png" alt="create application" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步骤 2：选择登入选项
+
+启用**电子邮件**（必要）和**谷歌**（选用）选项，如下图所示。
+
+<img src="./docs/images/clerk/clerk2.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步骤 3：取得 API 金钥
+
+找到你的`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`和`CLERK_SECRET_KEY`。将它们添加到`.env`档案中，如下所示：
+
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=你的公開金鑰
+CLERK_SECRET_KEY=你的密鑰
+```
+
+<img src="./docs/images/clerk/clerk3.png" alt="key" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步骤 4：配置电子邮件和密码
+
+前往**配置 > 电子邮件、电话、用户名**（配置 > 电子邮件、电话、使用者名称），确保启用了**电子邮件**（电子邮件）、**密码**（密码）和**邮箱验证码**（电子邮件验证码）。
+
+<img src="./docs/images/clerk/clerk4.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步骤 5：配置角色和权限
+
+按照下图所示设置角色和权限：
+
+<img src="./docs/images/clerk/clerk5.png" alt="roles" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步骤 6：一般设定
+
+前往**配置 > 设置**（配置 > 设定），并按照下图所示设置选项：
+
+<img src="./docs/images/clerk/clerk6.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步骤 7：配置 Webhook
+
+将 webhook 端点设置为你的监听 URL。点击**签名秘笈**（签名密钥）查看你的`CLERK_WEBHOOK_SECRET`，并将其添加到`.env`档案中：
+
+```env
+CLERK_WEBHOOK_SECRET=你的webhook密鑰
+```
+
+<img src="./docs/images/clerk/clerk7.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步骤 8：建立使用者
+
+根据需要建立使用者帐号。
+
+<img src="./docs/images/clerk/clerk8.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步骤 9：建立组织
+
+建立组织并添加开发人员的电子邮件地址。将他们的角色设置为**老师**（教师）。<img src="./docs/images/clerk/clerk9.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+## 管理多管理员的 Grove 应用程式
+
+### 步骤 1：建立组织
+
+点击左上角的**创建组织**（建立组织）。<img src="./docs/images/clerk/clerk10.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步骤 2：转移所有权
+
+前往**配置 > 设置**（配置 > 设定），点击**转让所有权**（转移所有权）。将新拥有者设置为你刚刚建立的组织。
+
+<img src="./docs/images/clerk/clerk11.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### 步骤 3：新增其他使用者
+
+点击左上角的**管理**（管理）来新增其他使用者并授予他们管理存取权限。<img src="./docs/images/clerk/clerk12.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/><img src="./docs/images/clerk/clerk13.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
 <img src="./docs/images/login.png" alt="用戶登入" style="width: 800px;"/>
 
@@ -181,7 +268,7 @@ Anthropic Claude Api 版本。
 
 讯飞星火 Api Key。
 
-### `IFLYTEK_API_SECRET` (可選)
+### `IFLYTEK_API_SECRET`(可选)
 
 讯飞星火 Api Secret。
 
@@ -293,7 +380,7 @@ Stability API 密钥。
 
 ### 新增模型
 
-[程式码文件 app/constant.ts](https://github.com/robbiedood/grove-chat/blob/pbooks/app/constant.ts)
+[程式码文件](./app/constant.ts)
 
 找到模型供应商添加新模型
 
