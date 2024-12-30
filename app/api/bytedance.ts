@@ -38,11 +38,6 @@ export async function handle(
   }
 }
 
-export const GET = handle;
-export const POST = handle;
-
-export const runtime = "edge";
-
 async function request(req: NextRequest) {
   const controller = new AbortController();
 

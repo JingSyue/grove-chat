@@ -1,9 +1,9 @@
 "use client";
 import {
   ApiPath,
-  DEFAULT_API_HOST,
   Perplexity,
   REQUEST_TIMEOUT_MS,
+  PERPLEXITY_BASE_URL,
 } from "@/app/constant";
 import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
 
@@ -13,6 +13,7 @@ import {
   LLMApi,
   LLMModel,
   MultimodalContent,
+  SpeechOptions,
 } from "../api";
 import Locale from "../../locales";
 import {
@@ -22,6 +23,7 @@ import {
 import { prettyObject } from "@/app/utils/format";
 import { getClientConfig } from "@/app/config/client";
 import { getMessageTextContent } from "@/app/utils";
+import { fetch } from "@/app/utils/stream";
 
 export interface PerplexityRequestPayload {
   messages: {
@@ -42,14 +44,16 @@ export class PerplexityApi implements LLMApi {
   uploadFile(formData: FormData): Promise<any> {
     throw new Error("Method not implemented.");
   }
+  speech(options: SpeechOptions): Promise<ArrayBuffer> {
+    throw new Error("Method not implemented.");
+  }
   path(path: string): string {
     const accessStore = useAccessStore.getState();
     let baseUrl = accessStore.useCustomConfig ? accessStore.perplexityUrl : "";
 
     if (baseUrl.length === 0) {
       const isApp = !!getClientConfig()?.isApp;
-      const apiPath = ApiPath.Perplexity;
-      baseUrl = isApp ? DEFAULT_API_HOST + "/proxy" + apiPath : apiPath;
+      baseUrl = isApp ? PERPLEXITY_BASE_URL : ApiPath.Perplexity;
     }
 
     if (baseUrl.endsWith("/")) {
@@ -131,6 +135,7 @@ export class PerplexityApi implements LLMApi {
         let responseText = "";
         let remainText = "";
         let finished = false;
+        let responseRes: Response;
 
         // animate response to make it looks smooth
         function animateResponseText() {
@@ -160,13 +165,14 @@ export class PerplexityApi implements LLMApi {
         const finish = () => {
           if (!finished) {
             finished = true;
-            options.onFinish(responseText + remainText);
+            options.onFinish(responseText + remainText, responseRes);
           }
         };
 
         controller.signal.onabort = finish;
 
         fetchEventSource(chatPath, {
+          fetch: fetch as any,
           ...chatPayload,
           async onopen(res) {
             clearTimeout(requestTimeoutId);
@@ -245,7 +251,7 @@ export class PerplexityApi implements LLMApi {
 
         const resJson = await res.json();
         const message = this.extractMessage(resJson);
-        options.onFinish(message);
+        options.onFinish(message, res);
       }
     } catch (e) {
       console.log("[Request] failed to make a chat request", e);

@@ -3,7 +3,6 @@
 require("../polyfill");
 
 import { useState, useEffect } from "react";
-
 import styles from "./home.module.scss";
 
 import BotIcon from "../icons/bot.svg";
@@ -31,10 +30,11 @@ import { type ClientApi, getClientApi } from "../client/api";
 import { useAccessStore } from "../store";
 import LogRocket from "logrocket";
 import { useUser } from "@clerk/nextjs";
+import clsx from "clsx";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
-    <div className={styles["loading-content"] + " no-dark"}>
+    <div className={clsx("no-dark", styles["loading-content"])}>
       {!props.noLogo && <BotIcon />}
       <LoadingIcon />
     </div>
@@ -49,10 +49,6 @@ const Settings = dynamic(async () => (await import("./settings")).Settings, {
   loading: () => <Loading noLogo />,
 });
 
-const PluginPage = dynamic(async () => (await import("./plugin")).PluginPage, {
-  loading: () => <Loading noLogo />,
-});
-
 const Chat = dynamic(async () => (await import("./chat")).Chat, {
   loading: () => <Loading noLogo />,
 });
@@ -64,6 +60,17 @@ const NewChat = dynamic(async () => (await import("./new-chat")).NewChat, {
 const MaskPage = dynamic(async () => (await import("./mask")).MaskPage, {
   loading: () => <Loading noLogo />,
 });
+
+const PluginPage = dynamic(async () => (await import("./plugin")).PluginPage, {
+  loading: () => <Loading noLogo />,
+});
+
+const SearchChat = dynamic(
+  async () => (await import("./search-chat")).SearchChatPage,
+  {
+    loading: () => <Loading noLogo />,
+  },
+);
 
 const Sd = dynamic(async () => (await import("./sd")).Sd, {
   loading: () => <Loading noLogo />,
@@ -174,12 +181,18 @@ function Screen() {
     if (isSdNew) return <Sd />;
     return (
       <>
-        <SideBar className={isHome ? styles["sidebar-show"] : ""} />
+        <SideBar
+          className={clsx({
+            [styles["sidebar-show"]]: isHome,
+          })}
+        />
         <WindowContent>
           <Routes>
             <Route path={Path.Home} element={<Chat />} />
             <Route path={Path.NewChat} element={<NewChat />} />
             <Route path={Path.Masks} element={<MaskPage />} />
+            <Route path={Path.Plugins} element={<PluginPage />} />
+            <Route path={Path.SearchChat} element={<SearchChat />} />
             <Route path={Path.Chat} element={<Chat />} />
             <Route path={Path.Settings} element={<Settings />} />
             <Route path={Path.Plugins} element={<PluginPage />} />
@@ -191,9 +204,10 @@ function Screen() {
 
   return (
     <div
-      className={`${styles.container} ${
-        shouldTightBorder ? styles["tight-container"] : styles.container
-      } ${getLang() === "ar" ? styles["rtl-screen"] : ""}`}
+      className={clsx(styles.container, {
+        [styles["tight-container"]]: shouldTightBorder,
+        [styles["rtl-screen"]]: getLang() === "ar",
+      })}
     >
       {renderContent()}
     </div>
@@ -223,24 +237,31 @@ export function Home() {
     useAccessStore.getState().fetch();
   }, []);
   const { isSignedIn, user } = useUser();
+  /**
+   * Initialize LogRocket analytics
+   * Configure privacy settings and tracking options
+   */
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       LogRocket.init("j9ngla/grove", {
         dom: {
           textSanitizer: true,
-          privateClassNameBlocklist: ["chat-body"],
+          privateClassNameBlocklist: ["chat-body"], // Exclude chat content from tracking
         },
         network: {
-          isEnabled: false,
+          isEnabled: false, // Exclude chat content from tracking
         },
         console: {
-          isEnabled: false,
+          isEnabled: false, // Disable console logging
         },
       });
     }
   }, []);
-
+  /**
+   * Identify user when logged in
+   * Track user sessions with email
+   */
   useEffect(() => {
     if (isSignedIn && typeof window !== "undefined") {
       LogRocket.identify(user?.id, {
@@ -257,8 +278,6 @@ export function Home() {
     <ErrorBoundary>
       <Router>
         <Screen />
-        <div data-tf-live="01JADHGHQBAFXMV950413KKXZ8"></div>
-        <script src="//embed.typeform.com/next/embed.js" async></script>
       </Router>
     </ErrorBoundary>
   );

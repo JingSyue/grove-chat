@@ -1,7 +1,7 @@
 {
     "openapi": "3.1.0",
     "info": {
-      "title": "arxiv search",
+      "title": "🎓 Arxiv search",
       "description": "Run Arxiv search and get the article information.",
       "version": "v1.0.0"
     },

@@ -94,8 +94,15 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
       case ModelProvider.Perplexity:
         systemApiKey = serverConfig.perplexityApiKey;
         break;
+      case ModelProvider.Iflytek:
+        systemApiKey =
+          serverConfig.iflytekApiKey + ":" + serverConfig.iflytekApiSecret;
+        break;
       case ModelProvider.XAI:
         systemApiKey = serverConfig.xaiApiKey;
+        break;
+      case ModelProvider.ChatGLM:
+        systemApiKey = serverConfig.chatglmApiKey;
         break;
       case ModelProvider.GPT:
       default:

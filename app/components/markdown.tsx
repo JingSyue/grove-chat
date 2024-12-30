@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import ReactMarkdown from "react-markdown";
 import "katex/dist/katex.min.css";
 import RemarkMath from "remark-math";
@@ -8,15 +9,23 @@ import RehypeHighlight from "rehype-highlight";
 import { useRef, useState, RefObject, useEffect, useMemo } from "react";
 import { copyToClipboard, useWindowSize } from "../utils";
 import mermaid from "mermaid";
-
-import { useAppConfig } from "../store/config";
-
+import Locale from "../locales";
 import LoadingIcon from "../icons/three-dots.svg";
+import ReloadButtonIcon from "../icons/reload.svg";
 import React from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { showImageModal, FullScreen } from "./ui-lib";
-import { ArtifactsShareButton, HTMLPreview } from "./artifacts";
+import {
+  ArtifactsShareButton,
+  HTMLPreview,
+  HTMLPreviewHander,
+} from "./artifacts";
 import { useChatStore } from "../store";
+import { IconButton } from "./button";
+
+import { useAppConfig } from "../store/config";
+import clsx from "clsx";
+
 export function Mermaid(props: { code: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [hasError, setHasError] = useState(false);
@@ -50,7 +59,7 @@ export function Mermaid(props: { code: string }) {
 
   return (
     <div
-      className="no-dark mermaid"
+      className={clsx("no-dark", "mermaid")}
       style={{
         cursor: "pointer",
         overflow: "auto",
@@ -65,7 +74,7 @@ export function Mermaid(props: { code: string }) {
 
 export function PreCode(props: { children: any }) {
   const ref = useRef<HTMLPreElement>(null);
-  const refText = ref.current?.innerText;
+  const previewRef = useRef<HTMLPreviewHander>(null);
   const [mermaidCode, setMermaidCode] = useState("");
   const [htmlCode, setHtmlCode] = useState("");
   const { height } = useWindowSize();
@@ -79,17 +88,17 @@ export function PreCode(props: { children: any }) {
       setMermaidCode((mermaidDom as HTMLElement).innerText);
     }
     const htmlDom = ref.current.querySelector("code.language-html");
+    const refText = ref.current.querySelector("code")?.innerText;
     if (htmlDom) {
       setHtmlCode((htmlDom as HTMLElement).innerText);
-    } else if (refText?.startsWith("<!DOCTYPE")) {
+    } else if (
+      refText?.startsWith("<!DOCTYPE") ||
+      refText?.startsWith("<svg") ||
+      refText?.startsWith("<?xml")
+    ) {
       setHtmlCode(refText);
     }
   }, 600);
-
-  useEffect(() => {
-    setTimeout(renderArtifacts, 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refText]);
 
   const config = useAppConfig();
   const enableArtifacts =
@@ -118,7 +127,9 @@ export function PreCode(props: { children: any }) {
           codeElement.style.whiteSpace = "pre-wrap";
         }
       });
+      setTimeout(renderArtifacts, 1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -128,8 +139,9 @@ export function PreCode(props: { children: any }) {
           className="copy-code-button"
           onClick={() => {
             if (ref.current) {
-              const code = ref.current.innerText;
-              copyToClipboard(code);
+              copyToClipboard(
+                ref.current.querySelector("code")?.innerText ?? "",
+              );
             }
           }}
         ></span>
@@ -144,13 +156,76 @@ export function PreCode(props: { children: any }) {
             style={{ position: "absolute", right: 20, top: 10 }}
             getCode={() => htmlCode}
           />
+          <IconButton
+            style={{ position: "absolute", right: 120, top: 10 }}
+            bordered
+            icon={<ReloadButtonIcon />}
+            shadow
+            onClick={() => previewRef.current?.reload()}
+          />
           <HTMLPreview
+            ref={previewRef}
             code={htmlCode}
             autoHeight={!document.fullscreenElement}
             height={!document.fullscreenElement ? 600 : height}
           />
         </FullScreen>
       )}
+    </>
+  );
+}
+
+function CustomCode(props: { children: any; className?: string }) {
+  const chatStore = useChatStore();
+  const session = chatStore.currentSession();
+  const config = useAppConfig();
+  const enableCodeFold =
+    session.mask?.enableCodeFold !== false && config.enableCodeFold;
+
+  const ref = useRef<HTMLPreElement>(null);
+  const [collapsed, setCollapsed] = useState(true);
+  const [showToggle, setShowToggle] = useState(false);
+
+  useEffect(() => {
+    if (ref.current) {
+      const codeHeight = ref.current.scrollHeight;
+      setShowToggle(codeHeight > 400);
+      ref.current.scrollTop = ref.current.scrollHeight;
+    }
+  }, [props.children]);
+
+  const toggleCollapsed = () => {
+    setCollapsed((collapsed) => !collapsed);
+  };
+  const renderShowMoreButton = () => {
+    if (showToggle && enableCodeFold && collapsed) {
+      return (
+        <div
+          className={clsx("show-hide-button", {
+            collapsed,
+            expanded: !collapsed,
+          })}
+        >
+          <button onClick={toggleCollapsed}>{Locale.NewChat.More}</button>
+        </div>
+      );
+    }
+    return null;
+  };
+  return (
+    <>
+      <code
+        className={clsx(props?.className)}
+        ref={ref}
+        style={{
+          maxHeight: enableCodeFold && collapsed ? "400px" : "none",
+          overflowY: "hidden",
+        }}
+      >
+        {props.children}
+      </code>
+
+      {renderShowMoreButton()}
     </>
   );
 }
@@ -173,11 +248,31 @@ function escapeBrackets(text: string) {
   );
 }
 
+function tryWrapHtmlCode(text: string) {
+  // try add wrap html code (fixed: html codeblock include 2 newline)
+  // ignore embed codeblock
+  if (text.includes("```")) {
+    return text;
+  }
+  return text
+    .replace(
+      /([`]*?)(\w*?)([\n\r]*?)(<!DOCTYPE html>)/g,
+      (match, quoteStart, lang, newLine, doctype) => {
+        return !quoteStart ? "\n```html\n" + doctype : match;
+      },
+    )
+    .replace(
+      /(<\/body>)([\r\n\s]*?)(<\/html>)([\n\r]*)([`]*)([\n\r]*?)/g,
+      (match, bodyEnd, space, htmlEnd, newLine, quoteEnd) => {
+        return !quoteEnd ? bodyEnd + space + htmlEnd + "\n```\n" : match;
+      },
+    );
+}
+
 function _MarkDownContent(props: { content: string }) {
-  const escapedContent = useMemo(
-    () => escapeBrackets(props.content),
-    [props.content],
-  );
+  const escapedContent = useMemo(() => {
+    return tryWrapHtmlCode(escapeBrackets(props.content));
+  }, [props.content]);
 
   return (
     <ReactMarkdown
@@ -194,11 +289,26 @@ function _MarkDownContent(props: { content: string }) {
       ]}
       components={{
         pre: PreCode,
+        code: CustomCode,
         p: (pProps) => <p {...pProps} dir="auto" />,
         a: (aProps) => {
           const href = aProps.href || "";
+          if (/\.(aac|mp3|opus|wav)$/.test(href)) {
+            return (
+              <figure>
+                <audio controls src={href}></audio>
+              </figure>
+            );
+          }
+          if (/\.(3gp|3g2|webm|ogv|mpeg|mp4|avi)$/.test(href)) {
+            return (
+              <video controls width="99.9%">
+                <source src={href} />
+              </video>
+            );
+          }
           const isInternal = /^\/#/i.test(href);
-          const target = isInternal ? "_self" : aProps.target ?? "_blank";
+          const target = isInternal ? "_self" : (aProps.target ?? "_blank");
           return <a {...aProps} target={target} />;
         },
       }}
@@ -215,6 +325,7 @@ export function Markdown(
     content: string;
     loading?: boolean;
     fontSize?: number;
+    fontFamily?: string;
     parentRef?: RefObject<HTMLDivElement>;
     defaultShow?: boolean;
   } & React.DOMAttributes<HTMLDivElement>,
@@ -226,6 +337,7 @@ export function Markdown(
       className="markdown-body"
       style={{
         fontSize: `${props.fontSize ?? 14}px`,
+        fontFamily: props.fontFamily || "inherit",
       }}
       ref={mdRef}
       onContextMenu={props.onContextMenu}

@@ -6,7 +6,7 @@
 
 .settings {
   padding: 20px;
-  overflow: auto;  
+  overflow: auto;
 }
 
 .avatar {
@@ -76,5 +76,11 @@
         }
       }
     }
+  }
+}
+
+.subtitle-button {
+  button {
+    overflow: visible;
   }
 }

@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { ChatMessage, ModelType, useAppConfig, useChatStore } from "../store";
+import { ChatMessage, useAppConfig, useChatStore } from "../store";
 import Locale from "../locales";
 import styles from "./exporter.module.scss";
 import {
@@ -40,6 +40,7 @@ import { EXPORT_MESSAGE_CLASS_NAME } from "../constant";
 import { getClientConfig } from "../config/client";
 import { type ClientApi, getClientApi } from "../client/api";
 import { getMessageTextContent } from "../utils";
+import clsx from "clsx";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -118,9 +119,10 @@ function Steps<
           return (
             <div
               key={i}
-              className={`${styles["step"]} ${
-                styles[i <= props.index ? "step-finished" : ""]
-              } ${i === props.index && styles["step-current"]} clickable`}
+              className={clsx("clickable", styles["step"], {
+                [styles["step-finished"]]: i <= props.index,
+                [styles["step-current"]]: i === props.index,
+              })}
               onClick={() => {
                 props.onStepChange?.(i);
               }}
@@ -276,7 +278,7 @@ export function RenderExport(props: {
       return {
         id: i.toString(),
         role: role as any,
-        content: role === "user" ? v.textContent ?? "" : v.innerHTML,
+        content: role === "user" ? (v.textContent ?? "") : v.innerHTML,
         date: "",
       };
     });
@@ -525,11 +527,11 @@ export function ImagePreviewer(props: {
         messages={props.messages}
       />
       <div
-        className={`${styles["preview-body"]} ${styles["default-theme"]}`}
+        className={clsx(styles["preview-body"], styles["default-theme"])}
         ref={previewRef}
       >
         <div className={styles["chat-info"]}>
-          <div className={styles["logo"] + " no-dark"}>
+          <div className={clsx(styles["logo"], "no-dark")}>
             <NextImage
               src={ChatGptIcon.src}
               alt="logo"
@@ -567,7 +569,7 @@ export function ImagePreviewer(props: {
         {props.messages.map((m, i) => {
           return (
             <div
-              className={styles["message"] + " " + styles["message-" + m.role]}
+              className={clsx(styles["message"], styles["message-" + m.role])}
               key={i}
             >
               <div className={styles["avatar"]}>
@@ -580,6 +582,7 @@ export function ImagePreviewer(props: {
                 <Markdown
                   content={getMessageTextContent(m)}
                   fontSize={config.fontSize}
+                  fontFamily={config.fontFamily}
                   defaultShow
                 />
                 {getMessageImages(m).length == 1 && (

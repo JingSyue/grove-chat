@@ -10,6 +10,7 @@ import FORMICON from "../icons/lightning.svg";
 import RobotIcon from "../icons/robot.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
+import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
 import DragIcon from "../icons/drag.svg";
 import DiscoveryIcon from "../icons/discovery.svg";
@@ -17,7 +18,6 @@ import Locale from "../locales";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 import { useAppConfig, useChatStore } from "../store";
-import { OrganizationSwitcher } from "@clerk/nextjs";
 import {
   DEFAULT_SIDEBAR_WIDTH,
   MAX_SIDEBAR_WIDTH,
@@ -25,17 +25,15 @@ import {
   NARROW_SIDEBAR_WIDTH,
   Path,
   PLUGINS,
-  REPO_URL,
-  GROVE_WEB_URL,
   CUSTOMTITLE,
   CUSTOMSUBTITLE,
-  FORM_URL,
 } from "../constant";
 
 import { Link, useNavigate } from "react-router-dom";
 import { isIOS, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
-import { Selector } from "./ui-lib";
+import { showConfirm, Selector } from "./ui-lib";
+import clsx from "clsx";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -147,9 +145,9 @@ export function SideBarContainer(props: {
   const { children, className, onDragStart, shouldNarrow } = props;
   return (
     <div
-      className={`${styles.sidebar} ${className} ${
-        shouldNarrow && styles["narrow-sidebar"]
-      }`}
+      className={clsx(styles.sidebar, className, {
+        [styles["narrow-sidebar"]]: shouldNarrow,
+      })}
       style={{
         // #3016 disable transition on ios mobile screen
         transition: isMobileScreen && isIOSMobile ? "none" : undefined,
@@ -171,16 +169,24 @@ export function SideBarHeader(props: {
   subTitle?: string | React.ReactNode;
   logo?: React.ReactNode;
   children?: React.ReactNode;
+  shouldNarrow?: boolean;
 }) {
-  const { title, subTitle, logo, children } = props;
+  const { title, subTitle, logo, children, shouldNarrow } = props;
   return (
     <Fragment>
-      <div className={styles["sidebar-header"]} data-tauri-drag-region>
-        <div className={styles["sidebar-title"]} data-tauri-drag-region>
-          {title}
+      <div
+        className={clsx(styles["sidebar-header"], {
+          [styles["sidebar-header-narrow"]]: shouldNarrow,
+        })}
+        data-tauri-drag-region
+      >
+        <div className={styles["sidebar-title-container"]}>
+          <div className={styles["sidebar-title"]} data-tauri-drag-region>
+            {title}
+          </div>
+          <div className={styles["sidebar-sub-title"]}>{subTitle}</div>
         </div>
-        <div className={styles["sidebar-sub-title"]}>{subTitle}</div>
-        <div className={styles["sidebar-logo"] + " no-dark"}>{logo}</div>
+        <div className={clsx(styles["sidebar-logo"], "no-dark")}>{logo}</div>
       </div>
       {children}
     </Fragment>
@@ -284,34 +290,13 @@ export function SideBar(props: { className?: string }) {
               }}
               shadow
             />
-            {/* <IconButton
-            icon={<DiscoveryIcon />}
-            text={shouldNarrow ? undefined : Locale.Discovery.Name}
-            className={styles["sidebar-bar-button"]}
-            onClick={() => setShowPluginSelector(true)}
-            shadow
-          /> */}
             <IconButton userButton={true} />
-            {/* <IconButton
-                icon={<DiscoveryIcon />}
-                text={shouldNarrow ? undefined : Locale.Discovery.Name}
-                className={styles["sidebar-bar-button"]}
-                onClick={() =>
-                  navigate(Path.Classroom, { state: { fromHome: true } })
-                }
-                shadow
-              /> */}
           </div>
         </SignedIn>
 
         {showPluginSelector && (
           <Selector
             items={[
-              {
-                title: "👇 Please select the plugin you need to use",
-                value: "-",
-                disable: true,
-              },
               ...PLUGINS.map((item) => {
                 return {
                   title: item.name,
@@ -341,21 +326,13 @@ export function SideBar(props: { className?: string }) {
           <>
             <div className={styles["sidebar-action"]}>
               <Link to={Path.Settings}>
-                <IconButton icon={<SettingsIcon />} shadow />
+                <IconButton
+                  aria={Locale.Settings.Title}
+                  icon={<SettingsIcon />}
+                  shadow
+                />
               </Link>
             </div>
-
-            <div className={styles["sidebar-action"]}>
-              <a href={FORM_URL} target="_blank" rel="noopener noreferrer">
-                <IconButton icon={<FORMICON />} shadow />
-              </a>
-            </div>
-
-            {/* <div className={styles["sidebar-action"]}>
-              <a href={GROVE_WEB_URL} target="_blank" rel="noopener noreferrer">
-                <IconButton icon={<RobotIcon />} shadow />
-              </a>
-            </div> */}
           </>
         }
         secondaryAction={

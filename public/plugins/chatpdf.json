@@ -3,7 +3,7 @@
     "info": {
       "title": "🔗 PDF Reader",
       "description": "A GPT that allows the user to read data from a link.",
-      "version":"v1"
+      "version": "v1"
     },
     "servers": [
       {

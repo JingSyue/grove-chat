@@ -1,41 +1,48 @@
+/**
+ * XAI API Client Implementation
+ * Handles chat completions and image recognition capabilities
+ */
 "use client";
+import { ApiPath, XAI_BASE_URL, XAI, REQUEST_TIMEOUT_MS } from "@/app/constant";
 import {
-  ApiPath,
-  DEFAULT_API_HOST,
-  XAI,
-  REQUEST_TIMEOUT_MS,
-} from "@/app/constant";
-import { useAccessStore, useAppConfig, useChatStore } from "@/app/store";
-
+  useAccessStore,
+  useAppConfig,
+  useChatStore,
+  ChatMessageTool,
+  usePluginStore,
+} from "@/app/store";
+import { stream } from "@/app/utils/chat";
 import {
   ChatOptions,
   getHeaders,
   LLMApi,
   LLMModel,
-  MultimodalContent,
+  SpeechOptions,
 } from "../api";
-import Locale from "../../locales";
-import {
-  EventStreamContentType,
-  fetchEventSource,
-} from "@fortaine/fetch-event-source";
-import { prettyObject } from "@/app/utils/format";
 import { getClientConfig } from "@/app/config/client";
-import { getMessageTextContent } from "@/app/utils";
+import { getMessageTextContent, isVisionModel } from "@/app/utils";
 import { RequestPayload } from "./openai";
+import { preProcessImageContent } from "@/app/utils/chat";
+import { fetch } from "@/app/utils/stream";
 
 export class XAIApi implements LLMApi {
+  private disableListModels = true;
   uploadFile(formData: FormData): Promise<any> {
     throw new Error("Method not implemented.");
   }
   path(path: string): string {
     const accessStore = useAccessStore.getState();
-    let baseUrl = accessStore.useCustomConfig ? accessStore.xaiUrl : "";
+
+    let baseUrl = "";
+
+    if (accessStore.useCustomConfig) {
+      baseUrl = accessStore.xaiUrl;
+    }
 
     if (baseUrl.length === 0) {
       const isApp = !!getClientConfig()?.isApp;
       const apiPath = ApiPath.XAI;
-      baseUrl = isApp ? DEFAULT_API_HOST + "/proxy" + apiPath : apiPath;
+      baseUrl = isApp ? XAI_BASE_URL : apiPath;
     }
 
     if (baseUrl.endsWith("/")) {
@@ -49,18 +56,25 @@ export class XAIApi implements LLMApi {
     return [baseUrl, path].join("/");
   }
 
+  speech(options: SpeechOptions): Promise<ArrayBuffer> {
+    throw new Error("Method not implemented.");
+  }
+
   extractMessage(res: any) {
-    return res.choices?.at(0)?.message?.content ?? "";
+    return res.choices?.at(0)?.message ?? "";
   }
 
   async chat(options: ChatOptions) {
+    const visionModel = isVisionModel(options.config.model);
     const messages: ChatOptions["messages"] = [];
-
+    // If using vision model, preprocess image content
+    // Otherwise get text content only
     for (const v of options.messages) {
-      const content = getMessageTextContent(v);
+      const content = visionModel
+        ? await preProcessImageContent(v.content)
+        : getMessageTextContent(v);
       messages.push({ role: v.role, content });
     }
-    console.log(messages);
 
     const modelConfig = {
       ...useAppConfig.getState().modelConfig,
@@ -79,8 +93,7 @@ export class XAIApi implements LLMApi {
       presence_penalty: modelConfig.presence_penalty,
       frequency_penalty: modelConfig.frequency_penalty,
       top_p: modelConfig.top_p,
-      max_tokens: Math.max(5000, 1024), // todo: max_token size is set to 5000 for image/file extraction, but it can be adjusted
-      // see https://platform.moonshot.cn/docs/guide/faq to estimate max_token size
+      max_tokens: modelConfig.max_tokens,
     };
 
     console.log("[Request] XAI payload: ", requestPayload);
@@ -105,115 +118,65 @@ export class XAIApi implements LLMApi {
       );
 
       if (shouldStream) {
-        let responseText = "";
-        let remainText = "";
-        let finished = false;
-
-        // animate response to make it looks smooth
-        function animateResponseText() {
-          if (finished || controller.signal.aborted) {
-            responseText += remainText;
-            console.log("[Response Animation] finished");
-            if (responseText?.length === 0) {
-              options.onError?.(new Error("empty response from server"));
-            }
-            return;
-          }
-
-          if (remainText.length > 0) {
-            const fetchCount = Math.max(1, Math.round(remainText.length / 60));
-            const fetchText = remainText.slice(0, fetchCount);
-            responseText += fetchText;
-            remainText = remainText.slice(fetchCount);
-            options.onUpdate?.(responseText, fetchText);
-          }
-
-          requestAnimationFrame(animateResponseText);
-        }
-
-        // start animaion
-        animateResponseText();
-
-        const finish = () => {
-          if (!finished) {
-            finished = true;
-            options.onFinish(responseText + remainText);
-          }
-        };
-
-        controller.signal.onabort = finish;
-
-        fetchEventSource(chatPath, {
-          ...chatPayload,
-          async onopen(res) {
-            clearTimeout(requestTimeoutId);
-            const contentType = res.headers.get("content-type");
-            console.log("[XAI] request response content type: ", contentType);
-
-            if (contentType?.startsWith("text/plain")) {
-              responseText = await res.clone().text();
-              return finish();
-            }
-
-            if (
-              !res.ok ||
-              !res.headers
-                .get("content-type")
-                ?.startsWith(EventStreamContentType) ||
-              res.status !== 200
-            ) {
-              const responseTexts = [responseText];
-              let extraInfo = await res.clone().text();
-              try {
-                const resJson = await res.clone().json();
-                extraInfo = prettyObject(resJson);
-              } catch {}
-
-              if (res.status === 401) {
-                responseTexts.push(Locale.Error.Unauthorized);
+        const [tools, funcs] = usePluginStore
+          .getState()
+          .getAsTools(
+            useChatStore.getState().currentSession().mask?.plugin || [],
+          );
+        return stream(
+          chatPath,
+          requestPayload,
+          getHeaders(),
+          tools as any,
+          funcs,
+          controller,
+          // parseSSE
+          (text: string, runTools: ChatMessageTool[]) => {
+            const json = JSON.parse(text);
+            const choices = json.choices as Array<{
+              delta: {
+                content: string;
+                tool_calls: ChatMessageTool[];
+              };
+            }>;
+            const tool_calls = choices[0]?.delta?.tool_calls;
+            if (tool_calls?.length > 0) {
+              const index = tool_calls[0]?.index;
+              const id = tool_calls[0]?.id;
+              const args = tool_calls[0]?.function?.arguments;
+              if (id) {
+                runTools.push({
+                  id,
+                  type: tool_calls[0]?.type,
+                  function: {
+                    name: tool_calls[0]?.function?.name as string,
+                    arguments: args,
+                  },
+                });
+              } else {
+                // @ts-ignore
+                runTools[index]["function"]["arguments"] += args;
               }
-
-              if (extraInfo) {
-                responseTexts.push(extraInfo);
-              }
-
-              responseText = responseTexts.join("\n\n");
-
-              return finish();
             }
+            return choices[0]?.delta?.content;
           },
-          onmessage(msg) {
-            const text = msg.data;
-
-            try {
-              if (msg.data === "[DONE]" || finished) {
-                return finish();
-              }
-              const json = JSON.parse(text);
-              //console.log("[XAI] response:", json);
-
-              const choices = json.choices as Array<{
-                delta: { content: string };
-              }>;
-              const delta = choices[0]?.delta?.content;
-
-              if (delta) {
-                remainText += delta;
-              }
-            } catch (e) {
-              console.error("[XAI] parse error", text);
-              options.onError?.(new Error(`Failed to parse response: ${text}`));
-            }
+          // processToolMessage, include tool_calls message and tool call results
+          (
+            requestPayload: RequestPayload,
+            toolCallMessage: any,
+            toolCallResult: any[],
+          ) => {
+            // @ts-ignore
+            requestPayload?.messages?.splice(
+              // @ts-ignore
+              requestPayload?.messages?.length,
+              0,
+              toolCallMessage,
+              ...toolCallResult,
+            );
           },
-          onclose() {
-            finish();
-          },
-          onerror(e) {
-            options.onError?.(e);
-            throw e;
-          },
-          openWhenHidden: true,
-        });
+          options,
+        );
       } else {
         const res = await fetch(chatPath, chatPayload);
         //console.log("[XAI] response:", res);
@@ -222,14 +185,13 @@ export class XAIApi implements LLMApi {
 
         const resJson = await res.json();
         const message = this.extractMessage(resJson);
-        options.onFinish(message);
+        options.onFinish(message, resJson);
       }
     } catch (e) {
       //console.log("[Request] failed to make a chat request", e);
       options.onError?.(e as Error);
     }
   }
-
   async usage() {
     return {
       used: 0,

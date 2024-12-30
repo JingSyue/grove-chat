@@ -1,4 +1,17 @@
-// webhooks/routes.ts
+/**
+ * Clerk Webhook Handler
+ * Processes webhook events from Clerk authentication service
+ */
+
+/**
+ * POST handler for Clerk webhooks
+ * Verifies webhook signatures and processes events
+ *
+ * Events handled:
+ * - User creation/updates
+ * - Organization changes
+ * - Role assignments
+ */
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
