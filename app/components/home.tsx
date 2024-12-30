@@ -237,24 +237,31 @@ export function Home() {
     useAccessStore.getState().fetch();
   }, []);
   const { isSignedIn, user } = useUser();
+  /**
+   * Initialize LogRocket analytics
+   * Configure privacy settings and tracking options
+   */
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       LogRocket.init("j9ngla/grove", {
         dom: {
           textSanitizer: true,
-          privateClassNameBlocklist: ["chat-body"],
+          privateClassNameBlocklist: ["chat-body"], // Exclude chat content from tracking
         },
         network: {
-          isEnabled: false,
+          isEnabled: false, // Exclude chat content from tracking
         },
         console: {
-          isEnabled: false,
+          isEnabled: false, // Disable console logging
         },
       });
     }
   }, []);
-
+  /**
+   * Identify user when logged in
+   * Track user sessions with email
+   */
   useEffect(() => {
     if (isSignedIn && typeof window !== "undefined") {
       LogRocket.identify(user?.id, {

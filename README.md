@@ -34,6 +34,7 @@
 - [截圖](#截圖)
 - [相關項目](#相關項目)
 - [開源協議](#開源協議)
+- [變更說明](./CHANGELOG.md)
 
 
 ## 企業版
@@ -68,7 +69,7 @@
 ## 開始使用
 
 1. 準備好你的 [OpenAI API Key](https://platform.openai.com/account/api-keys);
-2. 使用Clerk作為用戶權限管理 [Clerk官網](https://clerk.com/)[配置文件](https://github.com/robbiedood/grove-chat/tree/main/docs)
+2. 使用Clerk作為用戶權限管理 [Clerk官網](https://clerk.com/)[配置文件](#配置頁面訪問密碼)
 3. 點擊右側按鈕開始部署：
    [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)，直接使用 GitHub 賬號登錄即可，記得在環境變量頁填入 API Key 和[用戶權限管理](#配置訪問權限Clerk) Clerk；
 4. 部署完畢後，即可開始使用；
@@ -359,7 +360,9 @@ Stability API 密鑰。
 > guest
 
 可在Clerk dashboard中更改角色權限
-> [Clerk配置教學](https://github.com/robbiedood/grove-chat/tree/main/docs)
+> [Clerk配置教學](#配置頁面訪問密碼)
+
+配置Clerk後，teacher權限者可在Grove Chat中 settings頁面可直接管理組織並邀請成員進一步管控可存取的模型
 
 ### 新增模型
 

@@ -1,3 +1,7 @@
+/**
+ * GroveChat Constants Configuration
+ * Central configuration file for all constants and model definitions
+ */
 export const OWNER = "robbiedood";
 export const REPO = "grove-chat";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
@@ -300,6 +304,9 @@ export const DEFAULT_TTS_VOICES = [
   "shimmer",
 ];
 
+// Model Provider Lists
+// Define available models for each provider
+
 const openaiModels = [
   "gpt-3.5-turbo",
   "gpt-3.5-turbo-1106",
@@ -599,7 +606,10 @@ export const PLUGINS = [
   { name: "Stable Diffusion", path: Path.Sd },
   { name: "Search Chat", path: Path.SearchChat },
 ];
-
+/**
+ * Role-Based Model Access Control
+ * Models listed here must exist in the provider model lists above
+ */
 export const ROLE_ALLOWED_MODEL_NAMES = {
   teacher: [
     "o1-mini",
@@ -653,7 +663,14 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "grok-beta",
   ],
 } as const;
-
+/**
+ * Default Plugins Configuration
+ * Automatically enabled plugins for enhanced functionality
+ *
+ * duckduckgolite: Web search capability using DuckDuckGo
+ * arxivsearch: Academic paper search from ArXiv database
+ * dalle3: Image generation using DALL-E 3 model
+ */
 export const DEFAULT_PLUGINS = [
   "duckduckgolite",
   "arxivsearch",

@@ -1,4 +1,7 @@
-// config
+/**
+ * Configuration Store
+ * Manages application-wide settings and model configurations
+ */
 import { LLMModel } from "../client/api";
 import { DalleSize, DalleQuality, DalleStyle } from "../typing";
 import { getClientConfig } from "../config/client";
@@ -57,13 +60,19 @@ export enum Background {
   rain = "rain",
 }
 const config = getClientConfig();
-
+/**
+ * Predefined scenario configurations
+ * Quick settings for different use cases
+ */
 export enum SuggestConfig {
   RealTime = "RealTime",
   Creative = "Creative",
   Programming = "Programming",
 }
-
+/**
+ * Custom configuration templates
+ * For user-defined parameter sets
+ */
 export const CustomConfig = {
   [SuggestConfig.RealTime]: {
     name: "RealTime",
@@ -95,7 +104,7 @@ export const CustomConfig = {
     frequency_penalty: 0.6,
   },
 };
-
+// Default configuration presets
 export const DEFAULT_CONFIG = {
   lastUpdate: Date.now(), // timestamp, to merge state
   customTitle: CUSTOMTITLE, //add custom title
@@ -123,8 +132,6 @@ export const DEFAULT_CONFIG = {
 
   customModels: "",
   models: DEFAULT_MODELS as any as LLMModel[],
-
-  //suggestConfig: SuggestConfig.RealTime as SuggestConfig|| null,
 
   modelConfig: {
     name: "Creactive",

@@ -1,7 +1,14 @@
+/**
+ * Clerk Authentication Middleware
+ * Controls which routes require authentication
+ */
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
 export default clerkMiddleware();
-
+/**
+ * Route matcher configuration
+ * Defines which paths should be handled by Clerk middleware
+ */
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params

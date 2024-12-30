@@ -1,5 +1,8 @@
 "use client";
-// azure and openai, using same models. so using same LLMApi.
+/**
+ * Moonshot API Client Implementation
+ * Handles chat completions and image recognition capabilities
+ */
 import {
   ApiPath,
   MOONSHOT_BASE_URL,
@@ -264,7 +267,12 @@ export class MoonshotApi implements LLMApi {
     return [];
   }
 
-  // 新增的 uploadFile 實作
+  /**
+   * Implements file upload for image recognition
+   * Processes images and extracts content using Moonshot's vision capabilities
+   * @param formData Form data containing the image file
+   * @returns Upload response with file ID
+   */
   async uploadFile(formData: FormData): Promise<any> {
     try {
       const uploadResponse = await fetch(this.path(Moonshot.FilePath), {

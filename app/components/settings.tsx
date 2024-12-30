@@ -2612,6 +2612,10 @@ export function Settings() {
       prevSetting === setting ? null : setting,
     );
   };
+  /**
+   * Get user's role and allowed models
+   * Used for controlling model access in settings
+   */
   const { user } = useUser();
 
   const userRole =
@@ -2632,6 +2636,8 @@ export function Settings() {
         <div className="window-actions">
           <div className="window-action-button"></div>
           <div className="window-action-button"></div>
+          {/* Role-based organization management
+              Only teacher role can access organization switcher */}
           {userRole != "guest" && userRole != "student" && (
             <OrganizationSwitcher hidePersonal={true} />
           )}
@@ -2673,6 +2679,14 @@ export function Settings() {
               </ListItem>
             </List> */}
 
+            {/**
+             * Settings access control
+             * Certain settings only visible to logged in users:
+             * - Model settings
+             * - Mask settings
+             * - Prompt settings
+             */}
+
             {isSignedIn && (
               <List>
                 <ListItem
@@ -2686,7 +2700,7 @@ export function Settings() {
             )}
             <List>
               <ListItem
-                icon={<HeadphoneIcon />} // todo edit voice settings
+                icon={<HeadphoneIcon />}
                 title={Locale.Settings.VoiceSettings}
                 onClick={() => toggleSetting("voice")}
               >

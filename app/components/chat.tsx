@@ -490,10 +490,12 @@ export function ChatActions(props: {
 
   // const userRole = user.user?.organizationMemberships[0]?.role?.replace("org:", "") as keyof typeof ROLE_ALLOWED_MODEL_NAMES || "guest";
 
-  // get the highest user role in all organizations
-  // if there is no organization, use guest
-  // guest role and student role are not allowed to create organization
-
+  /**
+   * Get current user role from Clerk
+   * - Checks all user organizations and returns highest role
+   * - Returns "guest" if no organizations found
+   * - Note: guest and student roles cannot create organizations
+   */
   const userRole =
     (getHighestUserRole(user) as keyof typeof ROLE_ALLOWED_MODEL_NAMES) ||
     "guest";
@@ -518,6 +520,13 @@ export function ChatActions(props: {
   const currentProviderName =
     session.mask.modelConfig?.providerName || ServiceProvider.OpenAI;
   const allModels = useAllModels();
+
+  /**
+   * Get current user role from Clerk
+   * - Checks all user organizations and returns highest role
+   * - Returns "guest" if no organizations found
+   * - Note: guest and student roles cannot create organizations
+   */
   const models = useMemo(() => {
     const filteredModels = allModels.filter((m) => m.available);
 
@@ -1043,7 +1052,15 @@ export function ShortcutKeyModal(props: { onClose: () => void }) {
     </div>
   );
 }
+/**
+ * Get the highest role from user's organization memberships
+ * Priority order: teacher > assistant > student > guest
+ *
+ * @param user User object from Clerk containing organization memberships
+ * @returns The highest role as string, defaults to "guest" if no memberships found
+ */
 
+// Role priority mapping (lower number = higher priority)
 const ROLE_PRIORITY = { teacher: 1, assistant: 2, student: 3, guest: 4 };
 
 export function getHighestUserRole(
@@ -1799,14 +1816,22 @@ function _Chat() {
 
   // const userRole = user.user?.organizationMemberships[0]?.role?.replace("org:", "") as keyof typeof ROLE_ALLOWED_MODEL_NAMES || "guest";
 
-  // get the highest user role in all organizations
-  // if there is no organization, use guest
-  // guest role and student role are not allowed to create organization
+  /**
+   * Get current user role from Clerk
+   * - Checks all user organizations and returns highest role
+   * - Returns "guest" if no organizations found
+   * - Note: guest and student roles cannot create organizations
+   */
 
   const userRole =
     (getHighestUserRole(user) as keyof typeof ROLE_ALLOWED_MODEL_NAMES) ||
     "guest";
   //console.log("userRole", userRole);
+
+  /**
+   * Filter available models based on user role
+   * Only shows models that are allowed for the current user role
+   */
 
   const models = useMemo(() => {
     const filteredModels = allModels.filter((m) => m.available);

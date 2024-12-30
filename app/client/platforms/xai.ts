@@ -1,3 +1,7 @@
+/**
+ * XAI API Client Implementation
+ * Handles chat completions and image recognition capabilities
+ */
 "use client";
 import { ApiPath, XAI_BASE_URL, XAI, REQUEST_TIMEOUT_MS } from "@/app/constant";
 import {
@@ -8,8 +12,6 @@ import {
   usePluginStore,
 } from "@/app/store";
 import { stream } from "@/app/utils/chat";
-import { prettyObject } from "@/app/utils/format";
-import Locale from "../../locales";
 import {
   ChatOptions,
   getHeaders,
@@ -22,10 +24,6 @@ import { getMessageTextContent, isVisionModel } from "@/app/utils";
 import { RequestPayload } from "./openai";
 import { preProcessImageContent } from "@/app/utils/chat";
 import { fetch } from "@/app/utils/stream";
-import {
-  EventStreamContentType,
-  fetchEventSource,
-} from "@fortaine/fetch-event-source";
 
 export class XAIApi implements LLMApi {
   private disableListModels = true;
@@ -69,6 +67,8 @@ export class XAIApi implements LLMApi {
   async chat(options: ChatOptions) {
     const visionModel = isVisionModel(options.config.model);
     const messages: ChatOptions["messages"] = [];
+    // If using vision model, preprocess image content
+    // Otherwise get text content only
     for (const v of options.messages) {
       const content = visionModel
         ? await preProcessImageContent(v.content)
