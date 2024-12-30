@@ -356,7 +356,7 @@ export function showPlugins(provider: ServiceProvider, model: string) {
   if (provider == ServiceProvider.Google && !model.includes("vision")) {
     return true;
   }
-  if (provider == ServiceProvider.XAI && !model.includes("vision")) {
+  if (provider == ServiceProvider.XAI && !model.includes("vision-beta")) {
     return true;
   }
 }

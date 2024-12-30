@@ -118,6 +118,7 @@ import {
   UNFINISHED_INPUT,
   ServiceProvider,
   ROLE_ALLOWED_MODEL_NAMES,
+  DEFAULT_PLUGINS,
 } from "../constant";
 import { Avatar } from "./emoji";
 import { ContextPrompts, MaskAvatar, MaskConfig } from "./mask";
@@ -865,9 +866,17 @@ export function ChatActions(props: {
           />
         )}
         {showPluginSelector && (
+          // fix models that doesn't use tools with default plugin bug
           <Selector
             multiple
-            defaultSelectedValue={chatStore.currentSession().mask?.plugin}
+            defaultSelectedValue={
+              showPlugins(currentProviderName, currentModel)
+                ? [
+                    ...(chatStore.currentSession().mask?.plugin || []),
+                    ...DEFAULT_PLUGINS,
+                  ]
+                : chatStore.currentSession().mask?.plugin || []
+            }
             items={pluginStore.getAll().map((item) => ({
               title: `${item?.title}@${item?.version}`,
               value: item?.id,
