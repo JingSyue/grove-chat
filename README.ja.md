@@ -35,6 +35,7 @@
 -   [スクリーンショット](#截圖)
 -   [関連プロジェクト](#相關項目)
 -   [オープンソース契約](#開源協議)
+-   [説明の変更](./CHANGELOG.md)
 
 ## 企業版
 
@@ -68,9 +69,9 @@
 ## 開始使用
 
 1.  準備をしてください[OpenAI APIキー](https://platform.openai.com/account/api-keys);
-2.  ユーザー権限管理として Clerk を使用する[クラーク公式サイト](https://clerk.com/)[設定ファイル](https://github.com/robbiedood/grove-chat/tree/main/docs)
+2.  ユーザー権限管理として Clerk を使用する[クラーク公式サイト](https://clerk.com/)[設定ファイル](#配置頁面訪問密碼)
 3.  右側のボタンをクリックして展開を開始します。[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)、GitHub アカウントで直接ログインするだけです。忘れずに API キーを入力してください。[ユーザー権限の管理](#配置訪問權限Clerk)店員;
-4.  部署完畢後，即可開始使用；
+4.  導入が完了したら、使用を開始できます。
 5.  （可選）[カスタム ドメイン名をバインドする](https://vercel.com/docs/concepts/projects/domains/add-a-domain): Vercel によって割り当てられたドメイン名 DNS が一部の領域で汚染されています。カスタム ドメイン名をバインドして直接接続してください。
 
 <div align="center">
@@ -376,7 +377,9 @@ ByteDance モードでは、次の使用をサポートします。`modelName@by
 
 役割の権限はClerkダッシュボードで変更できます
 
-> [クラーク構成チュートリアル](https://github.com/robbiedood/grove-chat/tree/main/docs)
+> [クラーク構成チュートリアル](#配置頁面訪問密碼)
+
+Clerk を構成した後、教師権限を持つ教師は Grove Chat の設定ページで組織を直接管理し、アクセス可能なモデルをさらに制御するためにメンバーを招待できます。
 
 ### 新しいモデルを追加
 
