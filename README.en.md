@@ -45,9 +45,9 @@ Meet your company’s private deployment and customization needs
 -   **Resource integration**: Dozens of AI resources are configured and managed uniformly by enterprise managers, and team members can use them out of the box
 -   **Permission management**: Member permissions, resource permissions, and knowledge base permissions are clearly hierarchical and unified controlled by the enterprise-level Admin Panel
 -   **knowledge access**: The combination of an enterprise's internal knowledge base and AI capabilities is closer to the enterprise's own business needs than general AI.
--   **security audit**: Automatically intercept sensitive questions and support tracing all historical conversation records, allowing AI to also comply with corporate information security regulations.
+-   **security audit**: Automatically intercept sensitive questions and support tracing all historical conversation records, allowing AI to also comply with corporate information security regulations
 -   **private deployment**: Enterprise-level private deployment, supporting various mainstream private cloud deployments to ensure data security and privacy protection
--   **Continuous updates**: Provide continuous updating and upgrading services for cutting-edge capabilities such as multi-modality and intelligence, which are frequently used and constantly advanced.
+-   **Continuous updates**: Provide continuous updating and upgrading services for cutting-edge capabilities such as multi-modal and intelligent agents, which are frequently used and constantly advanced.
 
 Enterprise version consultation:**empty**
 
@@ -90,7 +90,7 @@ Enterprise version consultation:**empty**
 
 <img src="./docs/images/clerk/clerk1.png" alt="create application" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Step 2: Select a login option
+### Step 2: Choose a login option
 
 enable**Email**(required) and**Google**(optional) option, as shown below.
 
@@ -336,7 +336,7 @@ If you want to add the WebDAV service addresses that are allowed to be accessed,
 
 To control the model list, use`+`To add a model, use`-`To hide a model, use`模型名=展示名`Display names to customize the model, separated by commas.
 
-In Azure mode, it is supported to use`modelName@Azure=deploymentName`Configure the model name and deployment name (deploy-name).
+In Azure mode, support using`modelName@Azure=deploymentName`Configure the model name and deployment name (deploy-name).
 
 > Example:`+gpt-3.5-turbo@Azure=gpt35`This configuration will display a`gpt35(Azure)`options.  
 > If you can only use Azure mode, then set`-all,+gpt-3.5-turbo@Azure=gpt35`You can make the conversation's default use`gpt35(Azure)`。
@@ -447,7 +447,7 @@ BASE_URL=<https://b.nextweb.fun/api/proxy>
     CLERK_WEBHOOK_SECRET=<your key here>
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your key here>
 
-2.  Install Node.js 18 and Yarn, please ask ChatGPT for details;
+2.  安裝 Node.js 18 和 Yarn，具體細節請詢問 ChatGPT；
 3.  implement`yarn install && yarn dev`That’s it. ⚠️ Note: This command is only for local development, do not use it for deployment!
 4.  If you want to deploy locally, use`yarn install && yarn build && yarn start`command, you can use pm2 to daemonize the process to prevent it from being killed. Ask ChatGPT for details.
 
@@ -487,7 +487,7 @@ If your local agent requires an account and password, you can use:
 -e PROXY_URL="http://127.0.0.1:7890 user password"
 ```
 
-If you need to specify other environment variables, please add them to the above command yourself.`-e 環境變量=環境變量值`to specify.
+If you need to specify other environment variables, please add them to the above command yourself`-e 環境變量=環境變量值`to specify.
 
 ### local deployment
 
