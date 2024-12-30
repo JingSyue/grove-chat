@@ -1,15 +1,26 @@
-<h1 align="center">GroveChat</h1>
+<div align="center">
 
-<a href='#企業版'>
-  <img src="./docs/images/ent.svg" alt="icon"/>
-</a>
+[Anglais](./README.en.md)\|[Chinois simplifié](./README.zh-CN.md)\|[arabe](./README.ar.md)\|[Français](./README.fr.md)\|[japonais](./README.ja.md)
 
-Déployez gratuitement votre application Web privée ChatGPT en un seul clic, prenant en charge les modèles GPT3, GPT4 et Gemini Pro.
+</div>
+<div align="center">
+  <h1>GroveChat</h1>
+  <a href='#企業版'>
+    <img src="./docs/images/ent.svg" alt="icon" style="margin: 20px 0;"/>
+  </a>
 
-[GroveChat](https://grove-chat.vercel.app)/[Édition Entreprise](https://grove-chat.vercel.app)/[Démo](https://grove-chat.vercel.app)/[Problèmes de commentaires](https://github.com/robbiedood/grove-chat/issues)
+  <p>一鍵免費部署你的私人 ChatGPT 網頁應用，支持 GPT3、GPT4 和 Gemini Pro 模型。</p>
 
-[<img src="https://vercel.com/button" alt="Deploy on vercel" height="30">](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)
+  <p>
+    <a href="https://grove-chat.vercel.app">GroveChat</a> / 
+    <a href="https://grove-chat.vercel.app">企業版</a> / 
+    <a href="https://grove-chat.vercel.app">演示 Demo</a> / 
+    <a href="https://github.com/robbiedood/grove-chat/issues">反饋 Issues</a>
+  </p>
 
+  <a href="https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat">
+    <img src="https://vercel.com/button" alt="Deploy on vercel" height="30" style="margin: 20px 0;"/>
+  </a>
 </div>
 
 ## Table des matières
@@ -31,11 +42,11 @@ Répondez aux besoins de déploiement et de personnalisation privés de votre en
 
 -   **Personnalisation de la marque**: VI/UI adapté à l'entreprise, correspondant parfaitement à l'image de marque de l'entreprise
 -   **Intégration des ressources**: Des dizaines de ressources d'IA sont configurées et gérées de manière uniforme par les responsables de l'entreprise, et les membres de l'équipe peuvent les utiliser immédiatement.
--   **Gestion des autorisations**：成員權限、資源權限、知識庫權限層級分明，企業級 Admin Panel 統一控制
+-   **Gestion des autorisations**: Les autorisations des membres, les autorisations des ressources et les autorisations de la base de connaissances sont clairement hiérarchiques et unifiées contrôlées par le panneau d'administration au niveau de l'entreprise.
 -   **accès aux connaissances**: La combinaison de la base de connaissances interne d'une entreprise et des capacités d'IA est plus proche des besoins commerciaux de l'entreprise que l'IA générale.
 -   **audit de sécurité**: interceptez automatiquement les questions sensibles et prenez en charge le traçage de tous les enregistrements de conversations historiques, permettant à l'IA de se conformer également aux réglementations de sécurité des informations de l'entreprise.
 -   **déploiement privé**: Déploiement privé au niveau de l'entreprise, prenant en charge divers déploiements de cloud privé grand public pour garantir la sécurité des données et la protection de la confidentialité
--   **Mises à jour continues**: Fournir des services de mise à jour et de mise à niveau continues pour des fonctionnalités de pointe telles que des agents multimodaux et intelligents, fréquemment utilisés et constamment perfectionnés.
+-   **Mises à jour continues**: Fournir des services de mise à jour et de mise à niveau continues pour des fonctionnalités de pointe telles que la multimodalité et l'intelligence, qui sont fréquemment utilisées et constamment avancées.
 
 Consultation version entreprise :**vide**
 
@@ -45,13 +56,12 @@ Consultation version entreprise :**vide**
 
 -   Déployez sur Vercel gratuitement en un clic et prend moins d'1 minute
 -   Client simplifié (~ 5 Mo) pour Linux/Windows/MacOS, téléchargez-le maintenant
--   Entièrement compatible avec LLM auto-déployé, il est recommandé de l'utiliser avec RWKV-Runner ou LocalAI
+-   Entièrement compatible avec LLM auto-déployé, recommandé pour une utilisation avec RWKV-Runner ou LocalAI
 -   La confidentialité avant tout, toutes les données sont stockées localement dans le navigateur
 -   Support Markdown : LaTex, sirène, surbrillance de code, etc.
 -   Conception réactive, prend en charge le mode sombre et PWA
 -   Le premier écran se charge rapidement (environ 100 Ko) et prend en charge la réponse en streaming
 -   Nouveau dans la v2 : utilisez des modèles d'invite (masque) pour créer, partager et déboguer vos outils de discussion
--   Conseils géniaux propulsés par Awesome-chatgpt-prompts-zh et Awesome-chatgpt-prompts
 -   Compressez automatiquement l'historique des discussions pour prendre en charge les longues conversations tout en enregistrant vos jetons
 -   Prise en charge multilingue : anglais, chinois simplifié, chinois traditionnel, japonais, français, espagnol, italien, turc, allemand, vietnamien, russe, tchèque, coréen, indonésien
 
@@ -71,7 +81,84 @@ Consultation version entreprise :**vide**
 
 ## Configurer le mot de passe d'accès à la page
 
-> Ce projet a abandonné la variable d'environnement CODE du projet original NextChat et utilise le mot de passe d'accès à la page de gestion des commis. Tutoriel :[Comment configurer le commis](./docs)。
+> Ce projet a abandonné la variable d'environnement CODE du projet original NextChat et utilise le mot de passe d'accès à la page de gestion des commis.
+>
+> ### Étape 1 : Inscrivez-vous pour un compte Clerk
+>
+> Aller à[Site officiel du greffier](https://clerk.com/), créez un compte et connectez-vous. Après vous être connecté, cliquez sur**Créer une candidature**(Créer une application).
+
+<img src="./docs/images/clerk/clerk1.png" alt="create application" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### Étape 2 : Sélectionnez une option de connexion
+
+activer**E-mail**(obligatoire) et**Google**(facultatif), comme indiqué ci-dessous.
+
+<img src="./docs/images/clerk/clerk2.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### Étape 3 : Obtenir la clé API
+
+trouvez votre`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`et`CLERK_SECRET_KEY`. ajoutez-les à`.env`fichier, comme indiqué ci-dessous :
+
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=你的公開金鑰
+CLERK_SECRET_KEY=你的密鑰
+```
+
+<img src="./docs/images/clerk/clerk3.png" alt="key" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### Étape 4 : Configurer l'e-mail et le mot de passe
+
+Aller à**Configurer > Email, téléphone, nom d'utilisateur**(Configuration > Email, Téléphone, Nom d'utilisateur), assurez-vous qu'il est activé**E-mail**(e-mail),**Mot de passe**(mot de passe) et**Code de vérification de l'e-mail**(code de vérification par e-mail).
+
+<img src="./docs/images/clerk/clerk4.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### Étape 5 : Configurer les rôles et les autorisations
+
+Définissez les rôles et les autorisations comme indiqué dans la figure ci-dessous :
+
+<img src="./docs/images/clerk/clerk5.png" alt="roles" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### Étape 6 : Paramètres généraux
+
+Aller à**Configurer > Paramètres**(Configuration > Paramètres) et définissez les options comme indiqué ci-dessous :
+
+<img src="./docs/images/clerk/clerk6.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### Étape 7 : configurer les webhooks
+
+Définissez le point de terminaison du webhook sur votre URL d’écoute. Cliquez**Secret de signature**(clé de signature) Affichez votre`CLERK_WEBHOOK_SECRET`, et ajoutez-le à`.env`Dans les archives :
+
+```env
+CLERK_WEBHOOK_SECRET=你的webhook密鑰
+```
+
+<img src="./docs/images/clerk/clerk7.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### Étape 8 : Créer des utilisateurs
+
+Créez des comptes d'utilisateurs selon vos besoins.
+
+<img src="./docs/images/clerk/clerk8.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### Étape 9 : Construire une organisation
+
+Créez une organisation et ajoutez l'adresse e-mail du développeur. Définissez leur rôle sur**Professeur**(professeur).<img src="./docs/images/clerk/clerk9.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+## Gérer les applications Grove multi-administrateurs
+
+### Étape 1 : Créer une organisation
+
+Cliquez sur le coin supérieur gauche**Créer une organisation**(Construire une organisation).<img src="./docs/images/clerk/clerk10.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### Étape 2 : Transférer la propriété
+
+Aller à**Configurer > Paramètres**(Configuration > Paramètres), cliquez sur**Transférer la propriété**(Transfert de propriété). Définissez le nouveau propriétaire sur l'organisation que vous venez de créer.
+
+<img src="./docs/images/clerk/clerk11.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+
+### Étape 3 : Ajouter des utilisateurs supplémentaires
+
+Cliquez sur le coin supérieur gauche**Gérer**(Admin) pour ajouter des utilisateurs supplémentaires et leur accorder un accès administratif.<img src="./docs/images/clerk/clerk12.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/><img src="./docs/images/clerk/clerk13.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
 <img src="./docs/images/login.png" alt="用戶登入" style="width: 800px;"/>
 
@@ -183,7 +270,7 @@ Clé API iFlytek Spark.
 
 ### `IFLYTEK_API_SECRET`(facultatif)
 
-Secret de l'API iFlytek Spark.
+iFlytek Spark API Secret.
 
 ### `CHATGLM_API_KEY`(facultatif)
 
@@ -293,7 +380,7 @@ Les autorisations de rôle peuvent être modifiées dans le tableau de bord du c
 
 ### Ajouter un nouveau modèle
 
-[Fichier de code app/constant.ts](https://github.com/robbiedood/grove-chat/blob/pbooks/app/constant.ts)
+[fichier de code](./app/constant.ts)
 
 Rechercher un fournisseur de modèles pour ajouter un nouveau modèle
 
@@ -365,7 +452,7 @@ BASE_URL=<https://b.nextweb.fun/api/proxy>
 
 > La version de Docker doit être 20 ou supérieure, sinon l'image sera introuvable.
 
-> ⚠️ Remarque : la plupart du temps, la version Docker sera en retard de 1 à 2 jours par rapport à la dernière version, donc l'invite « la mise à jour existe » continuera à apparaître après le déploiement, ce qui est normal.
+> ⚠️ Remarque : La plupart du temps, la version Docker sera en retard de 1 à 2 jours par rapport à la dernière version, donc l'invite « la mise à jour existe » continuera à apparaître après le déploiement, ce qui est normal.
 
 ```shell
 docker pull robbiedood/grove-chat
@@ -397,7 +484,7 @@ Si votre agent local nécessite un compte et un mot de passe, vous pouvez utilis
 -e PROXY_URL="http://127.0.0.1:7890 user password"
 ```
 
-Si vous devez spécifier d'autres variables d'environnement, veuillez les ajouter vous-même à la commande ci-dessus`-e 環境變量=環境變量值`à préciser.
+Si vous devez spécifier d'autres variables d'environnement, veuillez les ajouter vous-même à la commande ci-dessus.`-e 環境變量=環境變量值`à préciser.
 
 ### déploiement local
 
@@ -418,7 +505,7 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 ### Projets connexes
 
 -   [ChatGPT-Next-Web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web):
-    Une plate-forme unique de grands modèles qui prend en charge tous les principaux modèles linguistiques de grande taille du marché.
+    Une plate-forme unique de grands modèles qui prend en charge tous les principaux modèles de langages de grande taille du marché.
 
 -   [une API](https://github.com/songquanpeng/one-api): Une plate-forme unique de gestion des quotas de grands modèles qui prend en charge tous les grands modèles linguistiques courants du marché.
 
