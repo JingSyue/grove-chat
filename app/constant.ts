@@ -35,6 +35,8 @@ export const IFLYTEK_BASE_URL = "https://spark-api-open.xf-yun.com";
 
 export const CHATGLM_BASE_URL = "https://open.bigmodel.cn";
 
+export const DEEPSEEK_BASE_URL = "https://api.deepseek.com";
+
 // perplexity
 export const PERPLEXITY_BASE_URL = "https://api.perplexity.ai";
 
@@ -77,6 +79,7 @@ export enum ApiPath {
   Artifacts = "/api/artifacts",
   XAI = "/api/xai",
   ChatGLM = "/api/chatglm",
+  DeepSeek = "/api/deepseek",
 }
 
 export enum SlotID {
@@ -132,6 +135,7 @@ export enum ServiceProvider {
   XAI = "XAI",
   Iflytek = "Iflytek",
   ChatGLM = "ChatGLM",
+  DeepSeek = "DeepSeek",
 }
 
 // Google API safety settings, see https://ai.google.dev/gemini-api/docs/safety-settings
@@ -157,6 +161,7 @@ export enum ModelProvider {
   Iflytek = "Iflytek",
   XAI = "XAI",
   ChatGLM = "ChatGLM",
+  DeepSeek = "DeepSeek",
 }
 
 export const Stability = {
@@ -255,6 +260,11 @@ export const ChatGLM = {
   ChatPath: "api/paas/v4/chat/completions",
 };
 
+export const DeepSeek = {
+  ExampleEndpoint: DEEPSEEK_BASE_URL,
+  ChatPath: "chat/completions",
+};
+
 export const DEFAULT_INPUT_TEMPLATE = `{{input}}`; // input / time / model / lang
 
 export const DEFAULT_SYSTEM_TEMPLATE = `
@@ -284,6 +294,8 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gpt-4-vision-preview": "2023-04",
   "o1-mini": "2023-10",
   "o1-preview": "2023-10",
+  "deepseek-chat": "2024-07",
+  "deepseek-coder": "2024-07",
   // After improvements,
   // it's now easier to add "KnowledgeCutOffDate" instead of stupid hardcoding it, as was done previously.
   "gemini-pro": "2023-12",
@@ -439,6 +451,8 @@ const chatglmModels = [
   "glm-4-flash",
 ];
 
+const deepseekModels = ["deepseek-chat", "deepseek-coder"];
+
 let seq = 1000; // 内置的模型序号生成器从1000开始
 export const DEFAULT_MODELS = [
   ...openaiModels.map((name) => ({
@@ -583,6 +597,17 @@ export const DEFAULT_MODELS = [
       sorted: 13,
     },
   })),
+  ...deepseekModels.map((name) => ({
+    name,
+    available: true,
+    sorted: seq++,
+    provider: {
+      id: "deepseek",
+      providerName: "DeepSeek",
+      providerType: "deepseek",
+      sorted: 13,
+    },
+  })),
 ] as const;
 
 export const CHAT_PAGE_SIZE = 15;
@@ -627,6 +652,8 @@ export const ROLE_ALLOWED_MODEL_NAMES = {
     "moonshot-v1-32k",
     "grok-2-1212",
     "grok-2-vision-1212",
+    "deepseek-chat",
+    "deepseek-coder",
   ],
   assistant: [
     "gpt-4o-2024-08-06",

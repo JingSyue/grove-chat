@@ -60,6 +60,7 @@ import ByteDanceIcon from "../icons/bytedance.svg";
 import AlibabaIcon from "../icons/alibaba.svg";
 import GoogleIcon from "../icons/gemini.svg";
 import MoonshotIcon from "../icons/moonshot.svg";
+import DeepseekIcon from "../icons/deepseek.svg";
 import {
   ChatMessage,
   SubmitKey,
@@ -653,6 +654,11 @@ export function ChatActions(props: {
     XAI: (
       <div className="no-dark">
         <XAIIcon />
+      </div>
+    ),
+    DeepSeek: (
+      <div className="no-dark">
+        <DeepseekIcon />
       </div>
     ),
   };
@@ -1802,6 +1808,11 @@ function _Chat() {
     XAI: (
       <div className="no-dark">
         <XAIIcon />
+      </div>
+    ),
+    DeepSeek: (
+      <div className="no-dark">
+        <DeepseekIcon />
       </div>
     ),
   };
