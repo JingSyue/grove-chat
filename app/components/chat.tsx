@@ -51,16 +51,6 @@ import ShortcutkeyIcon from "../icons/shortcutkey.svg";
 import ReloadIcon from "../icons/reload.svg";
 import HeadphoneIcon from "../icons/headphone.svg";
 
-import OpenAIIcon from "../icons/openai.svg";
-import AnthropicIcon from "../icons/anthropic.svg";
-import PerplexityIcon from "../icons/perplexity.svg";
-import XAIIcon from "../icons/xai.svg";
-import BaiduIcon from "../icons/baidu.svg";
-import ByteDanceIcon from "../icons/bytedance.svg";
-import AlibabaIcon from "../icons/alibaba.svg";
-import GoogleIcon from "../icons/gemini.svg";
-import MoonshotIcon from "../icons/moonshot.svg";
-import DeepseekIcon from "../icons/deepseek.svg";
 import {
   ChatMessage,
   SubmitKey,
@@ -605,64 +595,6 @@ export function ChatActions(props: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatStore, currentModel, models, session]);
 
-  const ProviderIcon = {
-    OpenAI: (
-      <div className="no-dark">
-        <OpenAIIcon />
-      </div>
-    ),
-    Azure: (
-      <div className="no-dark">
-        <OpenAIIcon />
-      </div>
-    ),
-    Anthropic: (
-      <div className="no-dark">
-        <AnthropicIcon />
-      </div>
-    ),
-    Google: (
-      <div className="no-dark">
-        <GoogleIcon />
-      </div>
-    ),
-    ByteDance: (
-      <div className="no-dark">
-        <ByteDanceIcon />
-      </div>
-    ),
-    Baidu: (
-      <div className="no-dark">
-        <BaiduIcon />
-      </div>
-    ),
-    Alibaba: (
-      <div className="no-dark">
-        <AlibabaIcon />
-      </div>
-    ),
-    Moonshot: (
-      <div className="no-dark">
-        <MoonshotIcon />
-      </div>
-    ),
-    Perplexity: (
-      <div className="no-dark">
-        <PerplexityIcon />
-      </div>
-    ),
-    XAI: (
-      <div className="no-dark">
-        <XAIIcon />
-      </div>
-    ),
-    DeepSeek: (
-      <div className="no-dark">
-        <DeepseekIcon />
-      </div>
-    ),
-  };
-
   return (
     <div className={styles["chat-input-actions"]}>
       <>
@@ -756,11 +688,7 @@ export function ChatActions(props: {
                   : ""
               }`,
               value: `${m.name}@${m?.provider?.providerName}`,
-              icon: m?.provider?.providerName
-                ? ProviderIcon[
-                    m.provider.providerName as keyof typeof ProviderIcon
-                  ]
-                : undefined,
+              icon: <Avatar model={m.name} />,
             }))}
             onClose={() => setShowModelSelector(false)}
             onSelection={(s) => {
@@ -1759,64 +1687,6 @@ function _Chat() {
 
   const [showChatSidePanel, setShowChatSidePanel] = useState(false);
 
-  const ProviderIcon = {
-    OpenAI: (
-      <div className="no-dark">
-        <OpenAIIcon />
-      </div>
-    ),
-    Azure: (
-      <div className="no-dark">
-        <OpenAIIcon />
-      </div>
-    ),
-    Anthropic: (
-      <div className="no-dark">
-        <AnthropicIcon />
-      </div>
-    ),
-    Google: (
-      <div className="no-dark">
-        <GoogleIcon />
-      </div>
-    ),
-    ByteDance: (
-      <div className="no-dark">
-        <ByteDanceIcon />
-      </div>
-    ),
-    Baidu: (
-      <div className="no-dark">
-        <BaiduIcon />
-      </div>
-    ),
-    Alibaba: (
-      <div className="no-dark">
-        <AlibabaIcon />
-      </div>
-    ),
-    Moonshot: (
-      <div className="no-dark">
-        <MoonshotIcon />
-      </div>
-    ),
-    Perplexity: (
-      <div className="no-dark">
-        <PerplexityIcon />
-      </div>
-    ),
-    XAI: (
-      <div className="no-dark">
-        <XAIIcon />
-      </div>
-    ),
-    DeepSeek: (
-      <div className="no-dark">
-        <DeepseekIcon />
-      </div>
-    ),
-  };
-
   const currentModel = chatStore.currentSession().mask.modelConfig.model;
   const [showModelSelector, setShowModelSelector] = useState(false);
   const currentProviderName =
@@ -1890,12 +1760,7 @@ function _Chat() {
             <IconButton
               onClick={() => setShowModelSelector(true)}
               bordered
-              icon={
-                ProviderIcon[
-                  session.mask.modelConfig
-                    .providerName as keyof typeof ProviderIcon
-                ]
-              }
+              icon={<Avatar model={currentModel} />}
             />
           )}
 
@@ -1909,11 +1774,7 @@ function _Chat() {
                     : ""
                 }`,
                 value: `${m.name}@${m?.provider?.providerName}`,
-                icon: m?.provider?.providerName
-                  ? ProviderIcon[
-                      m.provider.providerName as keyof typeof ProviderIcon
-                    ]
-                  : undefined,
+                icon: <Avatar model={m.name} />,
               }))}
               onClose={() => setShowModelSelector(false)}
               onSelection={(s) => {
@@ -1976,12 +1837,7 @@ function _Chat() {
               <IconButton
                 onClick={() => setShowModelSelector(true)}
                 bordered
-                icon={
-                  ProviderIcon[
-                    session.mask.modelConfig
-                      .providerName as keyof typeof ProviderIcon
-                  ]
-                }
+                icon={<Avatar model={currentModel} />}
               />
             )}
 
