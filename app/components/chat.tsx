@@ -627,21 +627,23 @@ export function ChatActions(props: {
             icon={props.uploading ? <LoadingButtonIcon /> : <ImageIcon />}
           />
         )}
-        <ChatAction
-          onClick={nextTheme}
-          text={Locale.Chat.InputActions.Theme[theme]}
-          icon={
-            <>
-              {theme === Theme.Auto ? (
-                <AutoIcon />
-              ) : theme === Theme.Light ? (
-                <LightIcon />
-              ) : theme === Theme.Dark ? (
-                <DarkIcon />
-              ) : null}
-            </>
-          }
-        />
+        {!config.neatUI && (
+          <ChatAction
+            onClick={nextTheme}
+            text={Locale.Chat.InputActions.Theme[theme]}
+            icon={
+              <>
+                {theme === Theme.Auto ? (
+                  <AutoIcon />
+                ) : theme === Theme.Light ? (
+                  <LightIcon />
+                ) : theme === Theme.Dark ? (
+                  <DarkIcon />
+                ) : null}
+              </>
+            }
+          />
+        )}
 
         <ChatAction
           onClick={props.showPromptHints}
@@ -649,28 +651,32 @@ export function ChatActions(props: {
           icon={<PromptIcon />}
         />
 
-        <ChatAction
-          onClick={() => {
-            navigate(Path.Masks);
-          }}
-          text={Locale.Chat.InputActions.Masks}
-          icon={<MaskIcon />}
-        />
+        {!config.neatUI && (
+          <ChatAction
+            onClick={() => {
+              navigate(Path.Masks);
+            }}
+            text={Locale.Chat.InputActions.Masks}
+            icon={<MaskIcon />}
+          />
+        )}
 
-        <ChatAction
-          text={Locale.Chat.InputActions.Clear}
-          icon={<BreakIcon />}
-          onClick={() => {
-            chatStore.updateTargetSession(session, (session) => {
-              if (session.clearContextIndex === session.messages.length) {
-                session.clearContextIndex = undefined;
-              } else {
-                session.clearContextIndex = session.messages.length;
-                session.memoryPrompt = ""; // will clear memory
-              }
-            });
-          }}
-        />
+        {!config.neatUI && (
+          <ChatAction
+            text={Locale.Chat.InputActions.Clear}
+            icon={<BreakIcon />}
+            onClick={() => {
+              chatStore.updateTargetSession(session, (session) => {
+                if (session.clearContextIndex === session.messages.length) {
+                  session.clearContextIndex = undefined;
+                } else {
+                  session.clearContextIndex = session.messages.length;
+                  session.memoryPrompt = ""; // will clear memory
+                }
+              });
+            }}
+          />
+        )}
 
         <ChatAction
           onClick={() => setShowModelSelector(true)}
@@ -833,7 +839,7 @@ export function ChatActions(props: {
           />
         )}
 
-        {!isMobileScreen && (
+        {!config.neatUI && !isMobileScreen && (
           <ChatAction
             onClick={() => props.setShowShortcutKeyModal(true)}
             text={Locale.Chat.ShortcutKey.Title}
@@ -1820,7 +1826,7 @@ function _Chat() {
             </div>
           </div>
           <div className="window-actions">
-            {!isMobileScreen && (
+            {!isMobileScreen && !config.neatUI && (
               <div className="window-action-button">
                 <IconButton
                   icon={<ReloadIcon />}
@@ -1841,7 +1847,7 @@ function _Chat() {
               />
             )}
 
-            {!isMobileScreen && (
+            {!isMobileScreen && !config.neatUI && (
               <div className="window-action-button">
                 <IconButton
                   icon={<RenameIcon />}
@@ -1852,7 +1858,7 @@ function _Chat() {
                 />
               </div>
             )}
-            {!isMobileScreen && (
+            {!isMobileScreen && !config.neatUI && (
               <div className="window-action-button">
                 <IconButton
                   icon={<ExportIcon />}

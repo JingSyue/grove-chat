@@ -193,7 +193,7 @@ const en: LocaleType = {
     DataSettings: "Data Settings",
     VoiceSettings: "Voice Settings",
     ProxySettings: "Proxy Settings",
-
+    NeatUI: "Neat UI",
     ShowPassword: "ShowPassword",
     Danger: {
       Reset: {

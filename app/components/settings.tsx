@@ -576,6 +576,19 @@ function GeneralSettings() {
           </Select>
         </ListItem>
 
+        <ListItem title={Locale.Settings.NeatUI}>
+          <input
+            aria-label={Locale.Settings.NeatUI}
+            type="checkbox"
+            checked={config.neatUI}
+            onChange={(e) =>
+              updateConfig(
+                (config) => (config.neatUI = e.currentTarget.checked),
+              )
+            }
+          ></input>
+        </ListItem>
+
         <ListItem
           title={Locale.Settings.CustomTitle.Title}
           subTitle={Locale.Settings.CustomTitle.SubTitle}

@@ -120,6 +120,7 @@ export const DEFAULT_CONFIG = {
   sendPreviewBubble: true,
   enableAutoGenerateTitle: true,
   sidebarWidth: DEFAULT_SIDEBAR_WIDTH,
+  neatUI: true,
 
   enableArtifacts: true, // show artifacts config
 
