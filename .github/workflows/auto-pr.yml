@@ -1,0 +1,18 @@
+name: Auto PR for CodeRabbit Review
+
+on:
+  push:
+    branches:
+      - pbooks
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create PR to main
+        run: gh pr create --base main --head ${{ github.ref_name }} --title "Auto PR for Review" --body "Automated PR for CodeRabbit review."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
