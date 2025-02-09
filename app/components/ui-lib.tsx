@@ -589,3 +589,49 @@ export function FullScreen(props: any) {
     </div>
   );
 }
+
+export function Badge({
+  children,
+  variant = "default",
+  className,
+}: {
+  children: React.ReactNode;
+  variant?: "default" | "secondary" | "outline";
+  className?: string;
+}) {
+  return (
+    <div className={clsx(styles.badge, styles[`badge-${variant}`], className)}>
+      {children}
+    </div>
+  );
+}
+
+// 新增FeatureCard组件
+export function FeatureCard({
+  icon,
+  title,
+  description,
+  image,
+  className,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  image?: string;
+  className?: string;
+}) {
+  return (
+    <div className={clsx(styles.featureCard, className)}>
+      {image && (
+        <div className={styles.cardBg}>
+          <img src={image} alt={title} />
+        </div>
+      )}
+      <div className={styles.cardContent}>
+        <div className={styles.iconWrapper}>{icon}</div>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </div>
+    </div>
+  );
+}

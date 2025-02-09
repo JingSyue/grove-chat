@@ -1,0 +1,353 @@
+.container {
+  width: 100%;
+  background: white;
+  overflow-x: hidden;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 24px;
+  background: linear-gradient(
+    to bottom,
+    rgb(255, 255, 255) 0%,
+    rgb(248, 250, 252) 100%
+  );
+
+  &Content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    text-align: center;
+
+    h1 {
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      background: linear-gradient(to right, #000, #333);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      span {
+        color: var(--primary);
+      }
+
+      @media (max-width: 768px) {
+        font-size: 48px;
+      }
+    }
+
+    p {
+      font-size: 20px;
+      color: rgb(100, 116, 139);
+      max-width: 600px;
+    }
+  }
+}
+
+.demoWrapper {
+  width: 100%;
+  max-width: 1024px;
+  margin-top: 64px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 
+    0 0 0 1px rgba(0,0,0,0.05),
+    0 20px 40px rgba(0,0,0,0.1);
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.features {
+  padding: 120px 24px;
+  background: rgb(248, 250, 252);
+
+  &Content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+
+    h2 {
+      font-size: 48px;
+      font-weight: 800;
+      margin: 16px 0;
+      background: linear-gradient(to right, #000, #333);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 20px;
+      color: rgb(100, 116, 139);
+      margin-bottom: 64px;
+    }
+  }
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featureCard {
+  background-color: var(--white);
+  border-radius: 12px;
+  border: var(--border-in-light);
+  box-shadow: var(--card-shadow);
+  padding: 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  
+  .cardBg {
+    width: 240px;
+    height: 160px;
+    margin: 0 auto;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .cardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    
+    .iconWrapper {
+      width: 40px;
+      height: 40px;
+      color: var(--primary);
+    }
+
+    h3 {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    p {
+      color: rgb(100, 116, 139);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+
+
+
+.cta {
+  padding: 120px 24px;
+  background: var(--primary);
+  color: white;
+
+  &Content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+
+    h2 {
+      font-size: 48px;
+      font-weight: 800;
+      margin: 16px 0;
+    }
+
+    p {
+      font-size: 20px;
+      opacity: 0.9;
+      margin-bottom: 32px;
+    }
+  }
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arrow {
+  width: 16px;
+  height: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+}
+
+.badge {
+  padding: 8px 16px;
+}
+
+.ctaContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.demoWrapper {
+  position: relative;
+  width: 100%;
+  padding: 80px 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(226, 232, 240) 50%,
+      transparent 100%
+    );
+  }
+
+  .demoContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+
+    h2 {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--primary) 40%, var(--second) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientFlow 6s ease infinite;
+
+      @media (max-width: 768px) {
+        font-size: 40px;
+      }
+    }
+
+    .subText {
+      font-size: 20px;
+      line-height: 1.6;
+      color: #64748b;
+      max-width: 720px;
+      margin: 0 auto 48px;
+      opacity: 0.9;
+
+      @media (max-width: 768px) {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .modelIcons {
+    position: relative;
+    width: 100%;
+    padding: 32px 0;
+    overflow: hidden;
+    /* 使用漸層遮罩讓左右邊緣過渡更自然 */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+
+    .sliderContainer {
+      display: flex;
+      width: 200%; // 兩組圖標重複
+      animation: slide 30s linear infinite;
+    }
+
+    .iconSlider {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      padding-right: 64px; // 確保兩組圖標之間間距一致
+    }
+
+    .modelIcon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      color: #475569;
+      opacity: 0.8;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      &:hover {
+        opacity: 1;
+        transform: translateY(-6px) scale(1.1);
+        filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+      }
+    }
+  }
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 使兩組圖標連續滑動，走完一輪後無縫接軌 */
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+

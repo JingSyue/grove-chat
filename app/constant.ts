@@ -50,6 +50,7 @@ export const CUSTOMSUBTITLE: string = "AI Assistant"; // set your default custom
 
 export enum Path {
   Home = "/",
+  About = "/about",
   Chat = "/chat",
   Settings = "/settings",
   NewChat = "/new-chat",
