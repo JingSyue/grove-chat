@@ -26,53 +26,53 @@
 ## Table of contents
 
 -   [Enterprise Edition](#企業版)
--   [Features](#功能特點)
+-   [Functional Features](#功能特點)
 -   [Get started](#開始使用)
 -   [Configure page access password](#配置頁面訪問密碼)
--   [environment variables](#環境變量)
+-   [Environment variables](#環境變量)
 -   [User model settings](#用戶模型設置)
--   [local development](#開發)
+-   [Local development](#開發)
 -   [screenshot](#截圖)
 -   [Related projects](#相關項目)
--   [Open source agreement](#開源協議)
+-   [Open Source Protocol](#開源協議)
 -   [Change description](./CHANGELOG.md)
 
 ## Enterprise Edition
 
-Meet your company’s private deployment and customization needs
+Meet your company's privatization deployment and customization needs
 
--   **Brand customization**: Enterprise-tailored VI/UI, seamlessly matching the corporate brand image
--   **Resource integration**: Dozens of AI resources are configured and managed uniformly by enterprise managers, and team members can use them out of the box
--   **Permission management**: Member permissions, resource permissions, and knowledge base permissions are clearly hierarchical and unified controlled by the enterprise-level Admin Panel
--   **knowledge access**: The combination of an enterprise's internal knowledge base and AI capabilities is closer to the enterprise's own business needs than general AI.
--   **security audit**: Automatically intercept sensitive questions and support tracing all historical conversation records, allowing AI to also comply with corporate information security regulations.
--   **private deployment**: Enterprise-level private deployment, supporting various mainstream private cloud deployments to ensure data security and privacy protection
--   **Continuous updates**: Provide continuous updating and upgrading services for cutting-edge capabilities such as multi-modality and intelligence, which are frequently used and constantly advanced.
+-   **Brand customization**: Customized VI/UI for enterprises, seamlessly fits the corporate brand image
+-   **Resource integration**: Enterprise managers uniformly configure and manage dozens of AI resources, and team members can use it out of the box
+-   **Permission Management**: Member permissions, resource permissions, and knowledge base permissions are clearly defined, and enterprise-level Admin Panel unified control
+-   **Knowledge access**: The internal knowledge base of the enterprise is combined with AI capabilities, which is closer to the enterprise's own business needs than general AI
+-   **Security Audit**: Automatically intercept sensitive questions, support tracing all historical dialogue records, so that AI can also follow enterprise information security specifications
+-   **Private deployment**: Enterprise-level private deployment, supporting various mainstream private cloud deployments, ensuring data security and privacy protection
+-   **Continuous update**: Provide services for continuous update and upgrade of cutting-edge capabilities such as multimodal and agents, and are always new and continuously advanced.
 
-Enterprise version consultation:**empty**
+Enterprise Edition Consultation:**empty**
 
 <img width="300" src="">
 
-## Features
+## Functional Features
 
--   Deploy on Vercel for free with one click and takes less than 1 minute
--   Streamlined client (~5MB) for Linux/Windows/MacOS, download now
--   Fully compatible with self-deployed LLM, recommended for use with RWKV-Runner or LocalAI
--   Privacy first, all data is stored locally in the browser
+-   Deployment on Vercel for free in less than 1 minute
+-   Lite client (approximately 5MB) for Linux/Windows/MacOS, download now
+-   Fully compatible with self-deployed LLM, it is recommended to use it with RWKV-Runner or LocalAI
+-   Privacy is preferred, all data is stored in a local browser
 -   Support Markdown: LaTex, mermaid, code highlighting, etc.
--   Responsive design, supports dark mode and PWA
--   The first screen loads quickly (about 100kb) and supports streaming response
--   New in v2: Use prompt templates (mask) to create, share and debug your chat tools
+-   Responsive design, support for dark mode and PWA
+-   The first screen loads fast (approximately 100kb), supports streaming response
+-   v2 new features: Create, share and debug your chat tools using prompt templates (masks)
 -   Automatically compress chat history to support long conversations while saving your tokens
--   Multi-language support: English, Simplified Chinese, Traditional Chinese, Japanese, French, Spanish, Italian, Turkish, German, Vietnamese, Russian, Czech, Korean, Indonesian
+-   Multilingual support: English, Simplified Chinese, Traditional Chinese, Japanese, French, Spanish, Italian, Turkish, German, Vietnamese, Russian, Czech, Korean, Indonesian
 
 ## Get started
 
-1.  get yours ready[OpenAI API Key](https://platform.openai.com/account/api-keys);
-2.  Using Clerk as User Permission Management[Clerk official website](https://clerk.com/)[Configuration file](#配置頁面訪問密碼)
-3.  Click the button on the right to start deployment:[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat), just log in directly with your GitHub account. Remember to fill in the API Key and[User rights management](#配置訪問權限Clerk)Clerk；
-4.  After deployment is completed, you can start using it;
-5.  (optional)[Bind a custom domain name](https://vercel.com/docs/concepts/projects/domains/add-a-domain): The domain name DNS assigned by Vercel is contaminated in some areas. Bind a custom domain name to connect directly.
+1.  Get yours ready[Openai API Key](https://platform.openai.com/account/api-keys);
+2.  Use Clerk as user permission management[Clerk official website](https://clerk.com/)[Configuration File](#配置頁面訪問密碼)
+3.  Click the button on the right to start deployment:[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat), just use the GitHub account to log in, remember to fill in the API Key and[User permission management](#配置訪問權限Clerk)Clerk；
+4.  After the deployment is completed, you can start using it;
+5.  (Optional)[Bind custom domain name](https://vercel.com/docs/concepts/projects/domains/add-a-domain): Vercel-assigned domain name DNS is polluted in some areas, so you can directly connect to the custom domain name by binding it.
 
 <div align="center">
    
@@ -82,23 +82,23 @@ Enterprise version consultation:**empty**
 
 ## Configure page access password
 
-> This project has abandoned the CODE environment variable of the original project NextChat and uses the Clerk management page access password.
+> This project has deprecated the CODE environment variables of the original project NextChat and used the Clerk management page to access the password.
 >
-> ### Step 1: Sign up for a Clerk account
+> ### Step 1: Register a Clerk account
 >
-> Go to[Clerk official website](https://clerk.com/), register an account and log in. After logging in, click**Create Application**(Build Application).
+> Go[Clerk official website](https://clerk.com/), register an account and log in. After logging in, click**Create Application**(Build an application).
 
 <img src="./docs/images/clerk/clerk1.png" alt="create application" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Step 2: Select a login option
+### Step 2: Select the login option
 
-enable**Email**(required) and**Google**(optional) option, as shown below.
+Enable**Email**(necessary) and**Google**(Select) option, as shown in the figure below.
 
 <img src="./docs/images/clerk/clerk2.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Step 3: Obtain API key
+### Step 3: Obtain the API Key
 
-find your`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`and`CLERK_SECRET_KEY`. add them to`.env`file, as shown below:
+Find yours`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`and`CLERK_SECRET_KEY`. Add them to`.env`In the archive, as shown below:
 
 ```env
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=你的公開金鑰
@@ -109,25 +109,25 @@ CLERK_SECRET_KEY=你的密鑰
 
 ### Step 4: Configure email and password
 
-Go to**Configure > Email, phone, username**(Configuration > Email, Phone, Username), make sure it is enabled**Email**(e-mail),**Password**(password) and**Email verification code**(email verification code).
+Go**Configure > Email, phone, username**(Configuration > Email, Phone, User Name), make sure to enable**Email**(e-mail),**Password**（密碼）和 **Email verification code**(Email verification code).
 
 <img src="./docs/images/clerk/clerk4.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Step 5: Configure roles and permissions
+### Step 5: Configure Roles and Permissions
 
 Set roles and permissions as shown in the figure below:
 
 <img src="./docs/images/clerk/clerk5.png" alt="roles" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Step 6: General settings
+### Step 6: General Settings
 
-Go to**Configure > Settings**(Configuration > Settings) and set the options as shown below:
+Go**Configure > Settings**(Configuration > Settings), and set the options as shown in the figure below:
 
 <img src="./docs/images/clerk/clerk6.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Step 7: Configure Webhooks
+### Step 7: Configure Webhook
 
-Set the webhook endpoint to your listening URL. Click**Signing Secret**(signing key) View your`CLERK_WEBHOOK_SECRET`, and add it to`.env`In the archives:
+Set the webhook endpoint to your listening URL. Click**Signing Secret**(Signature Key) View your`CLERK_WEBHOOK_SECRET`and add it to`.env`In the file:
 
 ```env
 CLERK_WEBHOOK_SECRET=你的webhook密鑰
@@ -135,15 +135,15 @@ CLERK_WEBHOOK_SECRET=你的webhook密鑰
 
 <img src="./docs/images/clerk/clerk7.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Step 8: Create users
+### Step 8: Create a user
 
-Create user accounts as needed.
+Create a user account as needed.
 
 <img src="./docs/images/clerk/clerk8.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Step 9: Build an organization
+### Step 9: Build an Organization
 
-Set up an organization and add the developer's email address. Set their role to**Teacher**(teacher).<img src="./docs/images/clerk/clerk9.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+Create an organization and add a developer's email address. Set their roles to**Teacher**(teacher).<img src="./docs/images/clerk/clerk9.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
 ## Manage multi-administrator Grove applications
 
@@ -153,239 +153,239 @@ Click on the upper left corner**Create Organization**(Build an organization).<im
 
 ### Step 2: Transfer ownership
 
-Go to**Configure > Settings**(Configuration > Settings), click**Transfer Ownership**(Transfer of ownership). Set the new owner to the organization you just created.
+Go**Configure > Settings**(Configuration > Settings), click**Transfer Ownership**(Transfer of ownership). Set the new owner to the organization you just built.
 
 <img src="./docs/images/clerk/clerk11.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### Step 3: Add additional users
+### Step 3: Add other users
 
-Click on the upper left corner**Manage**(Admin) to add additional users and grant them administrative access.<img src="./docs/images/clerk/clerk12.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/><img src="./docs/images/clerk/clerk13.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+Click on the upper left corner**Manage**(Management) to add other users and grant them administrative access rights.<img src="./docs/images/clerk/clerk12.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/><img src="./docs/images/clerk/clerk13.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
 <img src="./docs/images/login.png" alt="用戶登入" style="width: 800px;"/>
 
 <img src="./docs/images/clerkorg.png" alt="權限管理" style="width: 800px;"/>
 
-## environment variables
+## Environment variables
 
-> Most of the configuration items in this project are set through environment variables. Tutorial:[How to modify Vercel environment variables](./docs/vercel-cn.md)。
+> Most configuration items in this project are set through environment variables. Tutorial:[How to modify Vercel environment variables](./docs/vercel-cn.md)。
 
-### `OPENAI_API_KEY`(required)
+### `OPENAI_API_KEY`(Required)
 
-OpenAI key, the api key you applied for on the openai account page, use English commas to separate multiple keys, so that these keys can be randomly polled.
+OpenAI 密鑰，你在 openai 賬戶頁面申請的 api key，使用英文逗號隔開多個 key，這樣可以隨機輪詢這些 key。
 
-### `CLERK_SECRET_KEY`(required)
+### `CLERK_SECRET_KEY`(Required)
 
-Clerk user management
+Clerk User Management
 
-### `CLERK_WEBHOOK_SECRET`(required)
+### `CLERK_WEBHOOK_SECRET`(Required)
 
-Clerk user management
+Clerk User Management
 
-### `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`(required)
+### `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`(Required)
 
-Clerk user management
+Clerk User Management
 
-### `BASE_URL`(optional)
+### `BASE_URL`(Optional)
 
 > default:`https://api.openai.com`
 
 > Example:`http://your-openai-proxy.com`
 
-OpenAI interface proxy URL, if you manually configured the openai interface proxy, please fill in this option.
+OpenAI interface proxy URL, if you manually configure the openai interface proxy, please fill in this option.
 
-> If you have issues with ssl certificate, please replace`BASE_URL`The protocol is set to http.
+> If you encounter ssl certificate problems, please turn`BASE_URL`The protocol is set to http.
 
-### `OPENAI_ORG_ID`(optional)
+### `OPENAI_ORG_ID`(Optional)
 
-Specify the organization ID in OpenAI.
+Specifies the organization ID in OpenAI.
 
-### `AZURE_URL`(optional)
+### `AZURE_URL`(Optional)
 
-> Shape like: https&#x3A;//{azure-resource-url}/openai
+> For example: https&#x3A;//{azure-resource-url}/openai
 
 Azure deployment address.
 
-### `AZURE_API_KEY`(optional)
+### `AZURE_API_KEY`(Optional)
 
 Azure key.
 
-### `AZURE_API_VERSION`(optional)
+### `AZURE_API_VERSION`(Optional)
 
-Azure API version you can find here:[Azure documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#chat-completions)。
+Azure Api version, you can find it here:[Azure Documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#chat-completions)。
 
-### `GOOGLE_API_KEY`(optional)
+### `GOOGLE_API_KEY`(Optional)
 
 Google Gemini Pro Key.
 
-### `GOOGLE_URL`(optional)
+### `GOOGLE_URL`(Optional)
 
 Google Gemini Pro Api Url。
 
-### `ANTHROPIC_API_KEY`(optional)
+### `ANTHROPIC_API_KEY`(Optional)
 
 Anthropic Claude Api Key。
 
-### `ANTHROPIC_API_VERSION`(optional)
+### `ANTHROPIC_API_VERSION`(Optional)
 
-Anthropic Claude API version.
+Anthropic Claude Api version.
 
-### `ANTHROPIC_URL`(optional)
+### `ANTHROPIC_URL`(Optional)
 
 Anthropic Claude Api Url。
 
-### `BAIDU_API_KEY`(optional)
+### `BAIDU_API_KEY`(Optional)
 
-Baidu Fire Key。
+Baidu API Key。
 
-### `BAIDU_SECRET_KEY`(optional)
+### `BAIDU_SECRET_KEY`(Optional)
 
 Baidu Secret Key。
 
-### `BAIDU_URL`(optional)
+### `BAIDU_URL`(Optional)
 
-Baidu Fire Url。
+Baidu API URL。
 
-### `BYTEDANCE_API_KEY`(optional)
+### `BYTEDANCE_API_KEY`(Optional)
 
 ByteDance Api Key。
 
-### `BYTEDANCE_URL`(optional)
+### `BYTEDANCE_URL`(Optional)
 
 ByteDance Api Url。
 
-### `ALIBABA_API_KEY`(optional)
+### `ALIBABA_API_KEY`(Optional)
 
-Alibaba Cloud (Qianwen) API Key.
+Alibaba Cloud (Qianwen) Api Key.
 
-### `ALIBABA_URL`(optional)
+### `ALIBABA_URL`(Optional)
 
-Alibaba Cloud (Qianwen) API Url.
+Alibaba Cloud (Qianqu) Api Url.
 
-### `IFLYTEK_URL`(optional)
+### `IFLYTEK_URL`(Optional)
 
-iFlytek Spark Api Url.
+iFLYTEK Api Url.
 
-### `IFLYTEK_API_KEY`(optional)
+### `IFLYTEK_API_KEY`(Optional)
 
-iFlytek Spark API Key.
+iFLYTEK Api Key.
 
-### `IFLYTEK_API_SECRET`(optional)
+### `IFLYTEK_API_SECRET`(Optional)
 
-iFlytek Spark Api Secret.
+iFLYTEK Api Secret.
 
-### `CHATGLM_API_KEY`(optional)
+### `CHATGLM_API_KEY`(Optional)
 
 ChatGLM Api Key。
 
-### `CHATGLM_URL`(optional)
+### `CHATGLM_URL`(Optional)
 
 ChatGLM Api Url。
 
-### `XAI_API_KEY`(optional)
+### `XAI_API_KEY`(Optional)
 
 XAI Api Key。
 
-### `XAI_URL`(optional)
+### `XAI_URL`(Optional)
 
 XAI Api Url。
 
-### `PERPLEXITY_API_KEY`(optional)
+### `PERPLEXITY_API_KEY`(Optional)
 
 PERPLEXITY Api Key。
 
-### `PERPLEXITY_URL`(optional)
+### `PERPLEXITY_URL`(Optional)
 
 PERPLEXITY Api Url。
 
-### `MOONSHOT_API_KEY`(optional)
+### `MOONSHOT_API_KEY`(Optional)
 
 MOONSHOT Api Key。
 
-### `MOONSHOT_URL`(optional)
+### `MOONSHOT_URL`(Optional)
 
 MOONSHOT Api Url
 
-### `HIDE_USER_API_KEY`(optional)
+### `HIDE_USER_API_KEY`(Optional)
 
-If you don't want users to fill in the API Key by themselves, just set this environment variable to 1.
+If you don't want the user to fill in the API Key, set this environment variable to 1.
 
-### `DISABLE_GPT4`(optional)
+### `DISABLE_GPT4`(Optional)
 
-If you don't want your users to use GPT-4, just set this environment variable to 1.
+If you don't want users to use GPT-4, just set this environment variable to 1.
 
-### `ENABLE_BALANCE_QUERY`(optional)
+### `ENABLE_BALANCE_QUERY`(Optional)
 
-If you want to enable the balance query function, just set this environment variable to 1.
+If you want to enable balance query, set this environment variable to 1.
 
-### `DISABLE_FAST_LINK`(optional)
+### `DISABLE_FAST_LINK`(Optional)
 
-If you want to disable parsing prefab settings from links, set this environment variable to 1.
+If you want to disable parsing prefabricated settings from links, set this environment variable to 1.
 
-### `WHITE_WEBDAV_ENDPOINTS`(optional)
+### `WHITE_WEBDAV_ENDPOINTS`(Optional)
 
-If you want to add the WebDAV service addresses that are allowed to be accessed, you can use this option. The format requirements are:
+If you want to add the WebDAV service address that is allowed to access, you can use this option, format requirements:
 
 -   Each address must be a complete endpoint
     > `https://xxxx/xxx`
--   multiple addresses to`,`connected
+-   Multiple addresses to`,`Connected
 
-### `CUSTOM_MODELS`(optional)
+### `CUSTOM_MODELS`(Optional)
 
-> Example:`+qwen-7b-chat,+glm-6b,-gpt-3.5-turbo,gpt-4-1106-preview=gpt-4-turbo`means increase`qwen-7b-chat`and`glm-6b`to the model list and remove from the list`gpt-3.5-turbo`, and will`gpt-4-1106-preview`The model name is displayed as`gpt-4-turbo`。  
-> If you want to disable all models first and then enable specific models, you can use`-all,+gpt-3.5-turbo`, which means only enabling`gpt-3.5-turbo`。
+> Example:`+qwen-7b-chat,+glm-6b,-gpt-3.5-turbo,gpt-4-1106-preview=gpt-4-turbo`Indicates an increase`qwen-7b-chat`and`glm-6b`to the model list and delete from the list`gpt-3.5-turbo`and will`gpt-4-1106-preview`The model name is displayed as`gpt-4-turbo`。  
+> If you want to disable all models first and then enable the specified model, you can use`-all,+gpt-3.5-turbo`, it means only enabled`gpt-3.5-turbo`。
 
-To control the model list, use`+`To add a model, use`-`To hide a model, use`模型名=展示名`Display names to customize the model, separated by commas.
+Used to control the model list, use`+`Add a model to use`-`To hide a model, use`模型名=展示名`Customize the presentation name of the model, separated by English commas.
 
-In Azure mode, it is supported to use`modelName@Azure=deploymentName`Configure the model name and deployment name (deploy-name).
+In Azure mode, it is supported`modelName@Azure=deploymentName`configurable model name and deployment name (deploy-name) in the way.
 
-> Example:`+gpt-3.5-turbo@Azure=gpt35`This configuration will display a`gpt35(Azure)`options.  
-> If you can only use Azure mode, then set`-all,+gpt-3.5-turbo@Azure=gpt35`You can make the conversation's default use`gpt35(Azure)`。
+> Example:`+gpt-3.5-turbo@Azure=gpt35`This configuration will display a`gpt35(Azure)`option.  
+> If you can only use Azure mode, then set it`-all,+gpt-3.5-turbo@Azure=gpt35`This allows the default usage of the conversation`gpt35(Azure)`。
 
-In ByteDance mode, support the use of`modelName@bytedance=deploymentName`Configure the model name and deployment name (deploy-name).
+In ByteDance mode, it is supported to use it`modelName@bytedance=deploymentName`configurable model name and deployment name (deploy-name) in the way.
 
-> Example:`+Doubao-lite-4k@bytedance=ep-xxxxx-xxx`This configuration will display a`Doubao-lite-4k(ByteDance)`options.
+> Example:`+Doubao-lite-4k@bytedance=ep-xxxxx-xxx`This configuration will display a`Doubao-lite-4k(ByteDance)`option.
 
-### `DEFAULT_MODEL`(optional)
+### `DEFAULT_MODEL`(Optional)
 
 Change the default model.
 
-### `DEFAULT_INPUT_TEMPLATE`(optional)
+### `DEFAULT_INPUT_TEMPLATE`(Optional)
 
-Customize the default template, which is used to initialize the "User Input Preprocessing" configuration item in "Settings".
+Customize the default template to initialize the "User Input Preprocessing" configuration item in "Settings".
 
-### `STABILITY_API_KEY`(optional)
+### `STABILITY_API_KEY`(Optional)
 
 Stability API key.
 
-### `STABILITY_URL`(optional)
+### `STABILITY_URL`(Optional)
 
-Customized Stability API request address.
+Custom Stability API request address.
 
 ## User model settings
 
 login
 
-> The API Key set by the system can be used according to the user's highest authority.
+> The API Key set by the system can be used according to the highest user permissions.
 
 Not logged in
 
-> If you are not logged in, you can fill in your own API Key in the proxy settings to use the guest model.
+> If you are not logged in, you can fill in your own API key in the proxy settings and use the guest model.
 
 User role after login
 
 > guest
 
-Role permissions can be changed in the Clerk dashboard
+Role permissions can be changed in Clerk dashboard
 
-> [Clerk configuration tutorial](#配置頁面訪問密碼)
+> [Clerk configuration teaching](#配置頁面訪問密碼)
 
-After configuring Clerk, teachers with teacher authority can directly manage the organization on the settings page in Grove Chat and invite members to further control the accessible models.
+After configuring Clerk, the teacher permissions can directly manage the organization and invite members to further control the accessible models in Grove Chat settings page.
 
-### Add new model
+### Added model
 
-[code file](./app/constant.ts)
+[Program code file](./app/constant.ts)
 
-Find model supplier to add new model
+Find the model vendor to add a new model
 
     const openaiModels = [
       "gpt-3.5-turbo",
@@ -412,7 +412,7 @@ Find model supplier to add new model
       "o1-preview",
     ];
 
-Manage access rights (must be in the model supplier's model list)
+Manage access permissions (must be in the model list of model suppliers)
 
       teacher: [
         "o1-mini",
@@ -432,14 +432,14 @@ Manage access rights (must be in the model supplier's model list)
         "grok-2-vision-1212",
       ],
 
-## develop
+## Development
 
-Users in mainland China can use the agent that comes with this project for development. You can also freely choose other agent addresses.
+Mainland Chinese users can use the agents that come with this project for development, and you can also freely choose other agent addresses.
 BASE_URL=<https://b.nextweb.fun/api/proxy>
 
-### local development
+### Local development
 
-1.  Create a new one in the project root directory`.env.local`file, fill in the environment variables:
+1.  Create a new one in the project root directory`.env.local`File, fill in environment variables:
 
 
     OPENAI_API_KEY=<your key here>
@@ -447,15 +447,15 @@ BASE_URL=<https://b.nextweb.fun/api/proxy>
     CLERK_WEBHOOK_SECRET=<your key here>
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your key here>
 
-2.  Install Node.js 18 and Yarn, please ask ChatGPT for details;
-3.  implement`yarn install && yarn dev`That’s it. ⚠️ Note: This command is only for local development, do not use it for deployment!
-4.  If you want to deploy locally, use`yarn install && yarn build && yarn start`command, you can use pm2 to daemonize the process to prevent it from being killed. Ask ChatGPT for details.
+2.  Install Node.js 18 and Yarn. For details, please ask ChatGPT;
+3.  implement`yarn install && yarn dev`Just do it. ⚠️ Note: This command is only used for local development and not for deployment!
+4.  If you want to deploy locally, please use`yarn install && yarn build && yarn start`Command, you can cooperate with pm2 to daemon to prevent being killed, ask ChatGPT for details.
 
 ### Container deployment
 
-> The Docker version needs to be 20 or above, otherwise it will prompt that the image cannot be found.
+> Docker version needs to be 20 or above, otherwise the image will not be found.
 
-> ⚠️ Note: Most of the time, the Docker version will lag behind the latest version by 1 to 2 days, so the "update exists" prompt will continue to appear after deployment, which is normal.
+> ⚠️ Note: Docker version will lag behind the latest version by 1 to 2 days most of the time, so the prompt "existence update" will continue to appear after deployment, which is normal.
 
 ```shell
 docker pull robbiedood/grove-chat
@@ -468,7 +468,7 @@ docker run -d -p 3000:3000 \
    robbiedood/grove-chat
 ```
 
-You can also specify a proxy:
+You can also specify proxy:
 
 ```shell
 docker run -d -p 3000:3000 \
@@ -481,23 +481,23 @@ docker run -d -p 3000:3000 \
    robbiedood/grove-chat
 ```
 
-If your local agent requires an account and password, you can use:
+If your local agent needs an account password, you can use:
 
 ```shell
 -e PROXY_URL="http://127.0.0.1:7890 user password"
 ```
 
-If you need to specify other environment variables, please add them to the above command yourself.`-e 環境變量=環境變量值`to specify.
+If you need to specify other environment variables, please add them to the above command`-e 環境變量=環境變量值`To specify.
 
-### local deployment
+### Local deployment
 
-Run the following command on the console:
+Run the following command in the console:
 
 ```shell
 bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scripts/setup.sh)
 ```
 
-⚠️ Note: If you encounter problems during installation, please use Docker deployment.
+⚠️ Note: If you encounter problems during the installation process, please use Docker to deploy.
 
 ## screenshot
 
@@ -508,12 +508,12 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 ### Related projects
 
 -   [ChatGPT-Next-Web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web):
-    A one-stop large model platform that supports all major large language models on the market.
+    One-stop big model platform, supporting all mainstream big language models on the market.
 
--   [one-api](https://github.com/songquanpeng/one-api): A one-stop large model quota management platform that supports all mainstream large language models on the market.
+-   [one-api](https://github.com/songquanpeng/one-api): One-stop large-model quota management platform, supporting all mainstream large-language models on the market.
 
--   [Mr.-Ranedeer-AI-Tutor](https://github.com/JushBJJ/Mr.-Ranedeer-AI-Tutor):AI-Tutor
+-   [Mr.-Ranedeer-AI-Tutor](https://github.com/JushBJJ/Mr.-Ranedeer-AI-Tutor): Ai-tutor
 
-## Open source agreement
+## Open Source Protocol
 
 [WITH](https://opensource.org/license/mit/)
