@@ -26,6 +26,9 @@ import { getMessageTextContent } from "@/app/utils";
 import { RequestPayload } from "./openai";
 import { fetch } from "@/app/utils/stream";
 export class DeepSeekApi implements LLMApi {
+  uploadFile(formData: FormData): Promise<any> {
+    throw new Error("Method not implemented.");
+  }
   private disableListModels = true;
   path(path: string): string {
     const accessStore = useAccessStore.getState();
