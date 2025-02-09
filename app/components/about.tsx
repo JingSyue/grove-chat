@@ -5,7 +5,7 @@ import { Path } from "../constant";
 import { useUser } from "@clerk/nextjs";
 import { Bot, Shield, Zap, MessageSquare, PenTool, Search } from "lucide-react";
 import { FeatureCard, Badge } from "./ui-lib";
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import OpenAIIcon from "../icons/openai.svg";
 import AnthropicIcon from "../icons/anthropic.svg";
 import PerplexityIcon from "../icons/perplexity.svg";
@@ -80,16 +80,15 @@ export function About() {
           <div className={styles.actions}>
             <IconButton
               text="探索更多"
-              type="primary"
               onClick={() => {
                 document.getElementById("features")?.scrollIntoView({
                   behavior: "smooth",
                 });
               }}
             />
-            <SignInButton mode="modal" forceRedirectUrl="/#/chat">
+            <SignUpButton mode="modal">
               <IconButton text="立即體驗" type="primary" />
-            </SignInButton>
+            </SignUpButton>
           </div>
 
           <div className={styles.demoWrapper}>
