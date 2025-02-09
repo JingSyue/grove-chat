@@ -51,15 +51,6 @@ import ShortcutkeyIcon from "../icons/shortcutkey.svg";
 import ReloadIcon from "../icons/reload.svg";
 import HeadphoneIcon from "../icons/headphone.svg";
 
-import OpenAIIcon from "../icons/openai.svg";
-import AnthropicIcon from "../icons/anthropic.svg";
-import PerplexityIcon from "../icons/perplexity.svg";
-import XAIIcon from "../icons/xai.svg";
-import BaiduIcon from "../icons/baidu.svg";
-import ByteDanceIcon from "../icons/bytedance.svg";
-import AlibabaIcon from "../icons/alibaba.svg";
-import GoogleIcon from "../icons/gemini.svg";
-import MoonshotIcon from "../icons/moonshot.svg";
 import {
   ChatMessage,
   SubmitKey,
@@ -604,59 +595,6 @@ export function ChatActions(props: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatStore, currentModel, models, session]);
 
-  const ProviderIcon = {
-    OpenAI: (
-      <div className="no-dark">
-        <OpenAIIcon />
-      </div>
-    ),
-    Azure: (
-      <div className="no-dark">
-        <OpenAIIcon />
-      </div>
-    ),
-    Anthropic: (
-      <div className="no-dark">
-        <AnthropicIcon />
-      </div>
-    ),
-    Google: (
-      <div className="no-dark">
-        <GoogleIcon />
-      </div>
-    ),
-    ByteDance: (
-      <div className="no-dark">
-        <ByteDanceIcon />
-      </div>
-    ),
-    Baidu: (
-      <div className="no-dark">
-        <BaiduIcon />
-      </div>
-    ),
-    Alibaba: (
-      <div className="no-dark">
-        <AlibabaIcon />
-      </div>
-    ),
-    Moonshot: (
-      <div className="no-dark">
-        <MoonshotIcon />
-      </div>
-    ),
-    Perplexity: (
-      <div className="no-dark">
-        <PerplexityIcon />
-      </div>
-    ),
-    XAI: (
-      <div className="no-dark">
-        <XAIIcon />
-      </div>
-    ),
-  };
-
   return (
     <div className={styles["chat-input-actions"]}>
       <>
@@ -689,21 +627,23 @@ export function ChatActions(props: {
             icon={props.uploading ? <LoadingButtonIcon /> : <ImageIcon />}
           />
         )}
-        <ChatAction
-          onClick={nextTheme}
-          text={Locale.Chat.InputActions.Theme[theme]}
-          icon={
-            <>
-              {theme === Theme.Auto ? (
-                <AutoIcon />
-              ) : theme === Theme.Light ? (
-                <LightIcon />
-              ) : theme === Theme.Dark ? (
-                <DarkIcon />
-              ) : null}
-            </>
-          }
-        />
+        {!config.neatUI && (
+          <ChatAction
+            onClick={nextTheme}
+            text={Locale.Chat.InputActions.Theme[theme]}
+            icon={
+              <>
+                {theme === Theme.Auto ? (
+                  <AutoIcon />
+                ) : theme === Theme.Light ? (
+                  <LightIcon />
+                ) : theme === Theme.Dark ? (
+                  <DarkIcon />
+                ) : null}
+              </>
+            }
+          />
+        )}
 
         <ChatAction
           onClick={props.showPromptHints}
@@ -711,28 +651,32 @@ export function ChatActions(props: {
           icon={<PromptIcon />}
         />
 
-        <ChatAction
-          onClick={() => {
-            navigate(Path.Masks);
-          }}
-          text={Locale.Chat.InputActions.Masks}
-          icon={<MaskIcon />}
-        />
+        {!config.neatUI && (
+          <ChatAction
+            onClick={() => {
+              navigate(Path.Masks);
+            }}
+            text={Locale.Chat.InputActions.Masks}
+            icon={<MaskIcon />}
+          />
+        )}
 
-        <ChatAction
-          text={Locale.Chat.InputActions.Clear}
-          icon={<BreakIcon />}
-          onClick={() => {
-            chatStore.updateTargetSession(session, (session) => {
-              if (session.clearContextIndex === session.messages.length) {
-                session.clearContextIndex = undefined;
-              } else {
-                session.clearContextIndex = session.messages.length;
-                session.memoryPrompt = ""; // will clear memory
-              }
-            });
-          }}
-        />
+        {!config.neatUI && (
+          <ChatAction
+            text={Locale.Chat.InputActions.Clear}
+            icon={<BreakIcon />}
+            onClick={() => {
+              chatStore.updateTargetSession(session, (session) => {
+                if (session.clearContextIndex === session.messages.length) {
+                  session.clearContextIndex = undefined;
+                } else {
+                  session.clearContextIndex = session.messages.length;
+                  session.memoryPrompt = ""; // will clear memory
+                }
+              });
+            }}
+          />
+        )}
 
         <ChatAction
           onClick={() => setShowModelSelector(true)}
@@ -750,11 +694,7 @@ export function ChatActions(props: {
                   : ""
               }`,
               value: `${m.name}@${m?.provider?.providerName}`,
-              icon: m?.provider?.providerName
-                ? ProviderIcon[
-                    m.provider.providerName as keyof typeof ProviderIcon
-                  ]
-                : undefined,
+              icon: <Avatar model={m.name} />,
             }))}
             onClose={() => setShowModelSelector(false)}
             onSelection={(s) => {
@@ -899,7 +839,7 @@ export function ChatActions(props: {
           />
         )}
 
-        {!isMobileScreen && (
+        {!config.neatUI && !isMobileScreen && (
           <ChatAction
             onClick={() => props.setShowShortcutKeyModal(true)}
             text={Locale.Chat.ShortcutKey.Title}
@@ -1753,59 +1693,6 @@ function _Chat() {
 
   const [showChatSidePanel, setShowChatSidePanel] = useState(false);
 
-  const ProviderIcon = {
-    OpenAI: (
-      <div className="no-dark">
-        <OpenAIIcon />
-      </div>
-    ),
-    Azure: (
-      <div className="no-dark">
-        <OpenAIIcon />
-      </div>
-    ),
-    Anthropic: (
-      <div className="no-dark">
-        <AnthropicIcon />
-      </div>
-    ),
-    Google: (
-      <div className="no-dark">
-        <GoogleIcon />
-      </div>
-    ),
-    ByteDance: (
-      <div className="no-dark">
-        <ByteDanceIcon />
-      </div>
-    ),
-    Baidu: (
-      <div className="no-dark">
-        <BaiduIcon />
-      </div>
-    ),
-    Alibaba: (
-      <div className="no-dark">
-        <AlibabaIcon />
-      </div>
-    ),
-    Moonshot: (
-      <div className="no-dark">
-        <MoonshotIcon />
-      </div>
-    ),
-    Perplexity: (
-      <div className="no-dark">
-        <PerplexityIcon />
-      </div>
-    ),
-    XAI: (
-      <div className="no-dark">
-        <XAIIcon />
-      </div>
-    ),
-  };
-
   const currentModel = chatStore.currentSession().mask.modelConfig.model;
   const [showModelSelector, setShowModelSelector] = useState(false);
   const currentProviderName =
@@ -1879,12 +1766,7 @@ function _Chat() {
             <IconButton
               onClick={() => setShowModelSelector(true)}
               bordered
-              icon={
-                ProviderIcon[
-                  session.mask.modelConfig
-                    .providerName as keyof typeof ProviderIcon
-                ]
-              }
+              icon={<Avatar model={currentModel} />}
             />
           )}
 
@@ -1898,11 +1780,7 @@ function _Chat() {
                     : ""
                 }`,
                 value: `${m.name}@${m?.provider?.providerName}`,
-                icon: m?.provider?.providerName
-                  ? ProviderIcon[
-                      m.provider.providerName as keyof typeof ProviderIcon
-                    ]
-                  : undefined,
+                icon: <Avatar model={m.name} />,
               }))}
               onClose={() => setShowModelSelector(false)}
               onSelection={(s) => {
@@ -1948,7 +1826,7 @@ function _Chat() {
             </div>
           </div>
           <div className="window-actions">
-            {!isMobileScreen && (
+            {!isMobileScreen && !config.neatUI && (
               <div className="window-action-button">
                 <IconButton
                   icon={<ReloadIcon />}
@@ -1965,16 +1843,11 @@ function _Chat() {
               <IconButton
                 onClick={() => setShowModelSelector(true)}
                 bordered
-                icon={
-                  ProviderIcon[
-                    session.mask.modelConfig
-                      .providerName as keyof typeof ProviderIcon
-                  ]
-                }
+                icon={<Avatar model={currentModel} />}
               />
             )}
 
-            {!isMobileScreen && (
+            {!isMobileScreen && !config.neatUI && (
               <div className="window-action-button">
                 <IconButton
                   icon={<RenameIcon />}
@@ -1985,7 +1858,7 @@ function _Chat() {
                 />
               </div>
             )}
-            {!isMobileScreen && (
+            {!isMobileScreen && !config.neatUI && (
               <div className="window-action-button">
                 <IconButton
                   icon={<ExportIcon />}

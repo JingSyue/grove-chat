@@ -12,6 +12,7 @@ import { handle as stabilityHandler } from "../../stability";
 import { handle as perplexityHandler } from "../../perplexity";
 import { handle as xaiHandler } from "../../xai";
 import { handle as iflytekHandler } from "../../iflytek";
+import { handle as deepseekHandler } from "../../deepseek";
 import { handle as chatglmHandler } from "../../glm";
 import { handle as proxyHandler } from "../../proxy";
 
@@ -47,6 +48,8 @@ async function handle(
       return xaiHandler(req, { params });
     case ApiPath.Iflytek:
       return iflytekHandler(req, { params });
+    case ApiPath.DeepSeek:
+      return deepseekHandler(req, { params });
     case ApiPath.ChatGLM:
       return chatglmHandler(req, { params });
     default:

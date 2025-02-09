@@ -1,6 +1,6 @@
 <div align="center">
 
-[英語](./README.en.md)\|[簡体字中国語](./README.zh-CN.md)\|[アラビア語](./README.ar.md)\|[フランス語](./README.fr.md)\|[日本語](./README.ja.md)
+[英語](./README.en.md)\|[単純化された中国人](./README.zh-CN.md)\|[アラビア語](./README.ar.md)\|[フランス語](./README.fr.md)\|[日本語](./README.ja.md)
 
 </div>
 <div align="center">
@@ -26,53 +26,53 @@
 ## 目次
 
 -   [企業版](#企業版)
--   [特徴](#功能特點)
+-   [機能的特徴](#功能特點)
 -   [開始使用](#開始使用)
--   [ページアクセスパスワードを設定する](#配置頁面訪問密碼)
+-   [ページアクセスパスワードを構成します](#配置頁面訪問密碼)
 -   [環境変数](#環境變量)
--   [ユーザーモデルの設定](#用戶模型設置)
--   [地域開発](#開發)
+-   [ユーザーモデル設定](#用戶模型設置)
+-   [ローカル開発](#開發)
 -   [スクリーンショット](#截圖)
 -   [関連プロジェクト](#相關項目)
--   [オープンソース契約](#開源協議)
+-   [オープンソースプロトコル](#開源協議)
 -   [説明の変更](./CHANGELOG.md)
 
 ## 企業版
 
-会社のプライベート展開とカスタマイズのニーズに対応します
+あなたの会社の民営化の展開とカスタマイズのニーズを満たしてください
 
--   **ブランドのカスタマイズ**：企業のブランドイメージに合わせたエンタープライズ向けのVI/UI
--   **資源集成**: 数十の AI リソースがエンタープライズ マネージャーによって一元的に構成および管理され、チーム メンバーはすぐにそれらを使用できます。
--   **権限管理**: メンバー権限、リソース権限、ナレッジベース権限は明確に階層化されており、エンタープライズレベルの管理パネルによって統合制御されます。
--   **知識へのアクセス**：企業の内部知識ベースと AI 機能の組み合わせは、一般的な AI よりも企業自身のビジネス ニーズに近いものになります。
--   **セキュリティ監査**：機密性の高い質問を自動的に傍受し、すべての過去の会話記録の追跡をサポートし、AI が企業の情報セキュリティ規制にも準拠できるようにします
--   **プライベート展開**: エンタープライズレベルのプライベート展開。さまざまな主流のプライベートクラウド展開をサポートし、データセキュリティとプライバシー保護を確保します。
--   **継続的なアップデート**: 頻繁に使用され、常に進歩しているマルチモーダル エージェントやインテリジェント エージェントなどの最先端の機能に対して、継続的な更新およびアップグレード サービスを提供します。
+-   **ブランドのカスタマイズ**：企業向けのカスタマイズされたVI/UIは、コーポレートブランドイメージにシームレスに適合します
+-   **資源集成**：エンタープライズマネージャーは、数十のAIリソースを均一に構成および管理し、チームメンバーは箱から出して使用できます
+-   **許可管理**：メンバーの権限、リソース許可、および知識ベースの権限が明確に定義されており、エンタープライズレベルの管理パネル統一コントロールが明確に定義されています
+-   **知識アクセス**：エンタープライズの内部知識ベースは、一般的なAIよりも企業自身のビジネスニーズに近いAI機能と組み合わされています。
+-   **セキュリティ監査**：AIがエンタープライズ情報セキュリティの仕様に従うことができるように、すべての歴史的対話記録のトレースをサポートし、機密性の高い質問を自動的に傍受します
+-   **プライベート展開**：エンタープライズレベルのプライベート展開、さまざまな主流のプライベートクラウドの展開をサポートし、データセキュリティとプライバシー保護の確保
+-   **継続的な更新**：マルチモーダルやエージェントなどの最先端の機能を継続的に更新およびアップグレードするためのサービスを提供し、常に新しく継続的に高度です。
 
-エンタープライズ バージョンに関する相談:**空の**
+エンタープライズエディションの相談：**空の**
 
 <img width="300" src="">
 
-## 特徴
+## 機能的特徴
 
--   ワンクリックで Vercel に無料で導入でき、所要時間は 1 分以内です
--   Linux/Windows/MacOS 用の合理化されたクライアント (~5MB)、今すぐダウンロード
--   自己展開型 LLM と完全に互換性があり、RWKV-Runner または LocalAI との使用を推奨
--   プライバシーを第一に、すべてのデータはブラウザにローカルに保存されます
--   マークダウンのサポート: LaTex、マーメイド、コードの強調表示など。
--   レスポンシブデザイン、ダークモードとPWAをサポート
--   最初の画面はすぐに読み込まれ (約 100kb)、ストリーミング応答をサポートします。
--   v2 の新機能: プロンプト テンプレート (マスク) を使用してチャット ツールを作成、共有、デバッグします
--   チャット履歴を自動的に圧縮して、トークンを保存しながら長時間の会話をサポートします
--   多言語サポート: 英語、簡体字中国語、繁体字中国語、日本語、フランス語、スペイン語、イタリア語、トルコ語、ドイツ語、ベトナム語、ロシア語、チェコ語、韓国語、インドネシア語
+-   1分未満で無料でVercelに展開
+-   Linux/Windows/MacOSのLiteクライアント（約5MB）、今すぐダウンロードしてください
+-   自己展開されたLLMと完全に互換性があり、RWKVランナーまたはローカリで使用することをお勧めします
+-   プライバシーが推奨され、すべてのデータはローカルブラウザに保存されます
+-   サポートマークダウン：ラテックス、人魚、コードハイライトなど。
+-   レスポンシブデザイン、ダークモードおよびPWAのサポート
+-   最初の画面は高速（約100 kb）にロードされ、ストリーミング応答をサポートします
+-   V2新機能：プロンプトテンプレート（マスク）を使用してチャットツールを作成、共有、デバッグ
+-   チャット履歴を自動的に圧縮して、トークンを保存しながら長い会話をサポートします
+-   多言語のサポート：英語、単純化された中国語、伝統的な中国語、日本、フランス語、スペイン語、イタリア語、トルコ語、ドイツ語、ベトナム、ロシア語、チェコ、韓国語、インドネシア語
 
 ## 開始使用
 
-1.  準備をしてください[OpenAI API Key](https://platform.openai.com/account/api-keys);
-2.  使用Clerk作為用戶權限管理 [クラーク公式サイト](https://clerk.com/)[設定ファイル](#配置頁面訪問密碼)
-3.  右側のボタンをクリックして展開を開始します。[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)、GitHub アカウントで直接ログインするだけです。忘れずに API キーを入力してください。[ユーザー権限の管理](#配置訪問權限Clerk)店員;
+1.  あなたの準備をしてください[Openai APIキー](https://platform.openai.com/account/api-keys);
+2.  ユーザー許可管理として店員を使用します[書記官の公式ウェブサイト](https://clerk.com/)[構成ファイル](#配置頁面訪問密碼)
+3.  右側のボタンをクリックして、展開を開始します。[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)、GitHubアカウントを使用してログインするだけで、APIキーに記入してください。[ユーザー許可管理](#配置訪問權限Clerk)店員;
 4.  展開が完了したら、使用を開始できます。
-5.  （可選）[カスタム ドメイン名をバインドする](https://vercel.com/docs/concepts/projects/domains/add-a-domain): Vercel によって割り当てられたドメイン名 DNS が一部の地域で汚染されています。カスタム ドメイン名をバインドして直接接続してください。
+5.  （可選）[カスタムドメイン名をバインドします](https://vercel.com/docs/concepts/projects/domains/add-a-domain)：Vercel-Assignedドメイン名DNSは一部の領域で汚染されているため、バインディングしてカスタムドメイン名に直接接続できます。
 
 <div align="center">
    
@@ -80,25 +80,25 @@
 
 </div>
 
-## ページアクセスパスワードを設定する
+## ページアクセスパスワードを構成します
 
-> このプロジェクトは、元のプロジェクト NextChat の CODE 環境変数を放棄し、Clerk 管理ページのアクセス パスワードを使用します。
+> このプロジェクトは、元のプロジェクトNextChatのコード環境変数を非難し、Clerk Managementページを使用してパスワードにアクセスしました。
 >
-> ### ステップ 1: Clerk アカウントにサインアップする
+> ### ステップ1：店員アカウントを登録します
 >
-> に行く[クラーク公式サイト](https://clerk.com/), アカウントを登録してログインします。ログイン後、クリックしてください**アプリケーションの作成**(アプリケーションのビルド)。
+> 行く[書記官の公式ウェブサイト](https://clerk.com/)、アカウントを登録してログインします。ログインしたら、クリックします**アプリケーションを作成します**（アプリケーションを作成）。
 
 <img src="./docs/images/clerk/clerk1.png" alt="create application" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### ステップ 2: ログイン オプションを選択する
+### ステップ2：ログインオプションを選択します
 
-有効にする**電子メール**（必要）和**グーグル**(オプション) 以下に示すオプション。
+有効にする**メール**（必要）和**グーグル**（選択）オプション、下の図に示すように。
 
 <img src="./docs/images/clerk/clerk2.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### ステップ 3: API キーを取得する
+### ステップ3：APIキーを取得します
 
-あなたを見つけてください`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`そして`CLERK_SECRET_KEY`。それらを追加します`.env`以下に示すように、ファイルを作成します。
+あなたを見つけてください`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`そして`CLERK_SECRET_KEY`。それらを追加します`.env`以下に示すように、アーカイブで：
 
 ```env
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=你的公開金鑰
@@ -107,27 +107,27 @@ CLERK_SECRET_KEY=你的密鑰
 
 <img src="./docs/images/clerk/clerk3.png" alt="key" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### ステップ 4: 電子メールとパスワードを設定する
+### ステップ4：電子メールとパスワードを構成します
 
-に行く**設定 > 電子メール、電話番号、ユーザー名**(\[設定] > \[電子メール、電話、ユーザー名])、有効になっていることを確認します。**電子メール**(電子メール)、**パスワード**(パスワード)と**メール認証コード**(電子メール確認コード)。
+行く**configure> email、電話、ユーザー名**（構成>電子メール、電話、ユーザー名）、必ず有効にしてください**メール**（電子メール）、**パスワード**（パスワード）および**電子メール検証コード**（電子メール検証コード）。
 
 <img src="./docs/images/clerk/clerk4.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### ステップ 5: 役割と権限を構成する
+### ステップ5：役割と権限を構成します
 
-次の図に示すように、ロールと権限を設定します。
+下の図に示すように、役割と権限を設定します。
 
 <img src="./docs/images/clerk/clerk5.png" alt="roles" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### ステップ 6: 一般設定
+### ステップ6：一般的な設定
 
-に行く**「構成」>「設定」**(\[構成] > \[設定]) を選択し、以下に示すようにオプションを設定します。
+行く**configure> settings**（構成>設定）、次の図に示すようにオプションを設定します。
 
 <img src="./docs/images/clerk/clerk6.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### ステップ 7: Webhook を構成する
+### ステップ7：WebHookを構成します
 
-Webhook エンドポイントをリスニング URL に設定します。クリック**署名の秘密**(署名キー)`CLERK_WEBHOOK_SECRET`に追加します。`.env`アーカイブ内:
+WebHookエンドポイントをリスニングURLに設定します。クリック**署名秘密**（署名キー）あなたを見る`CLERK_WEBHOOK_SECRET`そしてそれを追加します`.env`ファイル：
 
 ```env
 CLERK_WEBHOOK_SECRET=你的webhook密鑰
@@ -135,31 +135,31 @@ CLERK_WEBHOOK_SECRET=你的webhook密鑰
 
 <img src="./docs/images/clerk/clerk7.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### ステップ 8: ユーザーを作成する
+### ステップ8：ユーザーを作成します
 
-必要に応じてユーザー アカウントを作成します。
+必要に応じてユーザーアカウントを作成します。
 
 <img src="./docs/images/clerk/clerk8.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### ステップ 9: 組織を構築する
+### ステップ9：組織を構築します
 
-組織を設定し、開発者の電子メール アドレスを追加します。役割を次のように設定します**教師**（教師）。<img src="./docs/images/clerk/clerk9.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+組織を作成し、開発者のメールアドレスを追加します。彼らの役割をに設定します**教師**（教師）。<img src="./docs/images/clerk/clerk9.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-## 複数管理者の Grove アプリケーションを管理する
+## マルチマニストレーターグローブアプリケーションを管理します
 
-### ステップ 1: 組織を構築する
+### ステップ1：組織を構築します
 
-左上隅をクリックします**組織の作成**（組織を構築する）。<img src="./docs/images/clerk/clerk10.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+左上隅をクリックします**組織を作成します**（組織の構築）。<img src="./docs/images/clerk/clerk10.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### ステップ 2: 所有権を譲渡する
+### ステップ2：所有権を転送します
 
-に行く**「構成」>「設定」**(\[構成] > \[設定])、クリックします。**所有権の譲渡**（所有権の移転）。新しい所有者を作成したばかりの組織に設定します。
+行く**configure> settings**（構成>設定）、クリックします**所有権を転送します**（所有権の譲渡）。新しい所有者を構築したばかりの組織に設定します。
 
 <img src="./docs/images/clerk/clerk11.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
-### ステップ 3: ユーザーを追加する
+### ステップ3：他のユーザーを追加します
 
-左上隅をクリックします**管理**(管理者) ユーザーを追加し、管理アクセスを許可します。<img src="./docs/images/clerk/clerk12.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/><img src="./docs/images/clerk/clerk13.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
+左上隅をクリックします**管理**（管理）他のユーザーを追加し、管理権の権利を付与する。<img src="./docs/images/clerk/clerk12.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/><img src="./docs/images/clerk/clerk13.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
 <img src="./docs/images/login.png" alt="用戶登入" style="width: 800px;"/>
 
@@ -167,23 +167,23 @@ CLERK_WEBHOOK_SECRET=你的webhook密鑰
 
 ## 環境変数
 
-> このプロジェクトの構成項目のほとんどは、チュートリアルを通じて設定されます。[Vercel 環境変数を変更する方法](./docs/vercel-cn.md)。
+> このプロジェクトのほとんどの構成項目は、環境変数を介して設定されています。[Vercel環境変数を変更する方法](./docs/vercel-cn.md)。
 
 ### `OPENAI_API_KEY`（必須）
 
-OpenAI キー (openai アカウント ページで申請した API キー) は、英語のカンマを使用して複数のキーを区切ります。これにより、これらのキーがランダムにポーリングされます。
+OpenAIアカウントページで申請するAPIキーであるOpenaiキーは、英語のコンマを使用して複数のキーを分離して、これらのキーをランダムにポーリングできるようにします。
 
 ### `CLERK_SECRET_KEY`（必須）
 
-店員ユーザー管理
+書記官ユーザー管理
 
 ### `CLERK_WEBHOOK_SECRET`（必須）
 
-店員ユーザー管理
+書記官ユーザー管理
 
 ### `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`（必須）
 
-店員ユーザー管理
+書記官ユーザー管理
 
 ### `BASE_URL`（可選）
 
@@ -191,9 +191,9 @@ OpenAI キー (openai アカウント ページで申請した API キー) は�
 
 > 例：`http://your-openai-proxy.com`
 
-OpenAI インターフェイス プロキシ URL。openai インターフェイス プロキシを手動で設定した場合は、このオプションを入力してください。
+OpenAIインターフェイスプロキシURL、OpenAIインターフェイスプロキシを手動で構成する場合は、このオプションを入力してください。
 
-> SSL 証明書に問題がある場合は、置き換えてください`BASE_URL`的協議設置為 http。
+> SSL証明書の問題が発生した場合は、ターンしてください`BASE_URL`的協議設置為 http。
 
 ### `OPENAI_ORG_ID`（可選）
 
@@ -201,21 +201,21 @@ OpenAI インターフェイス プロキシ URL。openai インターフェイ�
 
 ### `AZURE_URL`（可選）
 
-> 次のような形状: https&#x3A;//{azure-resource-url}/openai
+> 例：https：// {azure-resource-url}/openai
 
-Azure デプロイメントアドレス。
+Azureの展開アドレス。
 
 ### `AZURE_API_KEY`（可選）
 
-アズールキー。
+Azureキー。
 
 ### `AZURE_API_VERSION`（可選）
 
-Azure API バージョンは次の場所にあります。[Azureのドキュメント](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#chat-completions)。
+Azure APIバージョンでは、ここで見つけることができます：[Azureドキュメント](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#chat-completions)。
 
 ### `GOOGLE_API_KEY`(可選)
 
-Google Gemini プロキー。
+Google Gemini Proキー。
 
 ### `GOOGLE_URL`(可選)
 
@@ -223,169 +223,169 @@ Google Gemini Pro API URL。
 
 ### `ANTHROPIC_API_KEY`(可選)
 
-Anthropic Claude API キー。
+人類のクロードAPIキー。
 
 ### `ANTHROPIC_API_VERSION`(可選)
 
-Anthropic Claude API バージョン。
+人類のクロードAPIバージョン。
 
 ### `ANTHROPIC_URL`(可選)
 
-Anthropic Claude Api URL。
+人為的クロードAPI URL
 
 ### `BAIDU_API_KEY`(可選)
 
-百度ファイアキー。
+Baidu APIキー。
 
 ### `BAIDU_SECRET_KEY`(可選)
 
-百度の秘密キー。
+Baidu Secret Key。
 
 ### `BAIDU_URL`(可選)
 
-百度 API の URL。
+bedu api url。
 
 ### `BYTEDANCE_API_KEY`(可選)
 
-ByteDance ファイアキー。
+南に態度を落とすブレンチー。
 
 ### `BYTEDANCE_URL`(可選)
 
-ByteDance API URL。
+bytedance api url。
 
 ### `ALIBABA_API_KEY`(可選)
 
-Alibaba Cloud (Qianwen) API キー。
+Alibaba Cloud（Qianwen）APIキー。
 
 ### `ALIBABA_URL`(可選)
 
-Alibaba Cloud (Qianwen) API URL。
+Alibaba Cloud（QIANQU）API URL。
 
 ### `IFLYTEK_URL`(可選)
 
-iFlytek Spark API URL。
+iflytek api url。
 
 ### `IFLYTEK_API_KEY`(可選)
 
-iFlytek Spark API キー。
+iflytek APIキー。
 
 ### `IFLYTEK_API_SECRET`(可選)
 
-iFlytek Spark API シークレット。
+iflytek APIシークレット。
 
 ### `CHATGLM_API_KEY`(可選)
 
-ChatGLM APIキー。
+chatglm apiキー。
 
 ### `CHATGLM_URL`(可選)
 
-ChatGLM API URL。
+chatglm api url。
 
 ### `XAI_API_KEY`(可選)
 
-XAI API キー。
+Xai APIキー。
 
 ### `XAI_URL`(可選)
 
-こんにちは、アピ・オールです。
+そして
 
 ### `PERPLEXITY_API_KEY`(可選)
 
-PERPLEXITY API キー。
+Perplexity APIキー。
 
 ### `PERPLEXITY_URL`(可選)
 
-PERPLEXITY API URL。
+PRPELXITY API URL。
 
 ### `MOONSHOT_API_KEY`(可選)
 
-MOONSHOT API キー。
+ムーンショットAPIキー。
 
 ### `MOONSHOT_URL`(可選)
 
-MOONSHOT API URL
+ムーンショットAPI URL
 
 ### `HIDE_USER_API_KEY`（可選）
 
-ユーザーが自分で API キーを入力しないようにするには、この環境変数を 1 に設定します。
+ユーザーにAPIキーに入力したくない場合は、この環境変数を1に設定します。
 
 ### `DISABLE_GPT4`（可選）
 
-ユーザーに GPT-4 を使用させたくない場合は、この環境変数を 1 に設定してください。
+ユーザーにGPT-4を使用したくない場合は、この環境変数を1に設定してください。
 
 ### `ENABLE_BALANCE_QUERY`（可選）
 
-残高照会機能を有効にしたい場合は、この環境変数を 1 に設定するだけです。
+バランスクエリを有効にする場合は、この環境変数を1に設定します。
 
 ### `DISABLE_FAST_LINK`（可選）
 
-リンクからのプレハブ設定の解析を無効にする場合は、この環境変数を 1 に設定します。
+リンクからプレハブ設定を解析する場合は、この環境変数を1に設定します。
 
 ### `WHITE_WEBDAV_ENDPOINTS`(可選)
 
-アクセスを許可する WebDAV サービス アドレスを追加する場合は、このオプションを使用できます。形式要件は次のとおりです。
+アクセスを許可されているWebDAVサービスアドレスを追加する場合は、このオプション、フォーマット要件を使用できます。
 
--   各アドレスは完全なエンドポイントである必要があります
+-   各アドレスは完全なエンドポイントでなければなりません
     > `https://xxxx/xxx`
--   複数のアドレスへ`,`接続されています
+-   複数のアドレス`,`接続
 
 ### `CUSTOM_MODELS`（可選）
 
-> 例：`+qwen-7b-chat,+glm-6b,-gpt-3.5-turbo,gpt-4-1106-preview=gpt-4-turbo`増加することを意味します`qwen-7b-chat`そして`glm-6b`モデルリストに追加し、リストから削除します`gpt-3.5-turbo`、そして意志`gpt-4-1106-preview`モデル名は次のように表示されます。`gpt-4-turbo`。  
-> 最初にすべてのモデルを無効にしてから、特定のモデルを有効にしたい場合は、次のように使用できます。`-all,+gpt-3.5-turbo`、これは有効にするだけを意味します`gpt-3.5-turbo`。
+> 例：`+qwen-7b-chat,+glm-6b,-gpt-3.5-turbo,gpt-4-1106-preview=gpt-4-turbo`増加を示します`qwen-7b-chat`そして`glm-6b`モデルリストまで、リストから削除します`gpt-3.5-turbo`そして意志`gpt-4-1106-preview`モデル名はとして表示されます`gpt-4-turbo`。  
+> 最初にすべてのモデルを無効にしてから、指定されたモデルを有効にする場合は、使用できます`-all,+gpt-3.5-turbo`、それは有効にすることのみを意味します`gpt-3.5-turbo`。
 
-モデルリストを制御するには、次を使用します。`+`モデルを追加するには、次を使用します`-`モデルを非表示にするには、次を使用します。`模型名=展示名`モデルをカスタマイズするための名前をカンマで区切って表示します。
+モデルリストを制御するために使用されます`+`使用するモデルを追加します`-`モデルを非表示にするには、使用します`模型名=展示名`英語のコンマで区切られたモデルのプレゼンテーション名をカスタマイズします。
 
-Azure モードでは、次の使用をサポートします。`modelName@Azure=deploymentName`モデル名とデプロイメント名(deploy-name)を設定します。
+Azureモードでは、サポートされています`modelName@Azure=deploymentName`構成可能なモデル名と展開名（展開名）。
 
-> 例：`+gpt-3.5-turbo@Azure=gpt35`この設定では、`gpt35(Azure)`オプション。  
-> Azure モードのみを使用できる場合は、次のように設定します。`-all,+gpt-3.5-turbo@Azure=gpt35`会話のデフォルトの使用を行うことができます`gpt35(Azure)`。
+> 例：`+gpt-3.5-turbo@Azure=gpt35`この構成はaを表示します`gpt35(Azure)`オプション。  
+> Azureモードのみを使用できる場合は、設定してください`-all,+gpt-3.5-turbo@Azure=gpt35`これにより、会話のデフォルトの使用が可能になります`gpt35(Azure)`。
 
-ByteDance モードでは、次の使用をサポートします。`modelName@bytedance=deploymentName`モデル名とデプロイメント名(deploy-name)を設定します。
+バイセダンスモードでは、それを使用することがサポートされています`modelName@bytedance=deploymentName`構成可能なモデル名と展開名（展開名）。
 
-> 例：`+Doubao-lite-4k@bytedance=ep-xxxxx-xxx`この設定では、`Doubao-lite-4k(ByteDance)`オプション。
+> 例：`+Doubao-lite-4k@bytedance=ep-xxxxx-xxx`この構成はaを表示します`Doubao-lite-4k(ByteDance)`オプション。
 
 ### `DEFAULT_MODEL`（可選）
 
-デフォルトのモデルを変更します。
+デフォルトモデルを変更します。
 
 ### `DEFAULT_INPUT_TEMPLATE`（可選）
 
-「設定」の「ユーザー入力前処理」構成項目を初期化するために使用されるデフォルトのテンプレートをカスタマイズします。
+デフォルトのテンプレートをカスタマイズして、「設定」で「ユーザー入力プリプセッシング」構成アイテムを初期化します。
 
 ### `STABILITY_API_KEY`(可選)
 
-安定性 API キー。
+安定性APIキー。
 
 ### `STABILITY_URL`(可選)
 
-カスタマイズされた安定性 API リクエスト アドレス。
+カスタム安定性API要求アドレス。
 
-## ユーザーモデルの設定
+## ユーザーモデル設定
 
 ログイン
 
-> システムが設定したAPI Keyを、ユーザーの最高権限に応じて使い分けることができます。
+> システムによって設定されたAPIキーは、最高のユーザー権限に従って使用できます。
 
 未登入
 
-> ログインしていない場合は、プロキシ設定に独自の API キーを入力してゲスト モデルを使用できます。
+> ログインしていない場合は、プロキシ設定で独自のAPIキーを入力して、ゲストモデルを使用できます。
 
-ログイン後のユーザー役割
+ログイン後のユーザーロール
 
 > ゲスト
 
-役割の権限はClerkダッシュボードで変更できます
+Clerk Dashboardでは、役割の権限を変更できます
 
-> [クラーク構成チュートリアル](#配置頁面訪問密碼)
+> [店員の構成教育](#配置頁面訪問密碼)
 
-Clerk を構成した後、教師権限を持つ教師は Grove Chat の設定ページで組織を直接管理し、アクセス可能なモデルをさらに制御するためにメンバーを招待できます。
+店員を構成した後、教師の許可は組織を直接管理し、メンバーを招待して、Grove Chat Settingsページのアクセス可能なモデルをさらに制御することができます。
 
-### 新しいモデルを追加
+### モデルを追加しました
 
-[コードファイル](./app/constant.ts)
+[プログラムコードファイル](./app/constant.ts)
 
-新しいモデルを追加するモデルのサプライヤーを検索
+新しいモデルを追加するモデルベンダーを見つけます
 
     const openaiModels = [
       "gpt-3.5-turbo",
@@ -412,7 +412,7 @@ Clerk を構成した後、教師権限を持つ教師は Grove Chat の設定�
       "o1-preview",
     ];
 
-アクセス権の管理 (モデル サプライヤーのモデル リストに含まれている必要があります)
+アクセス許可を管理する（モデルサプライヤーのモデルリストにある必要があります）
 
       teacher: [
         "o1-mini",
@@ -432,14 +432,14 @@ Clerk を構成した後、教師権限を持つ教師は Grove Chat の設定�
         "grok-2-vision-1212",
       ],
 
-## 開発する
+## 発達
 
-中国本土のユーザーは、このプロジェクトに付属するエージェントを使用して開発を行うことができます。また、他のエージェントのアドレスを自由に選択することもできます。
-BASE_URL=<https://b.nextweb.fun/api/proxy>
+中国本土のユーザーは、このプロジェクトに伴うエージェントを開発のために使用することもできます。また、他のエージェントアドレスを自由に選択することもできます。
+base_url =<https://b.nextweb.fun/api/proxy>
 
-### 地域開発
+### ローカル開発
 
-1.  プロジェクトのルートディレクトリに新しいものを作成します`.env.local`ファイルに環境変数を入力します。
+1.  Project Root Directoryに新しいものを作成します`.env.local`ファイル、環境変数に記入してください：
 
 
     OPENAI_API_KEY=<your key here>
@@ -447,15 +447,15 @@ BASE_URL=<https://b.nextweb.fun/api/proxy>
     CLERK_WEBHOOK_SECRET=<your key here>
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<your key here>
 
-2.  Node.js 18 と Yarn をインストールします。詳細については ChatGPT に問い合わせてください。
-3.  執行`yarn install && yarn dev`それでおしまい。 ⚠️ 注: このコマンドはローカル開発専用です。デプロイメントには使用しないでください。
-4.  ローカルにデプロイする場合は、次を使用します。`yarn install && yarn build && yarn start`コマンドの場合、pm2 を使用してプロセスをデーモン化し、プロセスが強制終了されないようにすることができます。詳細については ChatGPT に問い合わせてください。
+2.  Node.js 18とYarnをインストールしてください。
+3.  執行`yarn install && yarn dev`やるだけ。 ⚠⚠️注：このコマンドは、展開には現地開発にのみ使用されます！
+4.  ローカルに展開する場合は、使用してください`yarn install && yarn build && yarn start`コマンド、あなたはPM2と協力してデーモンを殺すことができます。
 
 ### 容器部署
 
-> Docker バージョンは 20 以上である必要があります。そうでない場合は、イメージが見つからないというメッセージが表示されます。
+> Docker 版本需要在 20 及其以上，否則會提示找不到鏡像。
 
-> ⚠️ 注: ほとんどの場合、Docker のバージョンは最新バージョンより 1 ～ 2 日遅れているため、デプロイ後に「更新が存在します」というプロンプトが表示され続けますが、これは正常です。
+> ⚠⚠️注：Dockerバージョンはほとんどの場合1〜2日間最新バージョンの後ろに遅れているため、展開後もプロンプト「存在更新」が表示され続けます。これは正常です。
 
 ```shell
 docker pull robbiedood/grove-chat
@@ -481,13 +481,13 @@ docker run -d -p 3000:3000 \
    robbiedood/grove-chat
 ```
 
-ローカル エージェントがアカウントとパスワードを必要とする場合は、次のものを使用できます。
+ローカルエージェントがアカウントパスワードが必要な場合は、次のことを使用できます。
 
 ```shell
 -e PROXY_URL="http://127.0.0.1:7890 user password"
 ```
 
-他の環境変数を指定する必要がある場合は、上記のコマンドに自分で追加してください。`-e 環境變量=環境變量值`指定すること。
+他の環境変数を指定する必要がある場合は、上記のコマンドに追加してください`-e 環境變量=環境變量值`指定する。
 
 ### ローカル展開
 
@@ -497,7 +497,7 @@ docker run -d -p 3000:3000 \
 bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scripts/setup.sh)
 ```
 
-⚠️ 注: インストール中に問題が発生した場合は、Docker デプロイメントを使用してください。
+intail注：インストールプロセス中に問題が発生した場合は、Dockerを使用して展開してください。
 
 ## スクリーンショット
 
@@ -507,13 +507,13 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 ### 関連プロジェクト
 
--   [ChatGPT-Next-Web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web):
-    市場のすべての主要な大規模言語モデルをサポートするワンストップの大規模モデル プラットフォーム。
+-   [chatgpt-next-web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web)：
+    ワンストップの大きなモデルプラットフォームは、市場にあるすべての主流の大きな言語モデルをサポートします。
 
--   [ワンAPI](https://github.com/songquanpeng/one-api): 市場のすべての主流の大規模言語モデルをサポートする、ワンストップの大規模モデル クォータ管理プラットフォーム。
+-   [1つのAPI](https://github.com/songquanpeng/one-api)：市場にあるすべての主流の大規模モデルをサポートするワンストップの大型モデルクォータ管理プラットフォーム。
 
--   [Mr.Ranedeer AI 家庭教師](https://github.com/JushBJJ/Mr.-Ranedeer-AI-Tutor):AI家庭教師
+-   [メタ・レーダーあなたには家庭教師がいます](https://github.com/JushBJJ/Mr.-Ranedeer-AI-Tutor)：AI-Tutor
 
-## オープンソース契約
+## オープンソースプロトコル
 
 [と](https://opensource.org/license/mit/)

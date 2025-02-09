@@ -14,6 +14,7 @@ import {
   STABILITY_BASE_URL,
   IFLYTEK_BASE_URL,
   XAI_BASE_URL,
+  DEEPSEEK_BASE_URL,
   PERPLEXITY_BASE_URL,
   CHATGLM_BASE_URL,
 } from "../constant";
@@ -51,6 +52,8 @@ const DEFAULT_IFLYTEK_URL = isApp ? IFLYTEK_BASE_URL : ApiPath.Iflytek;
 const DEFAULT_XAI_URL = isApp ? XAI_BASE_URL : ApiPath.XAI;
 
 const DEFAULT_CHATGLM_URL = isApp ? CHATGLM_BASE_URL : ApiPath.ChatGLM;
+
+const DEFAULT_DEEPSEEK_URL = isApp ? DEEPSEEK_BASE_URL : ApiPath.DeepSeek;
 
 //perplexity
 const DEFAULT_PERPLEXITY_URL = isApp ? PERPLEXITY_BASE_URL : ApiPath.Perplexity;
@@ -123,6 +126,10 @@ const DEFAULT_ACCESS_STATE = {
   // chatglm
   chatglmUrl: DEFAULT_CHATGLM_URL,
   chatglmApiKey: "",
+
+  // deepseek
+  deepseekUrl: DEFAULT_DEEPSEEK_URL,
+  deepseekApiKey: "",
 
   // server config
   needCode: true,
@@ -203,6 +210,10 @@ export const useAccessStore = createPersistStore(
       return ensure(get(), ["perplexityApiKey"]);
     },
 
+    isValidDeepSeek() {
+      return ensure(get(), ["deepseekApiKey"]);
+    },
+
     isAuthorized() {
       this.fetch();
       // has token or has code or disabled access control
@@ -219,6 +230,7 @@ export const useAccessStore = createPersistStore(
         this.isValidPerplexity() ||
         this.isValidXAI() ||
         this.isValidIflytek() ||
+        this.isValidDeepSeek() ||
         this.isValidChatGLM() ||
         !this.enabledAccessControl() ||
         (this.enabledAccessControl() && ensure(get(), ["accessCode"]))

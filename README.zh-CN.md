@@ -68,9 +68,9 @@
 
 ## 开始使用
 
-1.  准备好你的[OpenAI API 密钥](https://platform.openai.com/account/api-keys);
+1.  准备好你的[OpenAI API键](https://platform.openai.com/account/api-keys);
 2.  使用Clerk作为用户权限管理[Clerk官网](https://clerk.com/)[配置文件](#配置頁面訪問密碼)
-3.  点击右侧按钮开始部署：[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)，直接使用 GitHub 账号登录即可，记得在环境变量页填入 API Key 和[用户权限管理](#配置訪問權限Clerk)文员；
+3.  点击右侧按钮开始部署：[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/robbiedood/grove-chat&env=OPENAI_API_KEY&env=CLERK_SECRET_KEY&env=CLERK_WEBHOOK_SECRET&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY&project-name=grove-chat&repository-name=grove-chat)，直接使用 GitHub 账号登录即可，记得在环境变量页填入 API Key 和[用户权限管理](#配置訪問權限Clerk)店员；
 4.  部署完毕后，即可开始使用；
 5.  （可选）[绑定自定义域名](https://vercel.com/docs/concepts/projects/domains/add-a-domain)：Vercel 分配的域名 DNS 在某些区域被污染了，绑定自定义域名即可直连。
 
@@ -109,7 +109,7 @@ CLERK_SECRET_KEY=你的密鑰
 
 ### 步骤 4：配置电子邮件和密码
 
-前往**配置 > 电子邮件、电话、用户名**（配置 > 电子邮件、电话、使用者名称），确保启用了**电子邮件**（电子邮件）、**密码**（密码）和**邮箱验证码**（电子邮件验证码）。
+前往**配置>电子邮件，电话，用户名**（配置 > 电子邮件、电话、使用者名称），确保启用了**电子邮件**（电子邮件）、**密码**（密码）和**电子邮件验证代码**（电子邮件验证码）。
 
 <img src="./docs/images/clerk/clerk4.png" alt="options" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
@@ -121,13 +121,13 @@ CLERK_SECRET_KEY=你的密鑰
 
 ### 步骤 6：一般设定
 
-前往**配置 > 设置**（配置 > 设定），并按照下图所示设置选项：
+前往**配置>设置**（配置 > 设定），并按照下图所示设置选项：
 
 <img src="./docs/images/clerk/clerk6.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
 ### 步骤 7：配置 Webhook
 
-将 webhook 端点设置为你的监听 URL。点击**签名秘笈**（签名密钥）查看你的`CLERK_WEBHOOK_SECRET`，并将其添加到`.env`档案中：
+将 webhook 端点设置为你的监听 URL。点击**签名秘密**（签名密钥）查看你的`CLERK_WEBHOOK_SECRET`，并将其添加到`.env`档案中：
 
 ```env
 CLERK_WEBHOOK_SECRET=你的webhook密鑰
@@ -153,7 +153,7 @@ CLERK_WEBHOOK_SECRET=你的webhook密鑰
 
 ### 步骤 2：转移所有权
 
-前往**配置 > 设置**（配置 > 设定），点击**转让所有权**（转移所有权）。将新拥有者设置为你刚刚建立的组织。
+前往**配置>设置**（配置 > 设定），点击**转移所有权**（转移所有权）。将新拥有者设置为你刚刚建立的组织。
 
 <img src="./docs/images/clerk/clerk11.png" alt="settings" style="max-width: 100%; height: auto; margin: 20px 0;"/>
 
@@ -219,11 +219,11 @@ Google Gemini Pro 密钥。
 
 ### `GOOGLE_URL`(可选)
 
-Google Gemini Pro Api 网址。
+Google Gemini Pro API url。
 
 ### `ANTHROPIC_API_KEY`(可选)
 
-人类克劳德 Api 密钥。
+人类Claude API键。
 
 ### `ANTHROPIC_API_VERSION`(可选)
 
@@ -231,27 +231,27 @@ Anthropic Claude Api 版本。
 
 ### `ANTHROPIC_URL`(可选)
 
-人类克劳德 Api 网址。
+人类的克劳德API url。
 
 ### `BAIDU_API_KEY`(可选)
 
-百度火键。
+百度API键。
 
 ### `BAIDU_SECRET_KEY`(可选)
 
-百度秘钥。
+百度秘密钥匙。
 
 ### `BAIDU_URL`(可选)
 
-百度API地址。
+bedu api url。
 
 ### `BYTEDANCE_API_KEY`(可选)
 
-字节跳动火键。
+布伦奇向南露出。
 
 ### `BYTEDANCE_URL`(可选)
 
-字节跳动API地址。
+bytedance api url。
 
 ### `ALIBABA_API_KEY`(可选)
 
@@ -275,35 +275,35 @@ Anthropic Claude Api 版本。
 
 ### `CHATGLM_API_KEY`(可选)
 
-ChatGLM Api 密钥。
+chatglm api键。
 
 ### `CHATGLM_URL`(可选)
 
-ChatGLM Api 网址。
+chatglm api url。
 
 ### `XAI_API_KEY`(可选)
 
-XAI API 密钥。
+XAI API键。
 
 ### `XAI_URL`(可选)
 
-嗨，阿皮奥尔。
+和
 
 ### `PERPLEXITY_API_KEY`(可选)
 
-PERPLEXITY Api 密钥。
+困惑API键。
 
 ### `PERPLEXITY_URL`(可选)
 
-困惑 Api 网址。
+困惑API url。
 
 ### `MOONSHOT_API_KEY`(可选)
 
-MOONSHOT Api 密钥。
+Moonshot API键。
 
 ### `MOONSHOT_URL`(可选)
 
-MOONSHOT API 网址
+Moonshot API URL
 
 ### `HIDE_USER_API_KEY`（可选）
 
@@ -507,12 +507,12 @@ bash <(curl -s https://raw.githubusercontent.com/robbiedood/grove-chat/main/scri
 
 ### 相关项目
 
--   [ChatGPT-Next-Web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web):
+-   [chatgpt-next-web](https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web):
     一站式大模型平台，支持市面上所有主流大语言模型。
 
--   [单一API](https://github.com/songquanpeng/one-api): 一站式大模型额度管理平台，支持市面上所有主流大语言模型。
+-   [一个api](https://github.com/songquanpeng/one-api): 一站式大模型额度管理平台，支持市面上所有主流大语言模型。
 
--   [Mr.-Ranedeer AI导师](https://github.com/JushBJJ/Mr.-Ranedeer-AI-Tutor):AI导师
+-   [Mr.-Ranedeer-AI-Tutor](https://github.com/JushBJJ/Mr.-Ranedeer-AI-Tutor)：ai tutor
 
 ## 开源协议
 

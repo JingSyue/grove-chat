@@ -198,7 +198,7 @@ const cn = {
     ProxySettings: "代理设置",
     VoiceSettings: "语音设置",
     ShowPassword: "显示密码",
-
+    NeatUI: "简洁對話介面",
     Danger: {
       Reset: {
         Title: "重置所有设置",

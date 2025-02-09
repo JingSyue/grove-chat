@@ -181,6 +181,7 @@ const tw = {
     DataSettings: "資料設定",
     VoiceSettings: "語音設定",
     ProxySettings: "代理設定",
+    NeatUI: "簡潔對話介面",
 
     Danger: {
       Reset: {

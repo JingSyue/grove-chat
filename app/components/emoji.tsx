@@ -9,6 +9,16 @@ import Image from "next/image";
 import { ModelType } from "../store";
 import BotIcon from "../icons/bot.svg";
 import BlackBotIcon from "../icons/black-bot.svg";
+import OpenAIIcon from "../icons/openai.svg";
+import AnthropicIcon from "../icons/anthropic.svg";
+import PerplexityIcon from "../icons/perplexity.svg";
+import XAIIcon from "../icons/xai.svg";
+import BaiduIcon from "../icons/baidu.svg";
+import ByteDanceIcon from "../icons/bytedance.svg";
+import AlibabaIcon from "../icons/alibaba.svg";
+import GoogleIcon from "../icons/gemini.svg";
+import MoonshotIcon from "../icons/moonshot.svg";
+import DeepseekIcon from "../icons/deepseek.svg";
 
 export function getEmojiUrl(unified: string, style: EmojiStyle) {
   // Whoever owns this Content Delivery Network (CDN), I am using your CDN to serve emojis
@@ -89,10 +99,28 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
   if (props.model) {
     return (
       <div className="no-dark">
-        {props.model?.startsWith("gpt-4") ||
-        props.model?.startsWith("chatgpt-4o") ||
+        {props.model?.startsWith("gpt") ||
+        props.model?.startsWith("chatgpt") ||
         props.model?.startsWith("o1") ? (
-          <BlackBotIcon className="user-avatar" />
+          <OpenAIIcon className="user-avatar" />
+        ) : props.model?.startsWith("claude") ? (
+          <AnthropicIcon className="user-avatar" />
+        ) : props.model?.startsWith("gemini") ? (
+          <GoogleIcon className="user-avatar" />
+        ) : props.model?.startsWith("moonshot") ? (
+          <MoonshotIcon className="user-avatar" />
+        ) : props.model?.startsWith("qwen") ? (
+          <AlibabaIcon className="user-avatar" />
+        ) : props.model?.startsWith("grok") ? (
+          <XAIIcon className="user-avatar" />
+        ) : props.model?.startsWith("llama") ? (
+          <PerplexityIcon className="user-avatar" />
+        ) : props.model?.startsWith("ernie") ? (
+          <BaiduIcon className="user-avatar" />
+        ) : props.model?.startsWith("deepseek") ? (
+          <DeepseekIcon className="user-avatar" />
+        ) : props.model?.startsWith("skylark") ? (
+          <ByteDanceIcon className="user-avatar" />
         ) : (
           <BotIcon className="user-avatar" />
         )}

@@ -15,11 +15,11 @@ import { Path, SlotID } from "../constant";
 import { ErrorBoundary } from "./error";
 
 import { getISOLang, getLang } from "../locales";
-
 import {
   HashRouter as Router,
   Routes,
   Route,
+  useNavigate,
   useLocation,
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
@@ -73,6 +73,10 @@ const SearchChat = dynamic(
 );
 
 const Sd = dynamic(async () => (await import("./sd")).Sd, {
+  loading: () => <Loading noLogo />,
+});
+
+const About = dynamic(async () => (await import("./about")).About, {
   loading: () => <Loading noLogo />,
 });
 
@@ -143,6 +147,19 @@ const loadAsyncGoogleFont = () => {
   document.head.appendChild(linkEl);
 };
 
+function NavigationCheck() {
+  const navigate = useNavigate();
+  const { isSignedIn } = useUser();
+
+  useEffect(() => {
+    if (!isSignedIn) {
+      navigate("/about");
+    }
+  }, [isSignedIn, navigate]);
+
+  return null;
+}
+
 export function WindowContent(props: { children: React.ReactNode }) {
   return (
     <div className={styles["window-content"]} id={SlotID.AppBody}>
@@ -157,6 +174,7 @@ function Screen() {
   const isArtifact = location.pathname.includes(Path.Artifacts);
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
+  const isAbout = location.pathname === Path.About;
   const isSd = location.pathname === Path.Sd;
   const isSdNew = location.pathname === Path.SdNew;
 
@@ -177,6 +195,7 @@ function Screen() {
   }
   const renderContent = () => {
     if (isAuth) return <AuthPage />;
+    if (isAbout) return <About />;
     if (isSd) return <Sd />;
     if (isSdNew) return <Sd />;
     return (
@@ -277,6 +296,7 @@ export function Home() {
   return (
     <ErrorBoundary>
       <Router>
+        <NavigationCheck />
         <Screen />
       </Router>
     </ErrorBoundary>
