@@ -19,11 +19,9 @@ import {
   ServiceProvider,
   CUSTOMTITLE,
   CUSTOMSUBTITLE,
-  DEFAULT_PLUGINS,
 } from "../constant";
 import { createPersistStore } from "../utils/store";
 import type { Voice } from "rt-client";
-import de from "../locales/de";
 
 export type ModelType = (typeof DEFAULT_MODELS)[number]["name"];
 export type TTSModelType = (typeof DEFAULT_TTS_MODELS)[number];
@@ -76,7 +74,7 @@ export enum SuggestConfig {
 export const CustomConfig = {
   [SuggestConfig.RealTime]: {
     name: "RealTime",
-    model: "llama-3.1-sonar-small-128k-online",
+    model: "sonar-reasoning",
     providerName: "Perplexity" as ServiceProvider,
     temperature: 0.5,
     top_p: 1,
