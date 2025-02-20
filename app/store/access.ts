@@ -145,7 +145,7 @@ const DEFAULT_ACCESS_STATE = {
 };
 
 export const useAccessStore = createPersistStore(
-  { ...DEFAULT_ACCESS_STATE, clerkUser: null },
+  { ...DEFAULT_ACCESS_STATE },
 
   (set, get) => ({
     enabledAccessControl() {

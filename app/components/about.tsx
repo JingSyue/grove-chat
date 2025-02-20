@@ -5,7 +5,7 @@ import { Path } from "../constant";
 import { useUser } from "@clerk/nextjs";
 import { Bot, Shield, Zap, MessageSquare, PenTool, Search } from "lucide-react";
 import { FeatureCard, Badge } from "./ui-lib";
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import { SignUpButton } from "@clerk/nextjs";
 import OpenAIIcon from "../icons/openai.svg";
 import AnthropicIcon from "../icons/anthropic.svg";
 import PerplexityIcon from "../icons/perplexity.svg";
@@ -16,6 +16,7 @@ import AlibabaIcon from "../icons/alibaba.svg";
 import GoogleIcon from "../icons/gemini.svg";
 import MoonshotIcon from "../icons/moonshot.svg";
 import { useEffect } from "react";
+import clsx from "clsx";
 
 export function About() {
   const navigate = useNavigate();
@@ -23,9 +24,10 @@ export function About() {
 
   useEffect(() => {
     if (isSignedIn) {
-      navigate(Path.Chat);
+      const from = location.pathname || Path.Chat;
+      navigate(from);
     }
-  }, [isSignedIn]);
+  }, [isSignedIn, navigate]);
 
   const features = [
     {
@@ -64,10 +66,10 @@ export function About() {
   ];
 
   return (
-    <div className={styles.container}>
-      <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <Badge variant="secondary" className={styles.badge}>
+    <div className={clsx(styles.container, "no-dark")}>
+      <section className={clsx(styles.hero, "no-dark")}>
+        <div className={clsx(styles.heroContent, "no-dark")}>
+          <Badge variant="secondary" className={clsx(styles.badge, "no-dark")}>
             ✨ 全新升级
           </Badge>
           <h1>
@@ -100,28 +102,48 @@ export function About() {
               </p>
 
               <div className={styles.modelIcons}>
-                <div className={styles.sliderContainer}>
-                  <div className={styles.iconSlider}>
-                    <OpenAIIcon className={styles.modelIcon} />
-                    <AnthropicIcon className={styles.modelIcon} />
-                    <XAIIcon className={styles.modelIcon} />
-                    <PerplexityIcon className={styles.modelIcon} />
-                    <MoonshotIcon className={styles.modelIcon} />
-                    <BaiduIcon className={styles.modelIcon} />
-                    <ByteDanceIcon className={styles.modelIcon} />
-                    <AlibabaIcon className={styles.modelIcon} />
-                    <GoogleIcon className={styles.modelIcon} />
+                <div className={clsx(styles.sliderContainer, "no-dark")}>
+                  <div className={clsx(styles.iconSlider, "no-dark")}>
+                    <OpenAIIcon className={clsx(styles.modelIcon, "no-dark")} />
+                    <AnthropicIcon
+                      className={clsx(styles.modelIcon, "no-dark")}
+                    />
+                    <XAIIcon className={clsx(styles.modelIcon, "no-dark")} />
+                    <PerplexityIcon
+                      className={clsx(styles.modelIcon, "no-dark")}
+                    />
+                    <MoonshotIcon
+                      className={clsx(styles.modelIcon, "no-dark")}
+                    />
+                    <BaiduIcon className={clsx(styles.modelIcon, "no-dark")} />
+                    <ByteDanceIcon
+                      className={clsx(styles.modelIcon, "no-dark")}
+                    />
+                    <AlibabaIcon
+                      className={clsx(styles.modelIcon, "no-dark")}
+                    />
+                    <GoogleIcon className={clsx(styles.modelIcon, "no-dark")} />
                   </div>
-                  <div className={styles.iconSlider}>
-                    <OpenAIIcon className={styles.modelIcon} />
-                    <AnthropicIcon className={styles.modelIcon} />
-                    <XAIIcon className={styles.modelIcon} />
-                    <PerplexityIcon className={styles.modelIcon} />
-                    <MoonshotIcon className={styles.modelIcon} />
-                    <BaiduIcon className={styles.modelIcon} />
-                    <ByteDanceIcon className={styles.modelIcon} />
-                    <AlibabaIcon className={styles.modelIcon} />
-                    <GoogleIcon className={styles.modelIcon} />
+                  <div className={clsx(styles.iconSlider, "no-dark")}>
+                    <OpenAIIcon className={clsx(styles.modelIcon, "no-dark")} />
+                    <AnthropicIcon
+                      className={clsx(styles.modelIcon, "no-dark")}
+                    />
+                    <XAIIcon className={clsx(styles.modelIcon, "no-dark")} />
+                    <PerplexityIcon
+                      className={clsx(styles.modelIcon, "no-dark")}
+                    />
+                    <MoonshotIcon
+                      className={clsx(styles.modelIcon, "no-dark")}
+                    />
+                    <BaiduIcon className={clsx(styles.modelIcon, "no-dark")} />
+                    <ByteDanceIcon
+                      className={clsx(styles.modelIcon, "no-dark")}
+                    />
+                    <AlibabaIcon
+                      className={clsx(styles.modelIcon, "no-dark")}
+                    />
+                    <GoogleIcon className={clsx(styles.modelIcon, "no-dark")} />
                   </div>
                 </div>
               </div>
@@ -130,9 +152,11 @@ export function About() {
         </div>
       </section>
 
-      <section id="features" className={styles.features}>
-        <div className={styles.featuresContent}>
-          <Badge variant="outline">核心功能</Badge>
+      <section id="features" className={clsx(styles.features, "no-dark")}>
+        <div className={clsx(styles.featuresContent, "no-dark")}>
+          <Badge variant="outline" className="no-dark">
+            核心功能
+          </Badge>
           <h2>專業AI對話解決方案</h2>
           <p>整合頂級AI技術</p>
 
@@ -170,16 +194,16 @@ export function About() {
         </div>
       </section>
 
-      <section className={styles.cta}>
-        <div className={styles.ctaContent}>
-          <Badge variant="secondary">加入社群</Badge>
+      <section className={clsx(styles.cta, "no-dark")}>
+        <div className={clsx(styles.ctaContent, "no-dark")}>
+          <Badge variant="secondary" className="no-dark">
+            加入Grove
+          </Badge>
           <h2>與我們探索AI無限可能</h2>
-          <p>加入Line官方社群,獲取最新資訊</p>
-          <IconButton
-            text="加入社群"
-            type="primary"
-            onClick={() => window.open("https://line.me/R/ti/p/%40502xzynr")}
-          />
+          <p>加入Grove,獲取最新模型</p>
+          <SignUpButton mode="modal">
+            <IconButton text="立即體驗" type="primary" />
+          </SignUpButton>
         </div>
       </section>
     </div>

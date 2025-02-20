@@ -101,7 +101,7 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
       <div className="no-dark">
         {props.model?.startsWith("gpt") ||
         props.model?.startsWith("chatgpt") ||
-        props.model?.startsWith("o1") ? (
+        props.model?.startsWith("o") ? (
           <OpenAIIcon className="user-avatar" />
         ) : props.model?.startsWith("claude") ? (
           <AnthropicIcon className="user-avatar" />
@@ -113,7 +113,8 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
           <AlibabaIcon className="user-avatar" />
         ) : props.model?.startsWith("grok") ? (
           <XAIIcon className="user-avatar" />
-        ) : props.model?.startsWith("llama") ? (
+        ) : props.model?.startsWith("sonar") ||
+          props.model?.startsWith("r1") ? (
           <PerplexityIcon className="user-avatar" />
         ) : props.model?.startsWith("ernie") ? (
           <BaiduIcon className="user-avatar" />
