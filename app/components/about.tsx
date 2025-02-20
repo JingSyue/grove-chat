@@ -23,9 +23,8 @@ export function About() {
   const { isSignedIn } = useUser();
 
   useEffect(() => {
-    if (isSignedIn) {
-      const from = location.pathname || Path.Chat;
-      navigate(from);
+    if (isSignedIn === true && window.location.hash !== "#/chat") {
+      navigate("/chat");
     }
   }, [isSignedIn, navigate]);
 
