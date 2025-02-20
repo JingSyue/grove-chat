@@ -818,14 +818,7 @@ export function ChatActions(props: {
           // fix models that doesn't use tools with default plugin bug
           <Selector
             multiple
-            defaultSelectedValue={
-              showPlugins(currentProviderName, currentModel)
-                ? [
-                    ...(chatStore.currentSession().mask?.plugin || []),
-                    ...DEFAULT_PLUGINS,
-                  ]
-                : chatStore.currentSession().mask?.plugin || []
-            }
+            defaultSelectedValue={chatStore.currentSession().mask?.plugin || []}
             items={pluginStore.getAll().map((item) => ({
               title: `${item?.title}@${item?.version}`,
               value: item?.id,
@@ -2191,6 +2184,7 @@ function _Chat() {
                 htmlFor="chat-input"
               >
                 <textarea
+                  data-private="lipsum" // protect user input privacy
                   id="chat-input"
                   ref={inputRef}
                   className={styles["chat-input"]}
