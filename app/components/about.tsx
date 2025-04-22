@@ -1,11 +1,10 @@
 import styles from "./about.module.scss";
 import { IconButton } from "./button";
 import { useNavigate } from "react-router-dom";
-import { Path } from "../constant";
 import { useUser } from "@clerk/nextjs";
-import { Bot, Shield, Zap, MessageSquare, PenTool, Search } from "lucide-react";
 import { FeatureCard, Badge } from "./ui-lib";
 import { SignUpButton } from "@clerk/nextjs";
+import { features, applications } from "./about-config";
 import OpenAIIcon from "../icons/openai.svg";
 import AnthropicIcon from "../icons/anthropic.svg";
 import PerplexityIcon from "../icons/perplexity.svg";
@@ -27,42 +26,6 @@ export function About() {
       navigate("/chat");
     }
   }, [isSignedIn, navigate]);
-
-  const features = [
-    {
-      icon: <Bot className={styles.icon} />,
-      title: "多模型整合",
-      description: "集成GPT-4、Claude、Gemini等前沿大語言模型,智能場景切換",
-    },
-    {
-      icon: <Shield className={styles.icon} />,
-      title: "企業級權限",
-      description: "靈活的用戶權限配置,自定義Agent存取權限",
-    },
-    {
-      icon: <Zap className={styles.icon} />,
-      title: "高效對話",
-      description: "精准上下文理解,流暢對話體驗",
-    },
-  ];
-
-  const applications = [
-    {
-      icon: <PenTool className={styles.icon} />,
-      title: "AI雅思作文教室",
-      description: "精選IELTS高分作文庫,專業寫作建議",
-    },
-    {
-      icon: <MessageSquare className={styles.icon} />,
-      title: "AI社群文案写手",
-      description: "精准把握品牌調性,互動話題規劃",
-    },
-    {
-      icon: <Search className={styles.icon} />,
-      title: "研究助手",
-      description: "arXiv論文搜尋,智能摘要生成",
-    },
-  ];
 
   return (
     <div className={clsx(styles.container, "no-dark")}>
@@ -163,7 +126,7 @@ export function About() {
             {features.map((feature, index) => (
               <FeatureCard
                 key={index}
-                icon={feature.icon}
+                icon={<feature.Icon className={styles.icon} />}
                 title={feature.title}
                 description={feature.description}
                 image={`/images/feature-${index + 1}.jpg`}
@@ -183,7 +146,7 @@ export function About() {
             {applications.map((app, index) => (
               <FeatureCard
                 key={index}
-                icon={app.icon}
+                icon={<app.Icon className={styles.icon} />}
                 title={app.title}
                 description={app.description}
                 image={`/images/app-${index + 1}.jpg`}
